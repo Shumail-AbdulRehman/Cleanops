@@ -16,15 +16,22 @@ export const useGetStaff = () => {
   return useQuery({
     queryKey: ["staff"],
     queryFn: getStaff,
+    staleTime: 2 * 60 * 1000,
   });
 };
 
+export const getStaffDetailsQueryOptions = (
+  id: number,
+  filters?: StaffDetailsFilters
+) => ({
+  queryKey: ["staff", "details", id, filters ?? null] as const,
+  queryFn: () => getStaffDetails(id, filters),
+  enabled: !!id,
+  staleTime: 2 * 60 * 1000,
+});
+
 export const useGetStaffDetails = (id: number, filters?: StaffDetailsFilters) => {
-  return useQuery({
-    queryKey: ["staff", "details", id, filters ?? null],
-    queryFn: () => getStaffDetails(id, filters),
-    enabled: !!id,
-  });
+  return useQuery(getStaffDetailsQueryOptions(id, filters));
 };
 
 export const useCreateStaff = () => {

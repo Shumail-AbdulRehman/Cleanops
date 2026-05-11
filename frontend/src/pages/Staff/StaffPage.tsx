@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useGetStaff, useCreateStaff, useDeactivateStaff, useEditStaff } from "./queries";
+import { useGetStaff, useCreateStaff, useDeactivateStaff, useEditStaff, getStaffDetailsQueryOptions } from "./queries";
 import { useGetLocations } from "../Location/queries";
 import { useAssignStaffToLocation } from "../Assignment/queries";
 import PageHeader from "@/components/common/PageHeader";
@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import StatCard from "@/components/common/StatCard";
 import FilterBar from "@/components/common/FilterBar";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface StaffMember {
   id: number;
@@ -60,6 +61,7 @@ export default function StaffPage() {
   const deactivateStaff = useDeactivateStaff();
   const editStaffMutation = useEditStaff();
   const assignLocation = useAssignStaffToLocation();
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
@@ -240,7 +242,17 @@ export default function StaffPage() {
         </div>
       </FilterBar>
 
-      <DataTable columns={columns} data={filtered} rowKey={(s) => s.id} emptyIcon={<Users className="h-12 w-12" />} emptyMessage="No staff members found." onRowClick={(s) => navigate(`/staff/${s.id}`)} />
+      <DataTable
+        columns={columns}
+        data={filtered}
+        rowKey={(s) => s.id}
+        emptyIcon={<Users className="h-12 w-12" />}
+        emptyMessage="No staff members found."
+        onRowHover={(s) => {
+          queryClient.prefetchQuery(getStaffDetailsQueryOptions(s.id));
+        }}
+        onRowClick={(s) => navigate(`/staff/${s.id}`)}
+      />
 
       {editingStaff && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4" onClick={() => setEditingStaff(null)}>

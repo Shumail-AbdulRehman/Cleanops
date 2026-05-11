@@ -101,6 +101,12 @@ const getCurrentMonthValue = () => {
 const toDateInputValue = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
+const getYesterdayValue = () => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  return toDateInputValue(yesterday);
+};
+
 const getMonthOptions = (count = 12) => {
   const options: { value: string; label: string }[] = [];
   const cursor = new Date();
@@ -124,10 +130,21 @@ const StaffDetailPage: React.FC = () => {
   const initialDateTo = searchParams.get("dateTo") ?? "";
   const initialTab = (searchParams.get("tab") as Tab | null) ?? "overview";
   const focusMode = searchParams.get("focus");
+  const todayValue = toDateInputValue(new Date());
+  const yesterdayValue = getYesterdayValue();
   const [activeTab, setActiveTab] = useState<Tab>(initialTab);
   const [month, setMonth] = useState(initialMonth);
   const [dateFrom, setDateFrom] = useState(initialDateFrom);
   const [dateTo, setDateTo] = useState(initialDateTo);
+  const [selectedQuickFilter, setSelectedQuickFilter] = useState<"today" | "yesterday" | "this-month" | null>(() => {
+    if (initialDateFrom && initialDateTo) {
+      if (initialDateFrom === todayValue && initialDateTo === todayValue) return "today";
+      if (initialDateFrom === yesterdayValue && initialDateTo === yesterdayValue) return "yesterday";
+      return null;
+    }
+
+    return initialMonth === getCurrentMonthValue() ? "this-month" : null;
+  });
   const [filters, setFilters] = useState<{ month?: string; dateFrom?: string; dateTo?: string }>({
     ...(initialDateFrom && initialDateTo ? { dateFrom: initialDateFrom, dateTo: initialDateTo } : { month: initialMonth }),
   });
@@ -246,12 +263,14 @@ const StaffDetailPage: React.FC = () => {
     setFilters(nextFilters);
     setDateFrom("");
     setDateTo("");
+    setSelectedQuickFilter(month === getCurrentMonthValue() ? "this-month" : null);
     syncSearchParams(nextFilters);
   };
 
   const applyDateRangeFilter = () => {
     const nextFilters = dateFrom && dateTo ? { dateFrom, dateTo } : {};
     setFilters(nextFilters);
+    setSelectedQuickFilter(null);
     syncSearchParams(nextFilters);
   };
 
@@ -261,6 +280,7 @@ const StaffDetailPage: React.FC = () => {
     setDateFrom("");
     setDateTo("");
     setFilters({ month: currentMonth });
+    setSelectedQuickFilter("this-month");
     syncSearchParams({ month: currentMonth });
   };
 
@@ -270,6 +290,7 @@ const StaffDetailPage: React.FC = () => {
       setDateFrom(today);
       setDateTo(today);
       setFilters({ dateFrom: today, dateTo: today });
+      setSelectedQuickFilter("today");
       syncSearchParams({ dateFrom: today, dateTo: today });
       return;
     }
@@ -281,6 +302,7 @@ const StaffDetailPage: React.FC = () => {
       setDateFrom(value);
       setDateTo(value);
       setFilters({ dateFrom: value, dateTo: value });
+      setSelectedQuickFilter("yesterday");
       syncSearchParams({ dateFrom: value, dateTo: value });
       return;
     }
@@ -290,6 +312,7 @@ const StaffDetailPage: React.FC = () => {
     setDateFrom("");
     setDateTo("");
     setFilters({ month: currentMonth });
+    setSelectedQuickFilter("this-month");
     syncSearchParams({ month: currentMonth });
   };
 
@@ -371,13 +394,13 @@ const StaffDetailPage: React.FC = () => {
         <div className="xl:col-span-5">
           <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">Quick filters</label>
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" className="rounded-2xl" onClick={() => applyQuickRange("today")}>
+            <Button variant="outline" className="rounded-2xl" aria-pressed={selectedQuickFilter === "today"} onClick={() => applyQuickRange("today")}>
               Today
             </Button>
-            <Button variant="outline" className="rounded-2xl" onClick={() => applyQuickRange("yesterday")}>
+            <Button variant="outline" className="rounded-2xl" aria-pressed={selectedQuickFilter === "yesterday"} onClick={() => applyQuickRange("yesterday")}>
               Yesterday
             </Button>
-            <Button variant="outline" className="rounded-2xl" onClick={() => applyQuickRange("this-month")}>
+            <Button variant="outline" className="rounded-2xl" aria-pressed={selectedQuickFilter === "this-month"} onClick={() => applyQuickRange("this-month")}>
               This Month
             </Button>
           </div>
