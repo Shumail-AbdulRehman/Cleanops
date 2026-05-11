@@ -403,7 +403,20 @@ export const getStaffAttendance = async (req: Request, res: Response) => {
             },
         },
         orderBy: { date: "desc" },
-        include: {
+        select: {
+            id: true,
+            staffId: true,
+            locationId: true,
+            date: true,
+            expectedStart: true,
+            expectedEnd: true,
+            checkInTime: true,
+            checkOutTime: true,
+            status: true,
+            isLateCheckIn: true,
+            lateMinutes: true,
+            checkInImage: true,
+            checkOutImage: true,
             staff: {
                 select: { id: true, name: true, email: true },
             },

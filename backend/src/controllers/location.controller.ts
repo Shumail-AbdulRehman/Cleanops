@@ -61,22 +61,30 @@ export const getLocations = async (req: Request, res: Response) => {
 
   const locations = await prisma.location.findMany({
     where: { companyId: req.user!.companyId, isActive: true },
-    include:{
-      _count:{
-        select:{
-          staff:{
-            where:{
-              isActive:true
-            }
+    orderBy: { name: "asc" },
+    select: {
+      id: true,
+      name: true,
+      address: true,
+      latitude: true,
+      longitude: true,
+      radiusMeters: true,
+      isActive: true,
+      _count: {
+        select: {
+          staff: {
+            where: {
+              isActive: true,
+            },
           },
-          taskTemplates:{
-            where:{
-              isActive:true
-            }
-          }
-        }
-      }
-    }
+          taskTemplates: {
+            where: {
+              isActive: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   res.status(200).json(new ApiResponse(200, locations, "Locations fetched successfully"));

@@ -10,6 +10,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { getKarachiDayRange } from "../utils/karachiTime.js";
 import { generateAccessToken, generateRefreshToken, isPasswordCorrect } from "../utils/auth.js";
 import { TokenPayload } from "../types/jwt.js";
+import { getCookieOptions } from "../utils/cookies.js";
 
 const TASK_START_GRACE_MINUTES = 5;
 
@@ -61,10 +62,7 @@ export const signupManager = async (req: Request, res: Response) => {
         data: { refreshToken }
     });
 
-    const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production"
-    };
+    const cookieOptions = getCookieOptions();
 
     res
         .status(201)
@@ -125,10 +123,7 @@ export const loginManager = async (req: Request, res: Response) => {
         data: { refreshToken }
     });
 
-    const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production"
-    };
+    const cookieOptions = getCookieOptions();
 
     res
         .status(200)
@@ -232,44 +227,68 @@ export const getTodayStatus = async (req: Request, res: Response) => {
 
     const staffIds = staff.map((member) => member.id);
 
+    if (staffIds.length === 0) {
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                {
+                    date: today.toISOString(),
+                    locations,
+                    summary: {
+                        totalStaff: 0,
+                        present: 0,
+                        absent: 0,
+                        lateAttendance: 0,
+                        shiftNotStarted: 0,
+                        staffNeedingReview: 0,
+                        pendingTasks: 0,
+                        inProgressTasks: 0,
+                        completedTasks: 0,
+                        attentionTasks: 0,
+                    },
+                    staffStatus: [],
+                },
+                "Today's status fetched successfully"
+            )
+        );
+    }
+
     const [attendanceRecords, taskInstances] = await Promise.all([
         prisma.attendance.findMany({
             where: {
-                staffId: { in: staffIds.length > 0 ? staffIds : [-1] },
+                staffId: { in: staffIds },
                 date: { gte: today, lt: tomorrow },
                 ...(locationId ? { locationId } : {}),
             },
-            include: {
-                location: {
-                    select: {
-                        id: true,
-                        name: true,
-                    },
-                },
+            select: {
+                id: true,
+                staffId: true,
+                status: true,
+                expectedStart: true,
+                expectedEnd: true,
+                checkInTime: true,
+                checkOutTime: true,
+                lateMinutes: true,
             },
         }),
         prisma.taskInstance.findMany({
             where: {
                 date: { gte: today, lt: tomorrow },
                 isActive: true,
+                staffId: { in: staffIds },
                 ...(allowedLocationIds.length > 0 ? { locationId: { in: allowedLocationIds } } : { locationId: -1 }),
             },
-            include: {
-                staff: {
-                    select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                    },
-                },
-                location: {
-                    select: {
-                        id: true,
-                        name: true,
-                    },
-                },
-            },
             orderBy: { shiftStart: "asc" },
+            select: {
+                id: true,
+                title: true,
+                status: true,
+                shiftStart: true,
+                shiftEnd: true,
+                isLate: true,
+                lateMinutes: true,
+                staffId: true,
+            },
         }),
     ]);
 
