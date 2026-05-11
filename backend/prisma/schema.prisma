@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "library"
 }
 
 datasource db {
@@ -98,6 +99,7 @@ model TaskTemplate {
 
   @@index([locationId])
   @@index([isActive])
+  @@index([staffId, isActive])
 }
 
 model TaskInstance {
@@ -125,6 +127,8 @@ model TaskInstance {
   @@unique([templateId, date])
   @@index([locationId, isActive, date])
   @@index([locationId, status])
+  @@index([staffId, isActive, date])
+  @@index([staffId, status])
 }
 
 model Attendance {
@@ -149,6 +153,7 @@ model Attendance {
   @@unique([staffId, date])
   @@index([locationId, date])
   @@index([staffId])
+  @@index([staffId, date, status])
 }
 
 enum AttendanceStatus {
