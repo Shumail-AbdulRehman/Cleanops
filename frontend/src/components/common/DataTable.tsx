@@ -16,6 +16,7 @@ interface DataTableProps<T> {
   emptyIcon?: ReactNode;
   emptyMessage?: string;
   onRowClick?: (row: T) => void;
+  onRowHover?: (row: T) => void;
   className?: string;
 }
 
@@ -26,6 +27,7 @@ export default function DataTable<T>({
   emptyIcon,
   emptyMessage = "No data found.",
   onRowClick,
+  onRowHover,
   className,
 }: DataTableProps<T>) {
   if (data.length === 0) {
@@ -52,6 +54,7 @@ export default function DataTable<T>({
             <tr
               key={rowKey(row)}
               onClick={() => onRowClick?.(row)}
+              onMouseEnter={() => onRowHover?.(row)}
               className={`transition-colors hover:bg-muted/40 ${
                 onRowClick ? "cursor-pointer" : ""
               }`}

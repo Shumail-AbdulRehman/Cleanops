@@ -6,6 +6,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { generateAccessToken, generateRefreshToken, isPasswordCorrect } from "../utils/auth.js";
 import { getKarachiDayRangeFromDateInput, getKarachiMonthRange } from "../utils/karachiTime.js";
 import { syncTodaysOpenAttendanceWindow } from "../utils/syncAttendanceWindow.js";
+import { getCookieOptions } from "../utils/cookies.js";
 
 
 export const loginStaff = async (req: Request, res: Response) => {
@@ -45,10 +46,7 @@ export const loginStaff = async (req: Request, res: Response) => {
     data: { refreshToken },
   });
 
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-  };
+  const cookieOptions = getCookieOptions();
 
   res.status(200)
     .cookie("accessToken", accessToken, cookieOptions)
@@ -437,26 +435,6 @@ export const getStaffDetails = async (req: Request, res: Response) => {
       createdAt: true,
       updatedAt: true,
       location: { select: { id: true, name: true, address: true } },
-      taskTemplates: {
-        where: { isActive: true },
-        include: { location: { select: { id: true, name: true } } },
-        orderBy: { createdAt: "desc" },
-      },
-      taskInstances: {
-        where: {
-          isActive: true,
-          ...(dateFilter ? { date: dateFilter } : {}),
-        },
-        orderBy: { date: "desc" },
-        take: 50,
-        include: { location: { select: { id: true, name: true } } },
-      },
-      attendances: {
-        where: dateFilter ? { date: dateFilter } : undefined,
-        orderBy: { date: "desc" },
-        take: 50,
-        include: { location: { select: { id: true, name: true } } },
-      },
     },
   });
 
@@ -464,27 +442,145 @@ export const getStaffDetails = async (req: Request, res: Response) => {
     throw new ApiError(404, "Staff not found in your company");
   }
 
+  const taskInstanceWhere = {
+    staffId,
+    isActive: true,
+    ...(dateFilter ? { date: dateFilter } : {}),
+  };
+
+  const attendanceWhere = {
+    staffId,
+    ...(dateFilter ? { date: dateFilter } : {}),
+  };
+
+  const [
+    taskTemplates,
+    taskInstances,
+    attendances,
+    totalTaskTemplates,
+    totalTaskInstances,
+    taskStatusGroups,
+    lateTaskCount,
+    totalAttendanceRecords,
+    attendanceStatusGroups,
+    lateAttendanceCount,
+  ] = await Promise.all([
+    prisma.taskTemplate.findMany({
+      where: { staffId, isActive: true },
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        recurringType: true,
+        isActive: true,
+        shiftStart: true,
+        shiftEnd: true,
+        effectiveDate: true,
+        location: { select: { id: true, name: true } },
+      },
+    }),
+    prisma.taskInstance.findMany({
+      where: taskInstanceWhere,
+      orderBy: { date: "desc" },
+      take: 50,
+      select: {
+        id: true,
+        title: true,
+        date: true,
+        shiftStart: true,
+        shiftEnd: true,
+        status: true,
+        isLate: true,
+        startedAt: true,
+        completedAt: true,
+        proofImageUrls: true,
+        location: { select: { id: true, name: true } },
+      },
+    }),
+    prisma.attendance.findMany({
+      where: attendanceWhere,
+      orderBy: { date: "desc" },
+      take: 50,
+      select: {
+        id: true,
+        date: true,
+        expectedStart: true,
+        expectedEnd: true,
+        checkInTime: true,
+        checkOutTime: true,
+        status: true,
+        isLateCheckIn: true,
+        lateMinutes: true,
+        checkInImage: true,
+        checkOutImage: true,
+        location: { select: { id: true, name: true } },
+      },
+    }),
+    prisma.taskTemplate.count({
+      where: { staffId, isActive: true },
+    }),
+    prisma.taskInstance.count({
+      where: taskInstanceWhere,
+    }),
+    prisma.taskInstance.groupBy({
+      by: ["status"],
+      where: taskInstanceWhere,
+      _count: { status: true },
+    }),
+    prisma.taskInstance.count({
+      where: {
+        ...taskInstanceWhere,
+        isLate: true,
+      },
+    }),
+    prisma.attendance.count({
+      where: attendanceWhere,
+    }),
+    prisma.attendance.groupBy({
+      by: ["status"],
+      where: attendanceWhere,
+      _count: { status: true },
+    }),
+    prisma.attendance.count({
+      where: {
+        ...attendanceWhere,
+        OR: [{ status: "LATE" }, { isLateCheckIn: true }],
+      },
+    }),
+  ]);
+
+  const taskStatusMap = new Map(taskStatusGroups.map((group) => [group.status, group._count.status]));
+  const attendanceStatusMap = new Map(
+    attendanceStatusGroups.map((group) => [group.status, group._count.status])
+  );
+
   const taskStats = {
-    totalTemplates: staff.taskTemplates.length,
-    totalInstances: staff.taskInstances.length,
-    completed: staff.taskInstances.filter((i) => i.status === "COMPLETED").length,
-    pending: staff.taskInstances.filter((i) => i.status === "PENDING").length,
-    inProgress: staff.taskInstances.filter((i) => i.status === "IN_PROGRESS").length,
-    missed: staff.taskInstances.filter((i) => i.status === "MISSED").length,
-    late: staff.taskInstances.filter((i) => i.isLate).length,
+    totalTemplates: totalTaskTemplates,
+    totalInstances: totalTaskInstances,
+    completed: taskStatusMap.get("COMPLETED") ?? 0,
+    pending: taskStatusMap.get("PENDING") ?? 0,
+    inProgress: taskStatusMap.get("IN_PROGRESS") ?? 0,
+    missed: taskStatusMap.get("MISSED") ?? 0,
+    late: lateTaskCount,
   };
 
   const attendanceStats = {
-    totalRecords: staff.attendances.length,
-    present: staff.attendances.filter((a) => a.status === "CHECKED_IN" || a.status === "CHECKED_OUT").length,
-    absent: staff.attendances.filter((a) => a.status === "ABSENT").length,
-    late: staff.attendances.filter((a) => a.status === "LATE" || a.isLateCheckIn).length,
-    missedCheckout: staff.attendances.filter((a) => a.status === "MISSED_CHECKOUT").length,
+    totalRecords: totalAttendanceRecords,
+    present:
+      (attendanceStatusMap.get("CHECKED_IN") ?? 0) +
+      (attendanceStatusMap.get("CHECKED_OUT") ?? 0),
+    absent: attendanceStatusMap.get("ABSENT") ?? 0,
+    late: lateAttendanceCount,
+    missedCheckout: attendanceStatusMap.get("MISSED_CHECKOUT") ?? 0,
   };
 
   res.status(200).json(
     new ApiResponse(200, {
       ...staff,
+      taskTemplates,
+      taskInstances,
+      attendances,
       taskStats,
       attendanceStats,
       periodLabel,
