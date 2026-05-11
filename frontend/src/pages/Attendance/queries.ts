@@ -5,5 +5,6 @@ export const useGetAttendance = (filters?: AttendanceFilters) => {
   return useQuery({
     queryKey: ["attendance", filters ?? null],
     queryFn: () => getStaffAttendance(filters),
+    staleTime: 2 * 60 * 1000,
   });
 };

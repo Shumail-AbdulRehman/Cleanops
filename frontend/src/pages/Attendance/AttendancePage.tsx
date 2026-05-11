@@ -65,13 +65,18 @@ const getMonthOptions = (count = 12) => {
 };
 
 export default function AttendancePage() {
+  const todayValue = toDateInputValue(new Date());
+  const [selectedQuickFilter, setSelectedQuickFilter] = useState<"today" | "yesterday" | "this-month" | null>("today");
   const [staffFilter, setStaffFilter] = useState<string>("");
   const [month, setMonth] = useState(getCurrentMonthValue());
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
+  const [dateFrom, setDateFrom] = useState(todayValue);
+  const [dateTo, setDateTo] = useState(todayValue);
   const [appliedFilters, setAppliedFilters] = useState<{
     staffId?: number; from?: string; to?: string;
-  }>({});
+  }>({
+    from: todayValue,
+    to: todayValue,
+  });
   const monthOptions = getMonthOptions();
 
   const { data, isLoading } = useGetAttendance(appliedFilters);
@@ -94,6 +99,7 @@ export default function AttendancePage() {
       from: dateFrom || undefined,
       to: dateTo || undefined,
     });
+    setSelectedQuickFilter(null);
   };
 
   const applyMonthFilter = () => {
@@ -113,6 +119,7 @@ export default function AttendancePage() {
       from,
       to,
     });
+    setSelectedQuickFilter("this-month");
   };
 
   const applyQuickRange = (type: "today" | "yesterday" | "this-month") => {
@@ -125,6 +132,7 @@ export default function AttendancePage() {
         from: today,
         to: today,
       });
+      setSelectedQuickFilter("today");
       return;
     }
 
@@ -139,6 +147,7 @@ export default function AttendancePage() {
         from: value,
         to: value,
       });
+      setSelectedQuickFilter("yesterday");
       return;
     }
 
@@ -147,11 +156,16 @@ export default function AttendancePage() {
 
   const clearFilters = () => {
     const currentMonth = getCurrentMonthValue();
+    const today = toDateInputValue(new Date());
     setMonth(currentMonth);
-    setDateFrom("");
-    setDateTo("");
+    setDateFrom(today);
+    setDateTo(today);
     setStaffFilter("");
-    setAppliedFilters({});
+    setAppliedFilters({
+      from: today,
+      to: today,
+    });
+    setSelectedQuickFilter("today");
   };
 
   const columns: Column<AttendanceRecord>[] = [
@@ -224,13 +238,13 @@ export default function AttendancePage() {
         <div className="xl:col-span-4">
           <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">Quick filters</label>
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" className="rounded-2xl" onClick={() => applyQuickRange("today")}>
+            <Button variant="outline" className="rounded-2xl" aria-pressed={selectedQuickFilter === "today"} onClick={() => applyQuickRange("today")}>
               Today
             </Button>
-            <Button variant="outline" className="rounded-2xl" onClick={() => applyQuickRange("yesterday")}>
+            <Button variant="outline" className="rounded-2xl" aria-pressed={selectedQuickFilter === "yesterday"} onClick={() => applyQuickRange("yesterday")}>
               Yesterday
             </Button>
-            <Button variant="outline" className="rounded-2xl" onClick={() => applyQuickRange("this-month")}>
+            <Button variant="outline" className="rounded-2xl" aria-pressed={selectedQuickFilter === "this-month"} onClick={() => applyQuickRange("this-month")}>
               This Month
             </Button>
           </div>
