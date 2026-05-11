@@ -51,16 +51,14 @@ export async function runStartupCron(): Promise<void> {
             })
             : { count: 0 };
 
-        await Promise.all(
-            eligibleStaff.map((staff) =>
-                syncTodaysOpenAttendanceWindow({
-                    staffId: staff.id,
-                    locationId: staff.locationId,
-                    shiftStart: staff.shiftStart,
-                    shiftEnd: staff.shiftEnd,
-                })
-            )
-        );
+        for (const staff of eligibleStaff) {
+            await syncTodaysOpenAttendanceWindow({
+                staffId: staff.id,
+                locationId: staff.locationId,
+                shiftStart: staff.shiftStart,
+                shiftEnd: staff.shiftEnd,
+            });
+        }
 
        
 

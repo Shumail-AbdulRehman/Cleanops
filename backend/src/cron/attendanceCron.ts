@@ -54,16 +54,14 @@ cron.schedule("*/5 * * * *", async () => {
             })
             : { count: 0 };
 
-        await Promise.all(
-            eligibleStaff.map((staff) =>
-                syncTodaysOpenAttendanceWindow({
-                    staffId: staff.id,
-                    locationId: staff.locationId,
-                    shiftStart: staff.shiftStart,
-                    shiftEnd: staff.shiftEnd,
-                })
-            )
-        );
+        for (const staff of eligibleStaff) {
+            await syncTodaysOpenAttendanceWindow({
+                staffId: staff.id,
+                locationId: staff.locationId,
+                shiftStart: staff.shiftStart,
+                shiftEnd: staff.shiftEnd,
+            });
+        }
 
         console.log(`Attendance records created: ${created}`);
     } catch (error) {
