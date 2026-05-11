@@ -2,9 +2,11 @@ import axios from 'axios';
 import { store } from '@/store/store';
 import { clearUser } from '@/store/slices/authSlice';
 
+const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim() || '/api';
+const normalizedApiBaseUrl = rawApiBaseUrl.replace(/\/+$/, '');
 
 export const client = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: normalizedApiBaseUrl || '/api',
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });
@@ -64,4 +66,3 @@ client.interceptors.response.use(
     }
   }
 );
-

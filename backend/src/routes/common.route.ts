@@ -9,7 +9,7 @@ import { getCurrentUser,logOut,refreshToken } from "../controllers/common.contro
 const router = Router();
 
 
-router.post("/logout",verifyJwt,logOut);
+router.post("/logout",logOut);
 router.post("/refresh-token",refreshToken);
 router.get("/get-current-user",verifyJwt,getCurrentUser);
 export default router;

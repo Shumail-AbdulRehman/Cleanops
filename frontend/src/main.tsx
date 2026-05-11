@@ -17,7 +17,17 @@ import StaffDetailPage from './pages/Staff/StaffDetailPage.tsx';
 import AttendancePage from './pages/Attendance/AttendancePage.tsx';
 import TodayStatusPage from './pages/Manager/TodayStatusPage.tsx';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {

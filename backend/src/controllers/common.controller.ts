@@ -6,6 +6,7 @@ import { TokenPayload } from "../types/jwt.js";
 import { prisma } from "../prisma/prisma.js"; 
 import jwt from "jsonwebtoken";
 import { generateAccessToken,generateRefreshToken } from "../utils/auth.js";
+import { getCookieOptions } from "../utils/cookies.js";
 
 export const getCurrentUser = async (req: Request, res: Response) => {
     const user = req?.user;
@@ -66,11 +67,7 @@ export const refreshToken = async (req: Request, res: Response) => {
       data: { refreshToken: newRefreshToken },
     });
 
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict" as const,
-    };
+    const cookieOptions = getCookieOptions(true);
 
     const safeUser = {
       id: user.id,
@@ -122,11 +119,7 @@ export const refreshToken = async (req: Request, res: Response) => {
       data: { refreshToken: newRefreshToken },
     });
 
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict" as const,
-    };
+    const cookieOptions = getCookieOptions(true);
 
     const safeUser = {
       id: user.id,
@@ -158,28 +151,59 @@ export const refreshToken = async (req: Request, res: Response) => {
 };
 
 export const logOut = async (req: Request, res: Response) => {
-    
-  const { id, role } = req.user!;
+  const cookieOptions = getCookieOptions(true);
+  const accessToken =
+    req.cookies?.accessToken ||
+    req.header("Authorization")?.replace("Bearer ", "");
+  const refreshTokenCookie =
+    req.cookies?.refreshToken ||
+    req.body?.refreshToken ||
+    req.header("x-refresh-token");
 
-  if (role === "MANAGER") {
-    await prisma.manager.update({
-      where: { id },
-      data: { refreshToken: null },
-    });
-  } else if (role === "STAFF") {
-    await prisma.staff.update({
-      where: { id },
-      data: { refreshToken: null },
-    });
+  let decodedAccessToken: TokenPayload | null = null;
+  let decodedRefreshToken: TokenPayload | null = null;
+
+  if (accessToken) {
+    try {
+      decodedAccessToken = jwt.verify(
+        accessToken,
+        process.env.ACCESS_TOKEN_SECRET!
+      ) as TokenPayload;
+    } catch {
+      decodedAccessToken = null;
+    }
   }
 
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict" as const,
-  };
+  if (refreshTokenCookie) {
+    try {
+      decodedRefreshToken = jwt.verify(
+        refreshTokenCookie,
+        process.env.REFRESH_TOKEN_SECRET!
+      ) as TokenPayload;
+    } catch {
+      decodedRefreshToken = null;
+    }
+  }
 
-  res
+  const tokenPayload = decodedAccessToken ?? decodedRefreshToken;
+
+  if (tokenPayload?.role === "MANAGER") {
+    await prisma.manager
+      .update({
+        where: { id: tokenPayload.id },
+        data: { refreshToken: null },
+      })
+      .catch(() => null);
+  } else if (tokenPayload?.role === "STAFF") {
+    await prisma.staff
+      .update({
+        where: { id: tokenPayload.id },
+        data: { refreshToken: null },
+      })
+      .catch(() => null);
+  }
+
+  return res
     .clearCookie("accessToken", cookieOptions)
     .clearCookie("refreshToken", cookieOptions)
     .status(200)

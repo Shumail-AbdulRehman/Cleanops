@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { Response, Request, NextFunction } from "express";
 import { ApiError } from "./utils/ApiError.js";
+import { getCookieRuntimeConfig } from "./utils/cookies.js";
 import "./cron/dailyTaskScheduler.js";
 import "./cron/onceTaskScheduler.js";
 import "./cron/taskStatusCron.js";
@@ -109,6 +110,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(port, async () => {
     console.log(`Server is listening at port ${port}`);
+    console.log("Cookie config:", getCookieRuntimeConfig());
     await runStartupCron();
 });
 

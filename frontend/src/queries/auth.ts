@@ -29,6 +29,8 @@ export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: ['currentUser'],
     queryFn: getCurrentUser,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
     retry: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
