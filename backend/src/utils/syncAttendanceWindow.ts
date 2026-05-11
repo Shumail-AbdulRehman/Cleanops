@@ -24,7 +24,7 @@ export const syncTodaysOpenAttendanceWindow = async ({
     shiftStart,
     shiftEnd,
   });
-console.log("syncTodaysOpenAttendanceWindow ran ................")
+
   await prisma.attendance.updateMany({
     where: {
       staffId,
