@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+
+# Build output
+dist/
+
+# Prisma
+
+prisma/*.db
+
+# TypeScript build info
+tsconfig.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Nonsecret inventory verification environment template
+!.env.verification.example

@@ -1,0 +1,14 @@
+[Unit]
+Description=HygeneOps development photo verification worker
+After=network-online.target hygeneops-backend-development.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/shumail/bk-Priv/PRIV/backend
+ExecStart=/home/shumail/.nvm/versions/node/v24.14.1/bin/node /home/shumail/bk-Priv/PRIV/backend/dist/workers/verificationWorker.js
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=120
+
+[Install]
+WantedBy=default.target

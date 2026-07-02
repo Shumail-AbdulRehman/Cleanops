@@ -1,0 +1,32 @@
+[
+  {
+    "plan": "STARTER",
+    "interval": "month",
+    "priceId": "pri_01m26dxq2nvjb2ak7jt4gym22g"
+  },
+  {
+    "plan": "STARTER",
+    "interval": "year",
+    "priceId": "pri_01m26dxqw2hx8kk0tc70wg5t29"
+  },
+  {
+    "plan": "PRO",
+    "interval": "month",
+    "priceId": "pri_01m26dxtv0k73yk444nc0vvqjj"
+  },
+  {
+    "plan": "PRO",
+    "interval": "year",
+    "priceId": "pri_01m26dxvj8cmtdtr7a660mqa2h"
+  },
+  {
+    "plan": "ADVANCED",
+    "interval": "month",
+    "priceId": "pri_01m26dxxw7h9ma5xxcmsc0axgp"
+  },
+  {
+    "plan": "ADVANCED",
+    "interval": "year",
+    "priceId": "pri_01m26dxyqpqr2cmr8cwez9am00"
+  }
+]
