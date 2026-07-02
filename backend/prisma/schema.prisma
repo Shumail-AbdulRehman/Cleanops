@@ -1,0 +1,1140 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Company {
+  operationalStatus     CompanyOperationalStatus @default(ACTIVE)
+  accountVersion        Int                      @default(0)
+  suspendedAt           DateTime?
+  suspensionReason      String?
+  credentialTokens      CredentialToken[]
+  attendanceAnnotations AttendanceAnnotation[]
+  verificationPolicy    Json?
+  id                    Int                  @id @default(autoincrement())
+  name                  String
+  isActive              Boolean              @default(true)
+  plan                  SubscriptionPlan     @default(STARTER)
+  subscriptionStatus    SubscriptionStatus   @default(CANCELLED)
+  planUpdatedAt         DateTime             @default(now())
+  billingCustomerId     String?              @unique
+  billingSubscriptionId String?              @unique
+  paddleCustomer        PaddleCustomer?
+  paddleSubscriptions   PaddleSubscription[]
+  paddleTransactions    PaddleTransaction[]
+  managers              Manager[]
+  staff                 Staff[]
+  locations             Location[]
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+}
+
+model PaddleCustomer {
+  id              String               @id
+  email           String?
+  name            String?
+  locale          String?
+  status          String
+  company         Company?             @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId       Int?                 @unique
+  subscriptions   PaddleSubscription[]
+  transactions    PaddleTransaction[]
+  paddleCreatedAt DateTime?
+  paddleUpdatedAt DateTime
+  lastEventAt     DateTime
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+
+  @@index([email])
+}
+
+model PaddleSubscription {
+  id                        String              @id
+  customer                  PaddleCustomer      @relation(fields: [customerId], references: [id])
+  customerId                String
+  company                   Company?            @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId                 Int?
+  status                    String
+  priceId                   String
+  productId                 String
+  scheduledChangeAction     String?
+  scheduledChangeAt         DateTime?
+  currentBillingPeriodStart DateTime?
+  currentBillingPeriodEnd   DateTime?
+  canceledAt                DateTime?
+  pausedAt                  DateTime?
+  paddleCreatedAt           DateTime?
+  paddleUpdatedAt           DateTime
+  lastEventAt               DateTime
+  createdAt                 DateTime            @default(now())
+  updatedAt                 DateTime            @updatedAt
+  transactions              PaddleTransaction[]
+
+  @@index([customerId])
+  @@index([companyId, status])
+}
+
+model PaddleTransaction {
+  id              String              @id
+  customer        PaddleCustomer?     @relation(fields: [customerId], references: [id])
+  customerId      String?
+  subscription    PaddleSubscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId  String?
+  company         Company?            @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId       Int?
+  status          String
+  currencyCode    String
+  total           String?
+  invoiceNumber   String?
+  paddleCreatedAt DateTime?
+  paddleUpdatedAt DateTime
+  lastEventAt     DateTime
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  @@index([customerId])
+  @@index([subscriptionId])
+  @@index([companyId])
+}
+
+model PaddleWebhookEvent {
+  id          String   @id
+  eventType   String
+  occurredAt  DateTime
+  processedAt DateTime @default(now())
+
+  @@index([eventType])
+  @@index([occurredAt])
+}
+
+model Manager {
+  credentialVersion  Int               @default(0)
+  mustChangePassword Boolean           @default(false)
+  emailVerifiedAt    DateTime?
+  credentialTokens   CredentialToken[] @relation("ManagerCredentialTokens")
+  id                Int               @id @default(autoincrement())
+  name              String
+  email             String            @unique
+  password          String
+  role              Role              @default(MANAGER)
+  isActive          Boolean           @default(true)
+  refreshToken      String?
+  company           Company           @relation(fields: [companyId], references: [id])
+  companyId         Int
+  assignedLocations ManagerLocation[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  @@unique([id, companyId])
+}
+
+model Staff {
+  credentialVersion  Int                     @default(0)
+  mustChangePassword Boolean                 @default(false)
+  credentialTokens   CredentialToken[]       @relation("StaffCredentialTokens")
+  id                 Int                     @id @default(autoincrement())
+  name               String
+  email              String?                 @unique
+  phone              String?                 @unique
+  password           String
+  role               Role                    @default(STAFF)
+  isActive           Boolean                 @default(true)
+  refreshToken       String?
+  company            Company                 @relation(fields: [companyId], references: [id])
+  companyId          Int
+  location           Location?               @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  locationId         Int?
+  shiftStart         DateTime?
+  shiftEnd           DateTime?
+  /// Weekdays on which the staff member's shift starts.
+  workDays           Weekday[]               @default([MON, TUE, WED, THU, FRI, SAT, SUN])
+  taskTemplates      TaskTemplate[]
+  taskInstances      TaskInstance[]
+  taskAssignments    TaskAssignment[]
+  attendances        Attendance[]
+  completionAttempts TaskCompletionAttempt[]
+  areaSubmissions    TaskAreaSubmission[]
+  notifications      StaffNotification[]
+  pushDevices        StaffPushDevice[]
+  loginCodes         StaffLoginCode[]
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+
+  @@index([companyId])
+  @@index([locationId])
+  @@index([isActive])
+  @@unique([id, companyId])
+}
+
+model StaffLoginCode {
+  id         Int       @id @default(autoincrement())
+  staffId    Int
+  companyId  Int
+  staff      Staff     @relation(fields: [staffId, companyId], references: [id, companyId], onDelete: Cascade)
+  phone      String
+  codeHash   String    @db.Char(64)
+  attempts   Int       @default(0)
+  expiresAt  DateTime
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([phone, createdAt])
+  @@index([createdAt])
+  @@index([staffId])
+}
+
+model Location {
+  areas              Area[]
+  id                 Int               @id @default(autoincrement())
+  name               String
+  address            String
+  isActive           Boolean           @default(true)
+  company            Company           @relation(fields: [companyId], references: [id])
+  companyId          Int
+  staff              Staff[]
+  taskTemplates      TaskTemplate[]
+  taskInstances      TaskInstance[]
+  attendances        Attendance[]
+  managerAssignments ManagerLocation[]
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  latitude           String
+  longitude          String
+  radiusMeters       Int               @default(500)
+  timezone           String            @default("Asia/Karachi")
+
+  @@index([companyId])
+  @@index([isActive])
+}
+
+model TaskTemplate {
+  areaId                 Int?
+  area                   Area?                        @relation(fields: [areaId, locationId], references: [id, locationId], onDelete: Restrict)
+  verificationVersion    Int                          @default(1)
+  inventorySelection     InventorySelection           @default(ALL)
+  inventoryConfigVersion Int                          @default(1)
+  setupStatus            TemplateSetupStatus          @default(NEEDS_REVIEW)
+  sourceLegacyTemplateId Int?
+  inventoryItems         TaskTemplateItem[]
+  id                     Int                          @id @default(autoincrement())
+  title                  String
+  description            String?
+  isActive               Boolean                      @default(true)
+  staff                  Staff?                       @relation(fields: [staffId], references: [id], onDelete: SetNull)
+  staffId                Int?
+  location               Location                     @relation(fields: [locationId], references: [id])
+  locationId             Int
+  shiftStart             DateTime
+  shiftEnd               DateTime
+  /// Weekdays on which a DAILY schedule repeats.
+  repeatDays             Weekday[]                    @default([MON, TUE, WED, THU, FRI, SAT, SUN])
+  recurringType          RecurringType?
+  recurringEndDate       DateTime?
+  referenceImageUrl      String?
+  referenceImages        TaskTemplateReferenceImage[]
+  instances              TaskInstance[]
+  createdAt              DateTime                     @default(now())
+  updatedAt              DateTime                     @updatedAt
+  effectiveDate          DateTime
+  qrToken                String                       @unique @default(uuid())
+
+  @@unique([id, areaId])
+  @@index([locationId])
+  @@index([isActive])
+  @@index([staffId, isActive])
+}
+
+model TaskInstance {
+  areaId                 Int?
+  area                   Area?                        @relation(fields: [areaId, locationId], references: [id, locationId], onDelete: Restrict)
+  verificationVersion    Int                          @default(1)
+  areaNameSnapshot       String?
+  inventoryVersion       Int?
+  policySnapshot         Json?
+  verificationState      TaskVerificationState        @default(NOT_STARTED)
+  completionOutcome      CompletionOutcome?
+  hasManualOverride      Boolean                      @default(false)
+  evidenceReadyAt        DateTime?
+  verificationResolvedAt DateTime?
+  staffSubmittedAt       DateTime?
+  completionTiming       String?
+  completionLateMinutes  Int?
+  verificationDeadline   DateTime?
+  uploadDeadline         DateTime?
+  assignmentEpoch        Int                          @default(0)
+  rowVersion             Int                          @default(0)
+  verificationItems      TaskVerificationItem[]
+  captureSessions        CaptureSession[]
+  evidenceAssets         EvidenceAsset[]
+  followUpVerificationDecisions VerificationDecision[] @relation("VerificationDecisionFollowUp")
+  verificationException  VerificationException?
+  id                     Int                          @id @default(autoincrement())
+  template               TaskTemplate?                @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  templateId             Int?
+  title                  String
+  date                   DateTime
+  lateMinutes            Int?
+  shiftStart             DateTime
+  shiftEnd               DateTime
+  status                 TaskStatus                   @default(PENDING)
+  isLate                 Boolean                      @default(false)
+  startedAt              DateTime?
+  completedAt            DateTime?
+  proofImageUrls         String[]                     @default([])
+  referenceImageUrl      String?
+  referenceImages        TaskInstanceReferenceImage[]
+  areaSubmissions        TaskAreaSubmission[]
+  staff                  Staff?                       @relation(fields: [staffId], references: [id], onDelete: SetNull)
+  staffId                Int?
+  location               Location                     @relation(fields: [locationId], references: [id])
+  locationId             Int
+  assignments            TaskAssignment[]
+  completionAttempts     TaskCompletionAttempt[]
+  createdAt              DateTime                     @default(now())
+  updatedAt              DateTime                     @updatedAt
+  isActive               Boolean                      @default(true)
+
+  @@index([staffSubmittedAt])
+  @@unique([id, areaId])
+  @@unique([templateId, date])
+  @@index([locationId, isActive, date])
+  @@index([locationId, status])
+  @@index([staffId, isActive, date])
+  @@index([staffId, status])
+}
+
+model TaskAssignment {
+  id             Int              @id @default(autoincrement())
+  taskInstance   TaskInstance     @relation(fields: [taskInstanceId], references: [id], onDelete: Cascade)
+  taskInstanceId Int
+  staff          Staff            @relation(fields: [staffId], references: [id])
+  staffId        Int
+  status         AssignmentStatus @default(ASSIGNED)
+  reason         String?
+  isCurrent      Boolean          @default(true)
+  assignedAt     DateTime         @default(now())
+  startedAt      DateTime?
+  completedAt    DateTime?
+  failedAt       DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([taskInstanceId])
+  @@index([taskInstanceId, isCurrent])
+  @@index([staffId])
+  @@index([staffId, isCurrent])
+  @@index([status])
+}
+
+model TaskCompletionAttempt {
+  id                    Int                     @id @default(autoincrement())
+  taskInstance          TaskInstance            @relation(fields: [taskInstanceId], references: [id], onDelete: Cascade)
+  taskInstanceId        Int
+  staff                 Staff                   @relation(fields: [staffId], references: [id])
+  staffId               Int
+  imageUrl              String
+  locationMatchScore    Int?
+  cleanlinessMatchScore Int?
+  locationMatchReason   String?
+  cleanlinessReason     String?
+  rawResponse           Json?
+  areaName              String?
+  submissionId          String?
+  status                CompletionAttemptStatus
+  createdAt             DateTime                @default(now())
+
+  @@index([taskInstanceId])
+  @@index([staffId])
+}
+
+model TaskAreaSubmission {
+  id                   Int              @id @default(autoincrement())
+  taskInstanceId       Int
+  referenceImageId     Int
+  staffId              Int
+  photoUrl             String
+  scannedAt            DateTime
+  uploadedAt           DateTime?
+  status               SubmissionStatus @default(PENDING)
+  similarityScore      Float?
+  areaMatchStatus      String?
+  areaMatchFlag        Boolean          @default(false)
+  bestReferenceImageId Int?
+  colorScore           Float?
+  ssimScore            Float?
+  featureScore         Float?
+  matchThresholdUsed   Float?
+  blockThresholdUsed   Float?
+  colorWeightUsed      Float?
+  ssimWeightUsed       Float?
+  featureWeightUsed    Float?
+  attempts             Json             @default("[]")
+  createdAt            DateTime         @default(now())
+
+  taskInstance   TaskInstance               @relation(fields: [taskInstanceId], references: [id], onDelete: Cascade)
+  referenceImage TaskInstanceReferenceImage @relation(fields: [referenceImageId], references: [id], onDelete: Cascade)
+  staff          Staff                      @relation(fields: [staffId], references: [id])
+
+  @@unique([taskInstanceId, referenceImageId])
+  @@index([taskInstanceId])
+  @@index([staffId])
+}
+
+model TaskTemplateReferenceImage {
+  id         Int          @id @default(autoincrement())
+  template   TaskTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  templateId Int
+  name       String
+  imageUrl   String
+  sortOrder  Int          @default(0)
+  createdAt  DateTime     @default(now())
+
+  @@index([templateId])
+}
+
+model TaskInstanceReferenceImage {
+  id             Int                  @id @default(autoincrement())
+  taskInstance   TaskInstance         @relation(fields: [taskInstanceId], references: [id], onDelete: Cascade)
+  taskInstanceId Int
+  name           String
+  imageUrl       String
+  sortOrder      Int                  @default(0)
+  submissions    TaskAreaSubmission[]
+
+  @@index([taskInstanceId])
+}
+
+model AuditLog {
+  id         Int      @id @default(autoincrement())
+  companyId  Int?
+  actorType  String
+  actorId    Int?
+  entityType String
+  entityId   Int
+  action     String
+  reason     String?
+  oldValue   Json?
+  newValue   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([companyId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+
+model Attendance {
+  annotations   AttendanceAnnotation[]
+  id            Int              @id @default(autoincrement())
+  staff         Staff            @relation(fields: [staffId], references: [id])
+  staffId       Int
+  location      Location         @relation(fields: [locationId], references: [id])
+  locationId    Int
+  date          DateTime
+  checkInTime   DateTime?
+  checkOutTime  DateTime?
+  expectedStart DateTime
+  expectedEnd   DateTime
+  status        AttendanceStatus @default(ABSENT)
+  isLateCheckIn Boolean          @default(false)
+  lateMinutes   Int?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  checkInImage  String?
+  checkOutImage String?
+
+  @@unique([staffId, date])
+  @@index([locationId, date])
+  @@index([staffId])
+  @@index([staffId, date, status])
+}
+
+model ManagerLocation {
+  manager    Manager  @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  managerId  Int
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId Int      @unique
+  createdAt  DateTime @default(now())
+
+  @@id([managerId, locationId])
+  @@index([locationId])
+}
+
+enum CompletionAttemptStatus {
+  APPROVED
+  REJECTED_LOCATION
+  REJECTED_CLEANLINESS
+  ERROR
+}
+
+enum AttendanceStatus {
+  ABSENT
+  CHECKED_IN
+  CHECKED_OUT
+  LATE
+  MISSED_CHECKOUT
+}
+
+enum AssignmentStatus {
+  ASSIGNED
+  STARTED
+  COMPLETED
+  MISSED
+  FAILED
+  REASSIGNED
+  CANCELLED
+}
+
+enum RecurringType {
+  DAILY
+  ONCE
+}
+
+enum Weekday {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+  SUN
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  NOT_COMPLETED_INTIME
+  MISSED
+  CANCELLED
+}
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED_TIMEOUT
+  BLOCKED
+  CV_ERROR
+}
+
+enum SubscriptionPlan {
+  STARTER
+  PRO
+  ADVANCED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+}
+
+// Transactional outbox: permanent record deletion queues remote media cleanup.
+model DeletedMedia {
+  id        Int      @id @default(autoincrement())
+  url       String   @unique
+  createdAt DateTime @default(now())
+  attempts  Int      @default(0)
+  retryAt   DateTime @default(now())
+
+  @@index([retryAt])
+}
+
+model EnterpriseInquiry {
+  id           String   @id @default(uuid())
+  name         String
+  email        String
+  company      String
+  locations    Int
+  staff        Int
+  requirements String
+  createdAt    DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+enum InventorySelection {
+  ALL
+  SUBSET
+}
+
+enum TemplateSetupStatus {
+  READY
+  NEEDS_REVIEW
+}
+
+enum AreaStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum AreaItemStatus {
+  ACTIVE
+  MAINTENANCE
+  RETIRED
+}
+
+enum IdentificationMode {
+  PRINTED_LABEL
+  EXISTING_NUMBER
+  ORDERED_CONTEXT
+}
+
+enum TaskVerificationState {
+  NOT_STARTED
+  CAPTURING
+  PROCESSING
+  REWORK_REQUIRED
+  NEEDS_REVIEW
+  VERIFIED
+  RESOLVED_WITH_EXCEPTIONS
+}
+
+enum CompletionOutcome {
+  VERIFIED_COMPLETE
+  COMPLETED_WITH_EXCEPTIONS
+  LEGACY_RECORDED
+}
+
+enum RequirementState {
+  MISSING
+  PROCESSING
+  PASSED
+  RECAPTURE_REQUIRED
+  CLEANING_REQUIRED
+  REVIEW_REQUIRED
+  MANAGER_ACCEPTED
+  WAIVED
+}
+
+enum CaptureSessionState {
+  ACTIVE
+  PAUSED
+  CLOSED
+  EXPIRED
+  REVOKED
+}
+
+enum AttemptState {
+  RESERVED
+  STORING
+  RECEIVED
+  QUALITY_CHECK
+  COVERAGE_CHECK
+  CLEANLINESS_CHECK
+  PASSED
+  RECAPTURE_REQUIRED
+  CLEANING_REQUIRED
+  REVIEW_REQUIRED
+  RETRY_WAIT
+  SERVICE_FAILURE
+  PRIVACY_HOLD
+}
+
+enum VerificationJobState {
+  PENDING
+  RUNNING
+  SUCCEEDED
+  RETRY_WAIT
+  FAILED
+}
+
+enum VerificationExceptionKind {
+  TASK
+  SETUP
+}
+
+enum VerificationExceptionState {
+  OPEN
+  STAFF_ACTION_REQUIRED
+  MANAGER_REVIEW
+  WAITING_SERVICE
+  RESOLVED
+}
+
+model Area {
+  id                 Int                     @id @default(autoincrement())
+  locationId         Int
+  location           Location                @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  name               String
+  roomType           String
+  status             AreaStatus              @default(DRAFT)
+  inventoryVersion   Int                     @default(1)
+  qrVersion          Int                     @default(1)
+  qrNonce            String                  @default(uuid())
+  layoutInstructions String?
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+  items              AreaItem[]
+  standards          AreaStandardPhoto[]
+  templates          TaskTemplate[]
+  instances          TaskInstance[]
+  exceptions         VerificationException[]
+
+  @@unique([id, locationId])
+  @@index([locationId, status])
+}
+
+model AreaItem {
+  id                 Int                    @id @default(autoincrement())
+  areaId             Int
+  area               Area                   @relation(fields: [areaId], references: [id], onDelete: Restrict)
+  stableCode         String
+  displayName        String
+  fixtureType        String
+  positionHint       String?
+  sequence           Int
+  identificationMode IdentificationMode     @default(ORDERED_CONTEXT)
+  existingNumber     String?
+  rubricKey          String
+  rubricVersion      Int                    @default(1)
+  requiredViews      Json
+  status             AreaItemStatus         @default(ACTIVE)
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+  selections         TaskTemplateItem[]
+  snapshots          TaskVerificationItem[]
+  standards          AreaStandardPhoto[]
+
+  @@unique([id, areaId])
+  @@unique([areaId, stableCode])
+  @@index([areaId, status, sequence])
+}
+
+model AreaStandardPhoto {
+  id                 Int           @id @default(autoincrement())
+  areaId             Int
+  area               Area          @relation(fields: [areaId], references: [id], onDelete: Restrict)
+  areaItemId         Int?
+  item               AreaItem?     @relation(fields: [areaItemId, areaId], references: [id, areaId], onDelete: Restrict)
+  mediaAssetId       String
+  media              EvidenceAsset @relation(fields: [mediaAssetId], references: [id], onDelete: Restrict)
+  caption            String?
+  createdByManagerId Int
+  createdAt          DateTime      @default(now())
+}
+
+model TaskTemplateItem {
+  templateId Int
+  areaId     Int
+  areaItemId Int
+  mandatory  Boolean      @default(true)
+  template   TaskTemplate @relation(fields: [templateId, areaId], references: [id, areaId], onDelete: Restrict)
+  item       AreaItem     @relation(fields: [areaItemId, areaId], references: [id, areaId], onDelete: Restrict)
+
+  @@id([templateId, areaItemId])
+}
+
+model TaskVerificationItem {
+  id                     Int                       @id @default(autoincrement())
+  taskInstanceId         Int
+  areaId                 Int
+  sourceAreaItemId       Int
+  task                   TaskInstance              @relation(fields: [taskInstanceId, areaId], references: [id, areaId], onDelete: Restrict)
+  item                   AreaItem                  @relation(fields: [sourceAreaItemId, areaId], references: [id, areaId], onDelete: Restrict)
+  itemCodeSnapshot       String
+  nameSnapshot           String
+  typeSnapshot           String
+  orderSnapshot          Int
+  identificationSnapshot Json
+  rubricSnapshot         Json
+  mandatory              Boolean                   @default(true)
+  state                  RequirementState          @default(MISSING)
+  decisionVersion        Int                       @default(0)
+  requirements           TaskEvidenceRequirement[]
+
+  @@unique([taskInstanceId, sourceAreaItemId])
+  @@index([taskInstanceId, state])
+}
+
+model TaskEvidenceRequirement {
+  id                     String                 @id @default(uuid())
+  taskVerificationItemId Int
+  item                   TaskVerificationItem   @relation(fields: [taskVerificationItemId], references: [id], onDelete: Restrict)
+  viewKey                String
+  instructionsSnapshot   String
+  mandatory              Boolean                @default(true)
+  currentAttemptId       String?
+  state                  RequirementState       @default(MISSING)
+  decisionVersion        Int                    @default(0)
+  slots                  CaptureSlot[]
+  attempts               VerificationAttempt[]
+  issues                 VerificationIssue[]
+  decisions              VerificationDecision[]
+
+  @@unique([taskVerificationItemId, viewKey])
+  @@index([taskVerificationItemId, state])
+}
+
+model CaptureSession {
+  id                String                @id @default(uuid())
+  taskInstanceId    Int
+  areaId            Int
+  task              TaskInstance          @relation(fields: [taskInstanceId, areaId], references: [id, areaId], onDelete: Restrict)
+  staffId           Int
+  assignmentId      Int
+  assignmentEpoch   Int
+  deviceId          String
+  qrVersion         Int
+  policyVersion     Int
+  issuedAt          DateTime              @default(now())
+  captureExpiresAt  DateTime
+  uploadExpiresAt   DateTime
+  closedAt          DateTime?
+  state             CaptureSessionState   @default(ACTIVE)
+  presenceStatus    String
+  locationCheck     Json
+  serverTimeAnchor  DateTime
+  clientBootId      String
+  contextAttemptIds Json                  @default("[]")
+  contextStatus     String                @default("PENDING")
+  rowVersion        Int                   @default(0)
+  slots             CaptureSlot[]
+  attempts          VerificationAttempt[]
+
+  @@index([taskInstanceId, assignmentEpoch])
+}
+
+model CaptureSlot {
+  id            String                   @id @default(uuid())
+  sessionId     String
+  session       CaptureSession           @relation(fields: [sessionId], references: [id], onDelete: Restrict)
+  requirementId String?
+  requirement   TaskEvidenceRequirement? @relation(fields: [requirementId], references: [id], onDelete: Restrict)
+  contextKey    String?
+  sequence      Int
+  generation    Int                      @default(0)
+  nonceHash     String
+  expiresAt     DateTime
+  activatedAt   DateTime?
+  attemptId     String?                  @unique
+  attempt       VerificationAttempt?
+
+  @@unique([id, sessionId])
+}
+
+model EvidenceAsset {
+  id                String                @id @default(uuid())
+  companyId         Int
+  locationId        Int
+  taskInstanceId    Int?
+  task              TaskInstance?         @relation(fields: [taskInstanceId], references: [id], onDelete: Restrict)
+  originalPublicId  String                @unique
+  sanitizedPublicId String?
+  cloudinaryAssetId String?
+  deliveryType      String                @default("authenticated")
+  format            String
+  bytes             Int
+  width             Int
+  height            Int
+  sha256            String
+  normalizedHash    String?
+  perceptualHash    String?
+  privacyState      String                @default("PENDING")
+  createdAt         DateTime              @default(now())
+  attempts          VerificationAttempt[]
+  standards         AreaStandardPhoto[]
+
+  @@index([companyId, sha256])
+  @@index([companyId, createdAt])
+}
+
+model VerificationAttempt {
+  id                  String                   @id @default(uuid())
+  requirementId       String?
+  requirement         TaskEvidenceRequirement? @relation(fields: [requirementId], references: [id], onDelete: Restrict)
+  contextKey          String?
+  sessionId           String
+  session             CaptureSession           @relation(fields: [sessionId], references: [id], onDelete: Restrict)
+  slotId              String                   @unique
+  slot                CaptureSlot              @relation(fields: [slotId, sessionId], references: [id, sessionId], onDelete: Restrict)
+  staffId             Int
+  assignmentEpoch     Int
+  mediaAssetId        String?
+  media               EvidenceAsset?           @relation(fields: [mediaAssetId], references: [id], onDelete: Restrict)
+  clientCaptureId     String
+  committedHash       String?
+  committedAt         DateTime?
+  claimedCapturedAt   DateTime
+  anchoredElapsedMs   BigInt
+  receivedAt          DateTime?
+  timingEvidence      String
+  directProcessingToken     String?
+  directProcessingStartedAt DateTime?
+  directAssessment          Json?
+  qualityResult       Json?
+  coverageResult      Json?
+  cleanlinessResult   Json?
+  duplicateResult     Json?
+  spatialEvidence     Json?
+  spatialDecision     Json?
+  spatialVersion      Int?
+  state               AttemptState             @default(RESERVED)
+  supersedesAttemptId String?
+  createdAt           DateTime                 @default(now())
+  jobs                VerificationJob[]
+
+  @@unique([slotId, sessionId])
+  @@unique([sessionId, clientCaptureId])
+  @@index([requirementId, createdAt])
+}
+
+model VerificationJob {
+  id               String               @id @default(uuid())
+  companyId        Int
+  attemptId        String
+  attempt          VerificationAttempt  @relation(fields: [attemptId], references: [id], onDelete: Restrict)
+  stage            String
+  evaluatorVersion String
+  state            VerificationJobState @default(PENDING)
+  priority         Int                  @default(0)
+  attempts         Int                  @default(0)
+  availableAt      DateTime             @default(now())
+  leaseUntil       DateTime?
+  leaseToken       String?
+  lastErrorCode    String?
+  result           Json?
+  createdAt        DateTime             @default(now())
+  finishedAt       DateTime?
+
+  @@unique([attemptId, stage, evaluatorVersion])
+  @@index([state, availableAt])
+  @@index([leaseUntil])
+}
+
+model VerificationException {
+  id                Int                        @id @default(autoincrement())
+  companyId         Int
+  locationId        Int
+  taskInstanceId    Int?                       @unique
+  task              TaskInstance?              @relation(fields: [taskInstanceId], references: [id], onDelete: Restrict)
+  areaId            Int?
+  area              Area?                      @relation(fields: [areaId], references: [id], onDelete: Restrict)
+  kind              VerificationExceptionKind  @default(TASK)
+  dedupeKey         String                     @unique
+  state             VerificationExceptionState @default(OPEN)
+  priority          Int                        @default(0)
+  assignedManagerId Int?
+  firstRaisedAt     DateTime                   @default(now())
+  updatedAt         DateTime                   @updatedAt
+  nextReminderAt    DateTime?
+  resolvedAt        DateTime?
+  rowVersion        Int                        @default(0)
+  issues            VerificationIssue[]
+  decisions         VerificationDecision[]
+  events            ExceptionEvent[]
+  readReceipts      ExceptionReadReceipt[]
+
+  @@index([companyId, state, priority, updatedAt])
+  @@index([locationId, state])
+}
+
+model VerificationIssue {
+  id                Int                        @id @default(autoincrement())
+  exceptionId       Int
+  exception         VerificationException      @relation(fields: [exceptionId], references: [id], onDelete: Restrict)
+  requirementId     String?
+  requirement       TaskEvidenceRequirement?   @relation(fields: [requirementId], references: [id], onDelete: Restrict)
+  dedupeKey         String
+  reasonCode        String
+  state             VerificationExceptionState @default(OPEN)
+  firstAttemptId    String?
+  latestAttemptId   String?
+  occurrences       Int                        @default(1)
+  recommendedAction String
+  firstSeenAt       DateTime                   @default(now())
+  lastSeenAt        DateTime                   @default(now())
+  resolvedAt        DateTime?
+  decisions         VerificationDecision[]
+
+  @@unique([exceptionId, dedupeKey])
+}
+
+model VerificationDecision {
+  id                      Int                      @id @default(autoincrement())
+  exceptionId             Int
+  exception               VerificationException    @relation(fields: [exceptionId], references: [id], onDelete: Restrict)
+  issueId                 Int?
+  issue                   VerificationIssue?       @relation(fields: [issueId], references: [id], onDelete: Restrict)
+  requirementId           String?
+  requirement             TaskEvidenceRequirement? @relation(fields: [requirementId], references: [id], onDelete: Restrict)
+  action                  String
+  reasonCode              String
+  note                    String?
+  actorManagerId          Int
+  followUpTaskInstanceId  Int?
+  followUpTask            TaskInstance? @relation("VerificationDecisionFollowUp", fields: [followUpTaskInstanceId], references: [id], onDelete: Restrict)
+  evidenceAttemptId       String?
+  expectedDecisionVersion Int
+  createdAt               DateTime                 @default(now())
+
+  @@index([followUpTaskInstanceId])
+}
+
+model ExceptionEvent {
+  id          Int                   @id @default(autoincrement())
+  exceptionId Int
+  exception   VerificationException @relation(fields: [exceptionId], references: [id], onDelete: Restrict)
+  type        String
+  dedupeKey   String                @unique
+  payload     Json
+  createdAt   DateTime              @default(now())
+}
+
+model ExceptionReadReceipt {
+  exceptionId     Int
+  exception       VerificationException @relation(fields: [exceptionId], references: [id], onDelete: Restrict)
+  managerId       Int
+  lastReadEventId Int?
+  readAt          DateTime              @default(now())
+
+  @@id([exceptionId, managerId])
+}
+
+model VerificationRequest {
+  id             String   @id @default(uuid())
+  companyId      Int
+  actorRole      String
+  actorId        Int
+  operation      String
+  requestId      String
+  bodyHash       String
+  resultEntityId String
+  createdAt      DateTime @default(now())
+
+  @@unique([companyId, actorRole, actorId, operation, requestId])
+}
+
+model VerificationWorkerHeartbeat {
+  id String @id
+  lastSeenAt DateTime @default(now())
+  activeJobs Int @default(0)
+  startedAt DateTime @default(now())
+}
+
+// Durable staff inbox and push outbox. Task events are inserted by database
+// triggers in the same transaction as the task change (including bulk writes).
+model StaffNotification {
+  id           Int      @id @default(autoincrement())
+  staffId      Int
+  companyId    Int
+  staff        Staff    @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  kind         String
+  eventKey     String   @unique
+  taskId       Int?
+  attendanceId Int?
+  data         Json     @default("{}")
+  createdAt    DateTime @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC')"))
+  expiresAt    DateTime
+  readAt       DateTime?
+  deliveries   StaffPushDelivery[]
+
+  @@index([staffId, companyId, id])
+  @@index([staffId, readAt])
+  @@index([expiresAt])
+}
+
+model StaffPushDevice {
+  alertChannelVersion Int @default(1)
+  id               String   @id
+  staffId          Int
+  companyId        Int
+  staff            Staff    @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  token            String   @unique
+  platform         String
+  language         String   @default("en")
+  sessionHash      String
+  sessionExpiresAt DateTime
+  enabled          Boolean  @default(true)
+  boundAt          DateTime @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC')"))
+  updatedAt        DateTime @updatedAt
+  deliveries       StaffPushDelivery[]
+
+  @@index([staffId, enabled])
+}
+
+model StaffPushDelivery {
+  id             Int      @id @default(autoincrement())
+  notificationId Int
+  deviceId       String
+  notification   StaffNotification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  device         StaffPushDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  status         String   @default("PENDING")
+  attempts       Int      @default(0)
+  availableAt    DateTime @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC')"))
+  lockedUntil    DateTime?
+  ticketId       String?
+  sentToken      String?
+  lastError      String?
+  createdAt      DateTime @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC')"))
+
+  @@unique([notificationId, deviceId])
+  @@index([status, availableAt])
+}
+
+
+// Local single-use credential actions; external delivery is configured separately.
+enum CredentialTokenPurpose {
+  VERIFY_OWNER_EMAIL
+  RESET_OWNER_PASSWORD
+  STAFF_ACCESS_HANDOFF
+}
+
+enum CompanyOperationalStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum AttendanceAnnotationKind {
+  NOTE
+  ACKNOWLEDGEMENT
+}
+
+model CredentialToken {
+  id          String                 @id @default(uuid())
+  tokenHash   String                 @unique @db.Char(64)
+  purpose     CredentialTokenPurpose
+  companyId   Int
+  company     Company                @relation(fields: [companyId], references: [id], onDelete: Restrict)
+  managerId   Int?
+  manager     Manager?               @relation("ManagerCredentialTokens", fields: [managerId, companyId], references: [id, companyId], onDelete: Restrict)
+  staffId     Int?
+  staff       Staff?                 @relation("StaffCredentialTokens", fields: [staffId, companyId], references: [id, companyId], onDelete: Restrict)
+  targetEmail String?
+  expiresAt   DateTime
+  consumedAt  DateTime?
+  createdAt   DateTime               @default(now())
+
+  @@index([companyId, purpose, expiresAt])
+  @@index([managerId, purpose])
+  @@index([staffId, purpose])
+}
+
+model AttendanceAnnotation {
+  id           String                   @id @default(uuid())
+  companyId    Int
+  company      Company                  @relation(fields: [companyId], references: [id], onDelete: Restrict)
+  attendanceId Int
+  attendance   Attendance               @relation(fields: [attendanceId], references: [id], onDelete: Restrict)
+  actorRole    Role
+  actorId      Int
+  kind         AttendanceAnnotationKind @default(NOTE)
+  reason       String                   @db.VarChar(1000)
+  requestId    String                   @db.Uuid
+  parentId     String?
+  parent       AttendanceAnnotation?    @relation("AnnotationReplies", fields: [parentId], references: [id], onDelete: Restrict)
+  replies      AttendanceAnnotation[]   @relation("AnnotationReplies")
+  createdAt    DateTime                 @default(now())
+
+  @@unique([companyId, actorRole, actorId, requestId])
+  @@index([attendanceId, createdAt])
+}
