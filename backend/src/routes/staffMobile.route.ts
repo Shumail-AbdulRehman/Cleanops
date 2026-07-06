@@ -1,0 +1,20 @@
+import { Router } from 'express';
+import { z } from 'zod';
+import { verifyJwt } from '../middlewares/auth.middleware.js';
+import authorize from '../middlewares/authorize.middleware.js';
+import { ApiError } from '../utils/ApiError.js';
+import { staffMobileTasks, staffMobileAttendance } from '../services/mobile/staffMobile.service.js';
+import { staffTaskHistory } from '../services/mobile/staffHistory.service.js';
+import { staffAttendanceMonth } from '../services/mobile/staffAttendanceMonth.service.js';
+import { staffProfileSummary } from '../services/mobile/staffProfileSummary.service.js';
+const router = Router();
+router.use(verifyJwt, authorize('STAFF'));
+router.get('/tasks', async (req, res) => res.json({ success: true, data: await staffMobileTasks(req.user!, req.query) }));
+router.get('/attendance', async (req, res) => res.json({ success: true, data: await staffMobileAttendance(req.user!) }));
+// Personal records: never cached by shared caches or kept by the client. `/attendance/month` stays a literal path registered before any parameterised `/attendance/:x`.
+const personal = 'private, no-store';
+router.get('/history', async (req, res) => res.set('Cache-Control', personal).json({ success: true, data: await staffTaskHistory(req.user!, req.query) }));
+router.get('/attendance/month', async (req, res) => res.set('Cache-Control', personal).json({ success: true, data: await staffAttendanceMonth(req.user!, req.query) }));
+router.get('/profile', async (req, res) => res.set('Cache-Control', personal).json({ success: true, data: await staffProfileSummary(req.user!) }));
+router.use((error: unknown, _req: any, _res: any, next: any) => next(error instanceof z.ZodError ? new ApiError(400, 'Invalid mobile query', error.issues) : error));
+export default router;

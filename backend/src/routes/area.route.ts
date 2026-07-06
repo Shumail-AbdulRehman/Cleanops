@@ -1,0 +1,17 @@
+import { accountAccess } from '../middlewares/accountAccess.middleware.js';
+import multer from 'multer';
+import {requireAreaAccess} from '../services/verification-v2/authorization.service.js';
+import {Router} from 'express';
+import {verifyJwt} from '../middlewares/auth.middleware.js';
+import authorize from '../middlewares/authorize.middleware.js';
+import * as c from '../controllers/area.controller.js';
+const router=Router();router.use(verifyJwt,authorize('ADMIN','MANAGER'));
+router.get('/migration/templates',c.migrationTemplates);
+router.get('/:areaId',c.getArea);router.patch('/:areaId',accountAccess('MANAGE_WORK'),c.patchArea);
+router.post('/:areaId/items/bulk',accountAccess('MANAGE_WORK'),c.addItems);router.patch('/:areaId/items/:itemId',accountAccess('MANAGE_WORK'),c.patchItem);
+router.post('/:areaId/archive',accountAccess('MANAGE_WORK'),c.archiveArea);router.get('/:areaId/qr',c.areaQr);router.post('/:areaId/qr/rotate',accountAccess('MANAGE_WORK'),c.rotateQr);router.get('/:areaId/fixture-labels',c.fixtureLabels);
+export const areaLocationRouter=Router();areaLocationRouter.use(verifyJwt,authorize('ADMIN','MANAGER'));areaLocationRouter.get('/:locationId/areas',c.listAreas);areaLocationRouter.post('/:locationId/areas',accountAccess('MANAGE_WORK'),c.addArea);
+const standardUpload=multer({storage:multer.memoryStorage(),limits:{fileSize:5*1024*1024,files:1,fields:2,fieldSize:1000}});
+router.get('/:areaId/standards',c.listStandards);
+router.post('/:areaId/standards',accountAccess('MANAGE_WORK'),async(req,_res,next)=>{await requireAreaAccess(req.user!,Number(req.params.areaId));next();},standardUpload.single('photo'),c.addStandard);
+export default router;
