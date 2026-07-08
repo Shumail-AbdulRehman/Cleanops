@@ -1,0 +1,20 @@
+vi.mock('../launchJobs.service.js',()=>({jobAccountAllowed:vi.fn(async()=>true)}));
+import {afterEach,expect,it,vi} from 'vitest';
+const m=vi.hoisted(()=>({job:vi.fn(),history:vi.fn(),attempt:vi.fn(),attempts:vi.fn(),update:vi.fn(),publish:vi.fn(),duplicate:vi.fn()}));
+vi.mock('../../prisma/prisma.js',()=>({prisma:{verificationJob:{findFirst:m.job,findMany:m.history},verificationAttempt:{findUniqueOrThrow:m.attempt,findMany:m.attempts,updateMany:m.update}}}));
+vi.mock('./jobQueue.service.js',()=>({publishJobResult:m.publish,enqueueVerificationJob:vi.fn()}));
+vi.mock('./duplicate.service.js',()=>({duplicateCandidates:m.duplicate}));
+import {processVerificationJob} from './pipeline.service.js';
+import {photoEvaluatorVersion} from './clefPhoto.provider.js';
+import {SEQUENTIAL_WORKFLOW} from './sequentialPolicy.js';
+afterEach(()=>{vi.resetAllMocks();vi.unstubAllEnvs();});
+it('later pipeline stages reuse the one durable Clef photo result without another model call',async()=>{
+ vi.stubEnv('CLEF_MODEL','clef');vi.stubEnv('CLEF_CONFIDENCE_THRESHOLD','');vi.stubEnv('CLEF_SCREENING_CONFIDENCE_THRESHOLD','.9');
+ const assessment={privacy:{status:'SAFE'},coverage:{verdict:'MATCH',identityConsistent:true,privacyFlag:false},originality:{status:'DIRECT'},cleanliness:{result:{verdict:'CANNOT_ASSESS',surfaces:[{surface:'basin',verdict:'CANNOT_ASSESS'}],details:{assessmentStatus:'THRESHOLD_UNCONFIGURED'}},metadata:{provider:'cloudflare'}}};
+ const photo={evaluate:vi.fn().mockResolvedValue(assessment)},legacy={assess:vi.fn()},cleanliness={evaluate:vi.fn()},read=vi.fn().mockResolvedValue(Buffer.from('jpeg'));
+ const a={id:'a',sessionId:'s',media:{id:'p',companyId:1,deliveryType:'authenticated',sanitizedPublicId:'private',privacyState:'SAFE'},session:{taskInstanceId:9,contextStatus:'ACCEPTABLE',locationCheck:{captureWorkflow:SEQUENTIAL_WORKFLOW}},qualityResult:{acceptable:true},requirement:{viewKey:'basin_tap',item:{typeSnapshot:'SINK',rubricSnapshot:{}}},coverageResult:{result:assessment.coverage,duplicate:{exact:[]}},duplicateResult:{exact:[]}};
+ let cached:any;
+ m.job.mockImplementation(async(query:any)=>query.select?.result?{result:cached}:{id:'job'});m.history.mockResolvedValue([]);m.attempt.mockResolvedValue(a);m.attempts.mockResolvedValue([]);m.duplicate.mockResolvedValue({exact:[],near:[],candidates:[]});m.publish.mockImplementation(async(job:any,result:any)=>{if(job.stage==='PRIVACY')cached=result;return false;});
+ for(const stage of ['PRIVACY','COVERAGE','CLEANLINESS'])await processVerificationJob({id:stage,stage,companyId:1,attemptId:'a',attempts:1,evaluatorVersion:photoEvaluatorVersion()} as any,legacy as any,read,cleanliness as any,photo as any);
+ expect(photo.evaluate).toHaveBeenCalledTimes(1);expect(legacy.assess).not.toHaveBeenCalled();expect(cleanliness.evaluate).not.toHaveBeenCalled();expect(read).toHaveBeenCalledTimes(1);expect(cached.photoAssessment).toEqual(assessment);
+});
