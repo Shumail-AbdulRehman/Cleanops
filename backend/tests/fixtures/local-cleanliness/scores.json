@@ -1,0 +1,39 @@
+{
+  "sourceRoot": "/home/shumail/Documents/organized_dataset",
+  "modelVersion": "cleandirty-4cat-dinov2-f078b14e6204",
+  "scoringInput": "JPEG after backend upload sanitization",
+  "photos": [
+    {
+      "file": "sink-clean.jpg",
+      "sourcePath": "basin/clean/basin_clean_00020.jpg",
+      "fixtureType": "SINK",
+      "band": "CLEAN",
+      "pDirty": 0.05468157306313515,
+      "latencyMs": 1739
+    },
+    {
+      "file": "floor-dirty.jpg",
+      "sourcePath": "floor/dirty/floor_dirty_00044.jpg",
+      "fixtureType": "FLOOR",
+      "band": "DIRTY",
+      "pDirty": 0.9961915016174316,
+      "latencyMs": 2288
+    },
+    {
+      "file": "sink-review.jpg",
+      "sourcePath": "basin/needs_attention/basin_needs_attention_00004.jpg",
+      "fixtureType": "SINK",
+      "band": "REVIEW",
+      "pDirty": 0.3556112051010132,
+      "latencyMs": 1586
+    },
+    {
+      "file": "mirror.jpg",
+      "sourcePath": "mirror/clean/mirror_clean_00002.jpg",
+      "fixtureType": "MIRROR",
+      "band": "CLEAN",
+      "pDirty": 0.06214839965105057,
+      "latencyMs": 1500
+    }
+  ]
+}

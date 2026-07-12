@@ -1,0 +1,109 @@
+# Verification lifecycle validation — 2026-10-06
+
+Scope: completion.service.ts, exception.service.ts, deadline.service.ts,
+verificationException.route.ts, taskStatusCron.ts, additive lifecycle migration,
+the two new lifecycle test files, and the explicitly authorized schema relation
+and new 202610060002_verification_followup migration. Other agents' edits and existing dirty work
+were preserved. No production database or migration application was used.
+
+## Results
+
+- Backend `npm run build` (Prisma generation plus TypeScript compilation): PASS.
+- `vitest run src/services/verification-v2/completion.lifecycle.test.ts`: PASS,
+  3 tests (mandatory/optional view aggregation, rework/processing precedence,
+  manual states and empty snapshots).
+- `tsx tests/verification.lifecycle.integration.ts`: PASS against a fresh local
+  database with all migrations restored, including the transaction-wrapped
+  lifecycle migration. Database retained:
+  `priv_verification_test_lifecycle_1791288690161`.
+- Parent suite `tsx tests/verification.integration.ts`: PASS after the final
+  lifecycle migration and service edits. Database retained:
+  `priv_verification_test_1791288658272_3682`.
+
+Integration connections were explicitly restricted to localhost:55439 and the
+`priv_verification_test` database prefix. Each suite created a separate database;
+no supplied database was reset or dropped. External storage/providers are mocked
+by the parent suite; lifecycle fixtures exercise real PostgreSQL transactions.
+
+## Lifecycle coverage
+
+The lifecycle suite verifies concurrent finalization with one completion audit;
+item-state aggregation; preservation of accepted old-epoch evidence; active
+company checks and transactional suspension revocation; privacy holds surviving
+waivers; safe replacement acceptance and explicit privacy resolution without
+releasing the held original; evidence acceptance unable to override uncertain
+presence; context acceptance producing completion with exceptions; service
+acceptance plus separate resolution; duplicate waiver plus separate resolution;
+stale evidence requiring context override before resolution; maintenance changing
+inventory version and ALL/SUBSET template review state without satisfying a
+requirement; one bounded idempotent extension preserving shiftEnd; received jobs
+remaining eligible after upload cutoff; missing context causing one task case;
+received context awaiting AI avoiding missing-photo spam; optional privacy jobs
+blocking while optional cleanliness jobs do not; first-failure suppression;
+case deduplication; latest-generation context retakes; exhausted superseded
+jobs remaining historical without creating blocking cases; held optional/waived
+assets blocking even without issue rows; detail metadata/action bounds; foreign-task attempt cursor
+rejection; unread/read-receipt changes; and held-media IDs hidden in ordinary DTOs.
+
+The parent suite additionally verifies HTTP role/tenant boundaries, concurrent
+sessions/uploads/manifests, worker leases/retries, generation guards, final-result
+races, QR rotation during evaluation, reassignment while storage is in flight,
+stale results after retakes, third-failure escalation, maintenance semantics,
+snapshot constraints, legacy migration and retained-history behavior.
+
+## Review notes
+
+- `raiseIssue` can return null for a suppressed ordinary failure; callers that
+  consume the return value must handle this. Serious reasons return a case.
+- Manager actions accept optional `extensionMinutes`, bounded by the immutable
+  task policy and 120-minute ceiling beyond original shiftEnd. Existing session
+  capabilities are not prolonged; staff obtains fresh capture authority.
+- ACCEPT_CONTEXT is bound to the referenced evidence's session. A waiver or
+  ACCEPT_EVIDENCE does not supply that override. Previously accepted evidence
+  remains valid through handover; newly accepted revoked evidence requires
+  explicit context review.
+- PRIVACY_HOLD is independent of requirement fulfillment. Resolve never releases
+  original media; a different independently SAFE replacement can satisfy the
+  occurrence after explicit manager acceptance.
+- No agent-spawning tool was exposed in this delegated session. Work stayed in
+  the assigned disjoint scope while the parent and other agents continued.
+- Both PostgreSQL suites emitted the existing pg concurrency deprecation warning;
+  their assertions and process exit codes passed. Expected constraint-rejection
+  logs in the parent suite are negative-test assertions.
+- These checks do not establish physical-device reliability, provider accuracy,
+  held-out benchmark results, or production Cloudinary delivery behavior.
+
+## Completed-task follow-up resolution
+
+Added nullable VerificationDecision.followUpTaskInstanceId with a restrictive FK,
+reverse TaskInstance relation and index, using only the NEW transaction-wrapped
+202610060002_verification_followup migration. Earlier migrations were not edited
+during this follow-up change. The new migration replaces only the decision binding
+trigger; ordinary evidence/issue/actor binding and immutable history remain guarded.
+
+Completed inventory tasks permit only RESOLVE_ISSUE with a durable pointer to a
+different completed inventory task in the same company, location and area. The
+follow-up must start after the concern; accepted replacement capture and receipt
+must also follow issue.firstSeenAt. Affected fixture/view requirements must be
+PASSED or MANAGER_ACCEPTED with SAFE received evidence, never WAIVED. Task-wide
+concerns require SAFE accepted context from a session contributing non-waived
+mandatory evidence to follow-up completion. Matching source media, SHA-256 or
+normalized hashes are rejected; pending replacement safety checks block resolution.
+These bindings, scope, recency and evidence conditions are checked at the service
+and database boundaries.
+
+The immutable decision stores the pointer and selected evidence; event/audit and
+case state change atomically with durable request idempotency. Original task,
+requirements, assignments and completion fields are untouched, and original HOLD
+media remains HOLD. Completed-case detail DTOs advertise RESOLVE_ISSUE only with
+requiresFollowUp=true. No inbox UI was changed.
+
+Fresh PostgreSQL tests verify safe manager-accepted fixture replacement, contributing
+context replacement, scope/area/foreign-tenant rejection, older and incomplete task
+rejection, waived/held/wrong-view replacement rejection, SHA/normalized replay
+rejection, direct database binding failures, immutable original task/requirements/
+assignments, single event/audit, idempotent replay and changed-body conflict.
+The final lifecycle suite also verifies the parent's exhausted CLEANLINESS-job
+finalization fix: safe evidence manually accepted while its job is RUNNING stays
+IN_PROGRESS; exhaustion produces COMPLETED_WITH_EXCEPTIONS exactly once, with
+no spurious SERVICE_FAILURE issue. Queue and main integration files were not edited.

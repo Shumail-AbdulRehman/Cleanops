@@ -1,0 +1,61 @@
+import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import { assertIsolatedMediaDatabase } from '../src/services/attendanceMediaTransition.service.js';
+const url = process.env.ACCOUNT_CAPACITY_TEST_DATABASE_URL;
+assertIsolatedMediaDatabase(url, process.env.NODE_ENV); process.env.DATABASE_URL = url;
+process.env.PADDLE_ENVIRONMENT = 'sandbox';
+process.env.PADDLE_PRICE_CATALOG_JSON = JSON.stringify([{ plan: 'STARTER', interval: 'month', priceId: 'pri_00000000000000000000000001' }]);
+const { prisma } = await import('../src/prisma/prisma.js');
+const { registerCompany } = await import('../src/services/companyRegistration.service.js');
+const { withAccountCapacity, assertAccountAction, assertAccountCompletion, recordWorkEntitlement } = await import('../src/services/accountAccess.service.js');
+const suffix = randomUUID(), now = new Date(), end = new Date(+now + 3600000), start = new Date(+now - 3600000);
+try {
+    const owner = await registerCompany({ name: 'Synthetic capacity owner', companyName: 'Synthetic capacity fixture', email: `${suffix}-owner@example.invalid`, password: 'synthetic-owner-password' });
+    const customerId = `ctm_fixture_${suffix}`, subscriptionId = `sub_fixture_${suffix}`;
+    await prisma.paddleCustomer.create({ data: { id: customerId, companyId: owner.companyId, status: 'active', paddleUpdatedAt: now, lastEventAt: now } });
+    await prisma.paddleSubscription.create({ data: { id: subscriptionId, customerId, companyId: owner.companyId, status: 'active', priceId: 'pri_00000000000000000000000001', productId: 'pro_isolated_fixture', currentBillingPeriodStart: start, currentBillingPeriodEnd: end, paddleUpdatedAt: now, lastEventAt: now } });
+    await prisma.company.update({ where: { id: owner.companyId }, data: { billingCustomerId: customerId, billingSubscriptionId: subscriptionId, subscriptionStatus: 'ACTIVE' } });
+    const location = await prisma.location.create({ data: { name: 'Synthetic quota site', address: 'Isolated fixture', latitude: '31', longitude: '74', companyId: owner.companyId } });
+    const workerData = (name: string) => ({ name, email: `${suffix}-${name}@example.invalid`, password: 'synthetic-worker-password', companyId: owner.companyId, locationId: location.id });
+    const worker = await prisma.staff.create({ data: workerData('first') });
+    await prisma.staff.create({ data: workerData('second') });
+    const race = await Promise.allSettled(['third', 'fourth'].map(name => withAccountCapacity(owner, 'staff', tx => tx.staff.create({ data: workerData(name) }), prisma, now)));
+    assert.equal(race.filter(result => result.status === 'fulfilled').length, 1);
+    assert.equal(race.filter(result => result.status === 'rejected').length, 1);
+    assert.equal(await prisma.staff.count({ where: { companyId: owner.companyId, isActive: true } }), 3);
+    process.env.PADDLE_PRICE_CATALOG_JSON = JSON.stringify([{ plan: 'PRO', interval: 'month', priceId: 'pri_00000000000000000000000001' }]);
+    await prisma.company.update({ where: { id: owner.companyId }, data: { plan: 'PRO' } });
+    await assert.rejects(withAccountCapacity(owner, 'locations', async tx => {
+        await tx.location.createMany({ data: Array.from({ length: 5 }, (_, n) => ({ name: `Synthetic excess ${n}`, address: 'Fixture', latitude: '31', longitude: '74', companyId: owner.companyId })) });
+    }, prisma, now), error => (error as { statusCode?: number }).statusCode === 403);
+    assert.equal(await prisma.location.count({ where: { companyId: owner.companyId } }), 1, 'oversized creator rolls back');
+    const actor = { id: worker.id, companyId: owner.companyId, role: 'STAFF' as const };
+    const task = await prisma.$transaction(async tx => {
+        const task = await tx.taskInstance.create({ data: { title: 'Synthetic entitled task', staffId: worker.id, locationId: location.id, date: now, shiftStart: start, shiftEnd: end, status: 'IN_PROGRESS', startedAt: now } });
+        await tx.$queryRaw`SELECT id FROM "TaskInstance" WHERE id=${task.id} FOR UPDATE`;
+        await recordWorkEntitlement(actor, { kind: 'task', id: task.id }, tx, now);
+        return task;
+    });
+    const legacy = await prisma.taskInstance.create({ data: { title: 'Synthetic unproven legacy task', staffId: worker.id, locationId: location.id, date: now, shiftStart: start, shiftEnd: end, status: 'IN_PROGRESS', startedAt: now } });
+    const expiredAt = new Date(+end + 1);
+    await assert.rejects(assertAccountAction(actor, 'START_WORK', prisma, expiredAt));
+    await assertAccountAction(actor, 'READ_OPERATIONAL', prisma, expiredAt);
+    await assertAccountCompletion(actor, { kind: 'task', id: task.id }, prisma, expiredAt);
+    await assert.rejects(assertAccountCompletion(actor, { kind: 'task', id: legacy.id }, prisma, expiredAt));
+    // A downgraded plan preserves active workforce and assigned-manager reads.
+    const manager = await prisma.manager.create({ data: { name: 'Synthetic existing manager', email: `${suffix}-manager@example.invalid`, password: 'synthetic-manager-password', companyId: owner.companyId, role: 'MANAGER' } });
+    await prisma.managerLocation.create({ data: { managerId: manager.id, locationId: location.id } });
+    process.env.PADDLE_PRICE_CATALOG_JSON = JSON.stringify([{ plan: 'STARTER', interval: 'month', priceId: 'pri_00000000000000000000000001' }]);
+    await prisma.company.update({ where: { id: owner.companyId }, data: { plan: 'STARTER' } });
+    await assertAccountAction({ id: manager.id, companyId: owner.companyId, role: 'MANAGER' }, 'READ_OPERATIONAL', prisma, now);
+    await assert.rejects(withAccountCapacity(owner, 'managers', async () => { throw new Error('must not create'); }, prisma, now));
+    assert.equal(await prisma.staff.count({ where: { companyId: owner.companyId, isActive: true } }), 3);
+    assert.equal(await prisma.managerLocation.count({ where: { managerId: manager.id } }), 1);
+    await prisma.company.update({ where: { id: owner.companyId }, data: { operationalStatus: 'SUSPENDED', isActive: false } });
+    await assert.rejects(assertAccountCompletion(actor, { kind: 'task', id: task.id }, prisma, now));
+    await assert.rejects(assertAccountAction(owner, 'READ_OPERATIONAL', prisma, now));
+    await assertAccountAction(owner, 'OWNER_BILLING', prisma, now);
+    await assertAccountAction(actor, 'OWN_SECURITY', prisma, now);
+    assert.deepEqual(await prisma.taskInstance.findUniqueOrThrow({ where: { id: task.id } }), task);
+    console.log('PASS isolated account policy: concurrent quota one winner; oversized mutation rollback; provider-expiry restriction; persisted start entitlement; legacy proof denied; downgrade history/manager access preserved; suspension and own-security/billing boundaries. No provider or production mutations.');
+} finally { await prisma.$disconnect(); }
