@@ -1,0 +1,232 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/manrope";
+@import "@fontsource-variable/geist-mono";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: "Manrope Variable", sans-serif;
+  --font-sans: "Inter Variable", sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+
+  /* Shared Hygene Ops palette */
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-line: var(--line);
+  --color-status-pending: var(--status-pending);
+  --color-status-progress: var(--status-progress);
+  --color-status-complete: var(--status-complete);
+  --color-status-missed: var(--status-missed);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-status-missed-bg: var(--status-missed-bg);
+  --color-status-progress-bg: var(--status-progress-bg);
+  --color-status-pending-bg: var(--status-pending-bg);
+  --color-status-completed-bg: var(--status-completed-bg);
+  --color-status-completed: var(--status-completed);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Shared Hygene Ops palette */
+  --surface: #f6f8fc;
+  --ink: #21334b;
+  --line: #e6eaf0;
+  --primary: #4264d9;
+  --status-pending: #88681b; /* darkened from the spec's #B08D2E to meet WCAG AA (4.76:1) on --surface */
+  --status-progress: #2e6bb0;
+  --status-complete: #2e7d4f;
+  --status-missed: #b0402e;
+
+  /* Component colors */
+  --background: var(--surface);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary-foreground: #ffffff;
+  --secondary: color-mix(in oklab, var(--ink) 5%, var(--surface));
+  --secondary-foreground: var(--ink);
+  --muted: color-mix(in oklab, var(--ink) 4%, var(--surface));
+  --muted-foreground: #657286;
+  --accent: color-mix(in oklab, var(--primary) 8%, var(--surface));
+  --accent-foreground: var(--ink);
+  --destructive: var(--status-missed);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--primary);
+
+  /* Status backgrounds for legacy compatibility (never used as large fills) */
+  --status-pending-bg: color-mix(
+    in oklab,
+    var(--status-pending) 10%,
+    var(--surface)
+  );
+  --status-progress-bg: color-mix(
+    in oklab,
+    var(--status-progress) 10%,
+    var(--surface)
+  );
+  --status-completed-bg: color-mix(
+    in oklab,
+    var(--status-complete) 10%,
+    var(--surface)
+  );
+  --status-missed-bg: color-mix(
+    in oklab,
+    var(--status-missed) 10%,
+    var(--surface)
+  );
+  --status-completed: var(--status-complete);
+
+  --radius: 0.625rem;
+
+  --chart-1: var(--primary);
+  --chart-2: var(--status-progress);
+  --chart-3: var(--status-pending);
+  --chart-4: var(--status-complete);
+  --chart-5: var(--status-missed);
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--surface);
+  --sidebar-accent: color-mix(in oklab, var(--ink) 4%, var(--surface));
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--primary);
+}
+
+.dark {
+  --background: color-mix(in oklab, var(--ink) 96%, var(--surface));
+  --foreground: var(--surface);
+  --card: color-mix(in oklab, var(--ink) 92%, var(--surface));
+  --card-foreground: var(--surface);
+  --popover: color-mix(in oklab, var(--ink) 92%, var(--surface));
+  --popover-foreground: var(--surface);
+  --primary: oklch(0.65 0.13 190);
+  --primary-foreground: var(--ink);
+  --secondary: color-mix(in oklab, var(--surface) 10%, var(--ink));
+  --secondary-foreground: var(--surface);
+  --muted: color-mix(in oklab, var(--surface) 12%, var(--ink));
+  --muted-foreground: color-mix(in oklab, var(--surface) 60%, transparent);
+  --accent: color-mix(in oklab, var(--primary) 16%, var(--ink));
+  --accent-foreground: var(--surface);
+  --destructive: var(--status-missed);
+  --border: color-mix(in oklab, var(--surface) 16%, var(--ink));
+  --input: color-mix(in oklab, var(--surface) 16%, var(--ink));
+  --ring: var(--primary);
+  --chart-1: var(--primary);
+  --chart-2: var(--status-progress);
+  --chart-3: var(--status-pending);
+  --chart-4: var(--status-complete);
+  --chart-5: var(--status-missed);
+  --sidebar: color-mix(in oklab, var(--ink) 92%, var(--surface));
+  --sidebar-foreground: var(--surface);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--ink);
+  --sidebar-accent: color-mix(in oklab, var(--surface) 12%, var(--ink));
+  --sidebar-accent-foreground: var(--surface);
+  --sidebar-border: color-mix(in oklab, var(--surface) 14%, var(--ink));
+  --sidebar-ring: var(--primary);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-color: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+  #root {
+    min-height: 100vh;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .cursor-blink {
+    animation: cursor-blink 1s step-end infinite;
+  }
+  @keyframes cursor-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

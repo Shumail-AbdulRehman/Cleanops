@@ -1,0 +1,160 @@
+/* Approved values: specs-workspace-redesign/DESIGN-SYSTEM.md.
+   Deliberately not imported until spec 10. Legacy theme variables stay intact. */
+.workspace {
+  /* Colour */
+  --wx-ink: #172033;
+  --wx-muted: #566379;
+  --wx-faint: #7a879b;
+  --wx-line: #e3e8f0;
+  --wx-line-strong: #cfd7e4;
+  --wx-canvas: #f5f7fb;
+  --wx-surface: #ffffff;
+  --wx-soft: #f8fafc;
+  --wx-navy: #111c36;
+  --wx-navy-2: #1b2848;
+  --wx-navy-line: #2b3958;
+  --wx-navy-text: #c8d2e5;
+  --wx-rail: #eef2fb;
+  --wx-rail-hover: #e1e8f6;
+  --wx-rail-line: #d9e1f0;
+  --wx-rail-text: #3d4a60;
+  --wx-blue: #2556d8;
+  --wx-blue-press: #1d42b1;
+  --wx-blue-wash: #eef3ff;
+  --wx-blue-line: #c9d8fb;
+  --wx-blue-mid: #5f8bea;
+  --wx-neutral-seg: #c3ccda;
+  --wx-yellow: #ffd21f;
+  --wx-yellow-hover: #ffdc4d;
+  --wx-yellow-wash: #fff7d6;
+  --wx-yellow-line: #f1dc8a;
+  --wx-ok: #16613d;
+  --wx-ok-wash: #e6f5ec;
+  --wx-warn: #7b4200;
+  --wx-warn-wash: #fff4e0;
+  --wx-bad: #a32128;
+  --wx-bad-wash: #fff0ef;
+  --wx-bar-track: #e8ecf3;
+
+  /* Avatar background / foreground pairs, ordered for the shared colour helper. */
+  --wx-tint-0-bg: #dfe8fc;
+  --wx-tint-0-fg: #5a82df;
+  --wx-tint-1-bg: #d8efed;
+  --wx-tint-1-fg: #3a958f;
+  --wx-tint-2-bg: #e9e4fb;
+  --wx-tint-2-fg: #8169d2;
+  --wx-tint-3-bg: #d9edf9;
+  --wx-tint-3-fg: #3a8bbb;
+  --wx-tint-4-bg: #e2e3fb;
+  --wx-tint-4-fg: #676bd6;
+  --wx-tint-5-bg: #e3e8f0;
+  --wx-tint-5-fg: #71819b;
+
+  /* Typography. Fonts are already loaded by the app; do not import them here. */
+  --wx-font-body: "Inter Variable", sans-serif;
+  --wx-font-heading: "Manrope Variable", sans-serif;
+  --wx-font-urdu: "Noto Sans Arabic", Tahoma, sans-serif;
+  --wx-numerals: tabular-nums;
+  --wx-page-title-size: 28px;
+  --wx-page-title-leading: 1.15;
+  --wx-page-title-weight: 800;
+  --wx-page-title-tracking: -0.03em;
+  --wx-subtitle-size: 15px;
+  --wx-subtitle-weight: 400;
+  --wx-panel-title-size: 17px;
+  --wx-panel-title-leading: 1.3;
+  --wx-panel-title-weight: 750;
+  --wx-figure-size-min: 32px;
+  --wx-figure-size-max: 34px;
+  --wx-figure-leading: 1.1;
+  --wx-figure-weight: 800;
+  --wx-body-size: 14.5px;
+  --wx-body-leading: 1.5;
+  --wx-body-weight: 400;
+  --wx-label-size: 14px;
+  --wx-label-weight: 600;
+  --wx-small-size-min: 12.5px;
+  --wx-small-size-max: 13.5px;
+  --wx-small-weight-min: 400;
+  --wx-small-weight-max: 600;
+  --wx-nav-heading-size: 14px;
+  --wx-nav-heading-size-compact: 13px;
+  --wx-nav-heading-weight: 700;
+  --wx-nav-link-size: 15.5px;
+  --wx-nav-link-size-compact: 14.5px;
+
+  /* Radii, spacing and layout. Block / inline names support either direction. */
+  --wx-radius-sm: 6px;
+  --wx-radius-md: 8px;
+  --wx-radius-lg: 12px;
+  --wx-radius-pill: 999px;
+  --wx-page-padding-block: 28px;
+  --wx-page-padding-inline: 32px;
+  --wx-page-padding-block-phone: 20px;
+  --wx-page-padding-inline-phone: 16px;
+  --wx-page-max-width: 1400px;
+  --wx-rail-width: 256px;
+  --wx-panel-padding-block: 20px;
+  --wx-panel-padding-inline: 22px;
+  --wx-panel-gap: 16px;
+  --wx-panel-border-width: 1px;
+  --wx-panel-shadow: none;
+
+  /* Documented component dimensions; component rules belong to later specs. */
+  --wx-button-height: 40px;
+  --wx-touch-target-min: 40px;
+  --wx-pill-size: 12.5px;
+  --wx-pill-weight: 600;
+  --wx-table-header-size: 12.5px;
+  --wx-table-cell-padding: 13px;
+  --wx-nav-link-height: 47px;
+  --wx-nav-link-height-compact: 40px;
+  --wx-nav-icon-size: 20px;
+  --wx-nav-icon-size-compact: 18px;
+  --wx-nav-link-gap: 2px;
+  --wx-tab-underline-width: 2px;
+  --wx-chip-height: 34px;
+  --wx-segment-inset: 3px;
+  --wx-side-panel-width: 440px;
+  --wx-side-panel-width-wide: 560px;
+  --wx-field-height: 42px;
+  --wx-avatar-size: 36px;
+  --wx-avatar-size-sm: 26px;
+  --wx-avatar-size-lg: 64px;
+  --wx-site-avatar-radius: 10px;
+
+  /* Motion. Consumers apply the documented reduced-motion behaviour locally. */
+  --wx-press-scale: 0.97;
+  --wx-duration-press: 120ms;
+  --wx-duration-panel: 280ms;
+  --wx-duration-panel-reduced: 120ms;
+  --wx-duration-scrim: 200ms;
+  --wx-duration-inline-panel: 180ms;
+  --wx-duration-tooltip: 80ms;
+  --wx-duration-phone-rail: 220ms;
+  --wx-duration-feedback: 150ms;
+  --wx-duration-none: 0ms;
+  --wx-ease-out: cubic-bezier(.23, 1, .32, 1);
+  --wx-ease-panel: cubic-bezier(.32, .72, 0, 1);
+  --wx-ease-feedback: ease;
+  --wx-ease-tooltip: linear;
+}
+
+.workspace .wx-page-title {
+  font-family: var(--wx-font-heading);
+  font-size: var(--wx-page-title-size);
+  font-weight: var(--wx-page-title-weight);
+  line-height: var(--wx-page-title-leading);
+  letter-spacing: var(--wx-page-title-tracking);
+  font-variant-numeric: var(--wx-numerals);
+}
+
+.workspace .wx-page-title:lang(ur) {
+  font-family: var(--wx-font-urdu);
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.workspace .wx-tabular-nums {
+  font-variant-numeric: var(--wx-numerals);
+}
