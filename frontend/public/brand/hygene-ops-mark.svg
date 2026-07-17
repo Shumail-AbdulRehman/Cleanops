@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="box" gradientUnits="userSpaceOnUse" x1="3" y1="9" x2="39" y2="45">
+      <stop offset="0" stop-color="#1A3BA3"/><stop offset=".6" stop-color="#2556D8"/><stop offset="1" stop-color="#2F8FE0"/>
+    </linearGradient>
+    <linearGradient id="tip" gradientUnits="userSpaceOnUse" x1="34" y1="20" x2="44" y2="6">
+      <stop offset="0" stop-color="#2F8FE0"/><stop offset="1" stop-color="#19C2C9"/>
+    </linearGradient>
+    <clipPath id="inside"><rect x="3" y="9" width="36" height="36" rx="10"/></clipPath>
+  </defs>
+  <rect x="3" y="9" width="36" height="36" rx="10" fill="url(#box)"/>
+  <path d="M12.5 27.5l7.500 7.500L44 6" stroke="url(#tip)" stroke-width="6.400" stroke-linecap="round" stroke-linejoin="round"/>
+  <path clip-path="url(#inside)" d="M12.5 27.5l7.500 7.500L44 6" stroke="#FFFFFF" stroke-width="6.400" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

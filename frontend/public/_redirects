@@ -1,0 +1,5 @@
+# Browser API requests stay same-origin; upstream paths retain the /api prefix.
+/api/* https://cleanops-2f9dbc8f50cd.herokuapp.com/api/:splat 200
+# Existing files are served normally; missing build assets must not become HTML.
+/assets/* /asset-not-found.txt 404
+/* /index.html 200
