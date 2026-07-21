@@ -1,0 +1,32 @@
+.hygene-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.hygene-mark {
+  display: block;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+.hygene-wordmark {
+  font-family: var(--font-heading, 'Manrope Variable', sans-serif);
+  font-size: 23px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.9px;
+  color: #21334b;
+}
+.hygene-wordmark > span { color: #4264d9; font-weight: 600; }
+.workspace-brand .hygene-mark { width: 32px; height: 32px; }
+.workspace-brand .hygene-wordmark { font-size: 21px; }
+.preview-brand .hygene-logo { gap: 7px; }
+.preview-brand .hygene-mark { width: 25px; height: 25px; }
+.preview-brand .hygene-wordmark { font-size: 15px; letter-spacing: -0.5px; }
+@media (max-width: 480px) {
+  .marketing-brand .hygene-mark { width: 32px; height: 32px; }
+  .marketing-brand .hygene-wordmark { font-size: 21px; }
+}
