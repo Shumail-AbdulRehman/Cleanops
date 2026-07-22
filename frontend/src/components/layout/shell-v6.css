@@ -1,0 +1,266 @@
+/* Spec 10 shell only. Page content retains its existing styles until adoption. */
+.workspace.wx-shell {
+  background: var(--wx-canvas);
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals);
+}
+.workspace.wx-shell-portal { display: contents; }
+.workspace .wx-shell-rail {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  inline-size: var(--wx-rail-width);
+  block-size: 100dvh;
+  padding: 22px 14px 12px;
+  border-inline-end: 1px solid var(--wx-rail-line);
+  background: var(--wx-rail);
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals);
+  line-height: var(--wx-body-leading);
+}
+.workspace .wx-shell-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-block-size: var(--wx-touch-target-min);
+  margin-inline: 8px;
+  margin-block-end: 16px;
+  border-radius: var(--wx-radius-sm);
+}
+.workspace .wx-shell-brand .hygene-mark { inline-size: 30px; block-size: 30px; }
+.workspace .wx-shell-brand .hygene-wordmark {
+  font-family: var(--wx-font-heading);
+  font-size: 20px;
+  color: var(--wx-ink);
+}
+.workspace .wx-shell-brand .hygene-wordmark > span { color: var(--wx-blue); }
+.workspace .wx-shell-company {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 10px;
+  margin-block-end: 18px;
+  border: 1px solid var(--wx-blue-line);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+}
+.workspace .wx-shell-monogram {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: 34px;
+  block-size: 34px;
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-blue-wash);
+  color: var(--wx-blue-press);
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+}
+.workspace :is(.wx-shell-company-copy, .wx-shell-account-copy) { min-inline-size: 0; flex: 1; }
+.workspace :is(.wx-shell-company-copy, .wx-shell-account-copy) strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+}
+.workspace :is(.wx-shell-company-copy, .wx-shell-account-copy) small {
+  display: block;
+  margin-block-start: 2px;
+  overflow-wrap: anywhere;
+  color: var(--wx-muted);
+  font-size: var(--wx-small-size-min);
+}
+.workspace .wx-shell-skeleton {
+  display: block;
+  inline-size: 100%;
+  block-size: 13px;
+  border-radius: var(--wx-radius-sm);
+  background: var(--wx-bar-track);
+}
+.workspace .wx-shell-skeleton-short { inline-size: 55%; block-size: 10px; margin-block-start: 8px; }
+.workspace .wx-shell-company-error { color: var(--wx-bad); font-size: var(--wx-small-size-min); overflow-wrap: anywhere; }
+.workspace .wx-shell-company-error button {
+  display: block;
+  min-block-size: var(--wx-touch-target-min);
+  min-inline-size: var(--wx-touch-target-min);
+  padding-inline: 6px;
+  border-radius: var(--wx-radius-sm);
+  color: var(--wx-blue-press);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.workspace .wx-shell-company-error button:hover { background: var(--wx-blue-wash); }
+.workspace .wx-shell-navigation {
+  flex: 1;
+  min-block-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--wx-line-strong) var(--wx-rail);
+  padding: 2px;
+  margin-inline: -2px;
+}
+.workspace .wx-shell-group { margin-block-end: 28px; }
+.workspace .wx-shell-group:last-child { margin-block-end: 8px; }
+.workspace .wx-shell-group-title {
+  padding-inline: 10px;
+  margin-block-end: 8px;
+  color: var(--wx-ink);
+  font-size: var(--wx-nav-heading-size);
+  font-weight: var(--wx-nav-heading-weight);
+}
+.workspace .wx-shell-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-block-size: var(--wx-nav-link-height);
+  margin-block-start: var(--wx-nav-link-gap);
+  padding: 8px 10px;
+  border-radius: var(--wx-radius-md);
+  color: var(--wx-rail-text);
+  font-size: var(--wx-nav-link-size);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--wx-duration-feedback) var(--wx-ease-feedback), color var(--wx-duration-feedback) var(--wx-ease-feedback);
+}
+.workspace .wx-shell-link > svg { inline-size: var(--wx-nav-icon-size); block-size: var(--wx-nav-icon-size); flex-shrink: 0; }
+.workspace .wx-shell-link > span:first-of-type { min-inline-size: 0; overflow-wrap: anywhere; }
+.workspace .wx-shell-link:hover { background: var(--wx-rail-hover); color: var(--wx-ink); }
+.workspace .wx-shell-link-current { background: var(--wx-surface); color: var(--wx-ink); font-weight: var(--wx-label-weight); }
+.workspace .wx-shell-link-current > svg { color: var(--wx-blue); }
+.workspace .wx-shell-review-count {
+  margin-inline-start: auto;
+  padding: 1px 6px;
+  border-radius: var(--wx-radius-pill);
+  background: var(--wx-yellow);
+  color: var(--wx-ink);
+  font-size: var(--wx-pill-size);
+  font-weight: var(--wx-pill-weight);
+  white-space: nowrap;
+}
+.workspace .wx-shell-account {
+  flex-shrink: 0;
+  padding-block-start: 12px;
+  margin-block-start: 8px;
+  border-block-start: 1px solid var(--wx-rail-line);
+}
+.workspace .wx-shell-account-row { display: flex; gap: 10px; align-items: center; }
+.workspace .wx-shell-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-inline-size: var(--wx-touch-target-min);
+  min-block-size: var(--wx-touch-target-min);
+  padding: 8px;
+  border: 0;
+  border-radius: var(--wx-radius-md);
+  background: transparent;
+  color: var(--wx-rail-text);
+  cursor: pointer;
+  transition: background var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-out);
+}
+.workspace .wx-shell-icon-button svg { inline-size: 18px; block-size: 18px; }
+.workspace .wx-shell-icon-button:hover { background: var(--wx-rail-hover); color: var(--wx-ink); }
+.workspace .wx-shell-signout-error { margin-block-start: 8px; color: var(--wx-bad); font-size: var(--wx-small-size-min); }
+.workspace .wx-shell-main { min-inline-size: 0; padding-inline-start: var(--wx-rail-width); }
+.workspace .wx-shell-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  min-block-size: 72px;
+  padding: 10px var(--wx-page-padding-inline);
+  border-block-end: 1px solid var(--wx-line);
+  background: var(--wx-canvas);
+}
+.workspace :is(.wx-shell-leading, .wx-shell-tools, .wx-shell-breadcrumb) { display: flex; align-items: center; min-inline-size: 0; }
+.workspace .wx-shell-leading { gap: 8px; }
+.workspace .wx-shell-breadcrumb { flex-wrap: wrap; gap: 8px; font-size: var(--wx-label-size); font-weight: var(--wx-label-weight); }
+.workspace .wx-shell-breadcrumb a { border-radius: var(--wx-radius-sm); text-underline-offset: 4px; overflow-wrap: anywhere; }
+.workspace .wx-shell-breadcrumb a:hover { color: var(--wx-blue-press); text-decoration: underline; }
+.workspace .wx-shell-breadcrumb [aria-current="page"] { color: var(--wx-ink); }
+.workspace .wx-shell-breadcrumb > span { color: var(--wx-muted); }
+.workspace .wx-shell-tools { gap: 16px; margin-inline-start: auto; flex-wrap: wrap; justify-content: flex-end; }
+.workspace .wx-shell-date { color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-shell-topbar .language-choice { display: flex; flex-shrink: 0; gap: 2px; padding: 3px; border: 1px solid var(--wx-line); border-radius: var(--wx-radius-md); background: var(--wx-surface); }
+.workspace .wx-shell-topbar .language-choice > svg { display: none; }
+.workspace .wx-shell-topbar .language-choice button {
+  min-block-size: 44px;
+  padding: 6px 10px;
+  border-radius: var(--wx-radius-sm);
+  color: var(--wx-muted);
+  font-size: var(--wx-small-size-min);
+  font-weight: var(--wx-label-weight);
+  box-shadow: none;
+  cursor: pointer;
+  transition: color var(--wx-duration-feedback) var(--wx-ease-feedback), background var(--wx-duration-feedback) var(--wx-ease-feedback);
+}
+.workspace .wx-shell-topbar .language-choice button:hover { background: var(--wx-soft); color: var(--wx-ink); }
+.workspace .wx-shell-topbar .language-choice button[aria-pressed="true"] { background: var(--wx-ink); color: var(--wx-surface); box-shadow: none; }
+.workspace .wx-shell-menu-trigger.workspace-menu-trigger { display: none; }
+.workspace .wx-shell-content {
+  inline-size: 100%;
+  max-inline-size: var(--wx-page-max-width);
+  padding: var(--wx-page-padding-block) var(--wx-page-padding-inline);
+}
+.workspace :is(.wx-shell-link, .wx-shell-icon-button, .wx-shell-company-error button, .wx-shell-menu-trigger, .wx-shell-topbar .language-choice button):active:not(:disabled) { transform: scale(var(--wx-press-scale)); }
+.workspace :is(.wx-shell-icon-button, .wx-shell-company-error button):disabled { opacity: .55; cursor: wait; transform: none; }
+.workspace :is(.wx-shell-rail, .wx-shell-topbar) :focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.workspace.wx-shell .workspace-skip { background: var(--wx-surface); color: var(--wx-blue-press); border-radius: var(--wx-radius-sm); }
+.workspace.wx-shell .workspace-skip:focus-visible { outline: 2px solid var(--wx-blue); }
+.workspace .wx-shell-scrim { position: fixed; inset: 0; z-index: 50; background: var(--wx-ink); opacity: .25; }
+.workspace .wx-shell-drawer { z-index: 51; inline-size: min(320px, 88vw); padding-block-start: 56px; outline: none; }
+.workspace .wx-shell-close { position: absolute; inset-block-start: 8px; inset-inline-end: 8px; }
+.workspace .wx-shell-drawer[data-state="open"] { animation: wx-shell-enter var(--wx-duration-phone-rail) var(--wx-ease-panel); }
+.workspace .wx-shell-drawer[data-state="closed"] { animation: wx-shell-exit var(--wx-duration-phone-rail) var(--wx-ease-panel); }
+.workspace .wx-shell-drawer .wx-shell-link { min-block-size: 48px; }
+@keyframes wx-shell-enter { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes wx-shell-exit { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes wx-shell-enter-rtl { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes wx-shell-exit-rtl { from { transform: translateX(0); } to { transform: translateX(100%); } }
+.workspace[dir="rtl"] .wx-shell-drawer[data-state="open"] { animation-name: wx-shell-enter-rtl; }
+.workspace[dir="rtl"] .wx-shell-drawer[data-state="closed"] { animation-name: wx-shell-exit-rtl; }
+[dir="rtl"] .wx-shell-directional { transform: scaleX(-1); }
+.workspace.wx-shell:lang(ur), .workspace:lang(ur) .wx-shell-rail { font-family: var(--wx-font-urdu); line-height: 1.85; }
+@media (max-height: 840px) {
+  .workspace .wx-shell-rail { padding-block-start: 14px; }
+  .workspace .wx-shell-brand { margin-block-end: 10px; }
+  .workspace .wx-shell-company { margin-block-end: 14px; }
+  .workspace .wx-shell-group { margin-block-end: 18px; }
+  .workspace .wx-shell-group-title { font-size: var(--wx-nav-heading-size-compact); margin-block-end: 4px; }
+  .workspace .wx-shell-link { min-block-size: var(--wx-nav-link-height-compact); font-size: var(--wx-nav-link-size-compact); }
+  .workspace .wx-shell-link > svg { inline-size: var(--wx-nav-icon-size-compact); block-size: var(--wx-nav-icon-size-compact); }
+  .workspace .wx-shell-drawer { padding-block-start: 56px; }
+}
+@media (width < 860px) {
+  .workspace .wx-shell-desktop { display: none; }
+  .workspace .wx-shell-main { padding-inline-start: 0; }
+  .workspace .wx-shell-menu-trigger.workspace-menu-trigger { display: inline-flex; min-inline-size: 48px; min-block-size: 48px; background: transparent; color: var(--wx-ink); }
+  .workspace .wx-shell-menu-trigger:hover { background: var(--wx-rail-hover); }
+  .workspace .wx-shell-content { padding: var(--wx-page-padding-block-phone) var(--wx-page-padding-inline-phone); }
+  .workspace .wx-shell-topbar { padding-inline: var(--wx-page-padding-inline-phone); }
+}
+@media (max-width: 619px) {
+  .workspace .wx-shell-topbar { gap: 6px 12px; }
+  .workspace .wx-shell-leading { flex: 1; }
+  .workspace .wx-shell-tools { display: contents; }
+  .workspace .wx-shell-date { order: 3; flex-basis: 100%; text-align: end; }
+  .workspace .wx-shell-topbar .language-choice button { min-block-size: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace[dir] .wx-shell-drawer[data-state],
+  .workspace .wx-shell-scrim { animation: none; }
+  .workspace :is(.wx-shell-link, .wx-shell-icon-button, .wx-shell-company-error button, .wx-shell-menu-trigger, .wx-shell-topbar .language-choice button):active:not(:disabled) { transform: none; }
+}
+@media print {
+  .workspace :is(.wx-shell-rail, .wx-shell-topbar) { display: none; }
+  .workspace .wx-shell-main { padding-inline-start: 0; }
+}
