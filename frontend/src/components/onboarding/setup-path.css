@@ -1,0 +1,103 @@
+.workspace .wx-setup-path {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-size: var(--wx-body-size);
+  line-height: var(--wx-body-leading);
+  font-variant-numeric: var(--wx-numerals);
+}
+
+.workspace .wx-setup-path__step {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) minmax(0, auto);
+  align-items: start;
+  gap: 14px;
+  min-inline-size: 0;
+  padding-block: var(--wx-panel-padding-block);
+  border-block-end: 1px solid var(--wx-line);
+}
+
+.workspace .wx-setup-path__step:last-child { border-block-end: 0; }
+.workspace .wx-setup-path__step--next { background: var(--wx-blue-wash); }
+.workspace .wx-setup-path__box {
+  display: grid;
+  place-items: center;
+  inline-size: 30px;
+  block-size: 30px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  color: var(--wx-muted);
+  background: var(--wx-surface);
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+}
+
+.workspace .wx-setup-path__step--done .wx-setup-path__box,
+.workspace .wx-setup-path__step--next .wx-setup-path__box {
+  border-color: var(--wx-blue);
+  background: var(--wx-blue);
+  color: var(--wx-surface);
+}
+
+.workspace .wx-setup-path__copy { min-inline-size: 0; overflow-wrap: anywhere; }
+.workspace .wx-setup-path__copy h3 {
+  margin: 0;
+  font-size: var(--wx-subtitle-size);
+  font-weight: var(--wx-label-weight);
+  line-height: inherit;
+}
+.workspace .wx-setup-path__copy p { margin-block: 2px 0; color: var(--wx-muted); line-height: inherit; }
+.workspace .wx-setup-path__status { display: block; margin-block-start: 8px; }
+.workspace .wx-setup-path__copy .wx-setup-path__hint {
+  margin-block-start: 8px;
+  font-size: var(--wx-small-size-max);
+}
+
+.workspace .wx-setup-path__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-block-size: var(--wx-button-height);
+  min-inline-size: var(--wx-touch-target-min);
+  max-inline-size: 220px;
+  padding: 8px 14px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+  font: inherit;
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    background-color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    transform var(--wx-duration-press) var(--wx-ease-out);
+}
+.workspace .wx-setup-path__action svg { flex: 0 0 auto; }
+.workspace .wx-setup-path__action:hover { background: var(--wx-soft); border-color: var(--wx-muted); }
+.workspace .wx-setup-path__action:focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 3px; }
+.workspace .wx-setup-path__action:active { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-setup-path__action--primary { background: var(--wx-blue); border-color: var(--wx-blue); color: var(--wx-surface); }
+.workspace .wx-setup-path__action--primary:hover { background: var(--wx-blue-press); border-color: var(--wx-blue-press); }
+.workspace .wx-setup-path__action:disabled { background: var(--wx-soft); border-color: var(--wx-line); color: var(--wx-muted); cursor: not-allowed; transform: none; }
+.workspace .wx-setup-path:lang(ur) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+.workspace [dir="rtl"] .wx-setup-path__action svg,
+.workspace[dir="rtl"] .wx-setup-path__action svg,
+[dir="rtl"] .workspace .wx-setup-path__action svg { transform: scaleX(-1); }
+
+@media (max-width: 619px) {
+  .workspace .wx-setup-path__step { grid-template-columns: 30px minmax(0, 1fr); }
+  .workspace .wx-setup-path__action { grid-column: 2; justify-self: start; max-inline-size: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace .wx-setup-path__action { transition: color var(--wx-duration-feedback) var(--wx-ease-feedback), background-color var(--wx-duration-feedback) var(--wx-ease-feedback); }
+  .workspace .wx-setup-path__action:active { transform: none; }
+}

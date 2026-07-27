@@ -1,0 +1,17 @@
+.workspace .owner-access-page { align-content: start; }
+.workspace .owner-access-panel { overflow: hidden; }
+.workspace .owner-access-heading { padding: 20px 24px; border-block-end: 1px solid var(--border); }
+.workspace .owner-access-body { padding: 24px; display: grid; gap: 20px; align-content: start; }
+.workspace .owner-access-notice { border: 1px solid var(--border); border-radius: 7px; padding: 16px; background: var(--warning-fill); color: var(--warning-ink); }
+.workspace .owner-access-notice p { margin-block-start: 8px; }
+.workspace .owner-access-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.workspace .owner-access-actions a { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 10px 16px; border: 1px solid var(--border); border-radius: 7px; font-weight: 550; color: var(--ink); }
+.workspace .owner-access-actions .owner-access-primary { background: var(--primary); color: var(--card); border-color: var(--primary); }
+.workspace .owner-access-actions a:hover { background: var(--surface); }
+.workspace .owner-access-actions .owner-access-primary:hover { background: var(--primary-dark); }
+.workspace .owner-access-actions button { min-height: 48px; }
+@media (max-width: 620px) {
+  .workspace .owner-access-heading, .workspace .owner-access-body { padding: 16px; }
+  .workspace .owner-access-actions { align-items: stretch; }
+  .workspace .owner-access-actions a, .workspace .owner-access-actions button { flex: 1 1 100%; white-space: normal; text-align: center; }
+}
