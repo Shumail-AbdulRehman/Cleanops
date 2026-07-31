@@ -1,0 +1,147 @@
+.px-axis-chart {
+  position: relative;
+  inline-size: 100%;
+  min-inline-size: 0;
+  font-family: var(--wx-font-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.px-axis-chart svg {
+  display: block;
+}
+
+.px-axis-grid {
+  stroke: var(--wx-bar-track);
+  stroke-width: 1;
+}
+
+.px-axis-tick {
+  fill: var(--wx-muted);
+  font-size: 12px;
+}
+
+.px-axis-average {
+  stroke: var(--wx-muted);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  pointer-events: none;
+}
+
+.px-axis-average-label {
+  paint-order: stroke;
+  stroke: var(--wx-surface);
+  stroke-width: 3;
+}
+
+.px-axis-column,
+.px-axis-area,
+.px-axis-dot {
+  fill: var(--wx-blue);
+}
+
+.px-axis-area {
+  fill-opacity: 0.1;
+}
+
+.px-axis-line {
+  fill: none;
+  stroke: var(--wx-blue);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.px-axis-dot {
+  stroke: var(--wx-surface);
+  stroke-width: 1.5;
+}
+
+.px-axis-stack-outline {
+  fill: none;
+  stroke: var(--wx-blue-press);
+  stroke-width: 1;
+}
+
+.px-axis-hit {
+  fill: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .px-axis-column {
+    transition: fill 150ms ease;
+  }
+
+  .px-axis-column[data-active] {
+    fill: var(--wx-blue-press);
+  }
+}
+
+.px-axis-chip {
+  position: absolute;
+  color: var(--wx-surface);
+  background: var(--px-callout);
+  border-radius: var(--wx-radius-sm);
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+
+.px-axis-callout {
+  max-inline-size: 100%;
+  transform: translateY(-100%);
+  font-weight: 700;
+}
+
+.px-axis-tooltip {
+  display: grid;
+  gap: 3px;
+  max-inline-size: 50%;
+}
+
+.px-axis-breakdown {
+  display: grid;
+  gap: 2px;
+  margin: 3px 0 0;
+}
+
+.px-axis-breakdown div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.px-axis-breakdown dd {
+  margin: 0;
+}
+
+.px-axis-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: var(--wx-ink);
+  font: 13px var(--wx-font-body);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.px-axis-table th,
+.px-axis-table td {
+  padding: 8px;
+  border-block-end: 1px solid var(--wx-line);
+  text-align: end;
+}
+
+.px-axis-table th:first-child {
+  text-align: start;
+}
+
+.px-axis-table thead {
+  background: var(--wx-soft);
+  color: var(--wx-muted);
+}
+
+.px-axis-table tbody th {
+  font-weight: 400;
+}
