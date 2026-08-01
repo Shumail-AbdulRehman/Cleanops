@@ -1,0 +1,35 @@
+train: E:/tmp/trash-detection.v35.yolov5pytorch/train/images
+val: E:/tmp/trash-detection.v35.yolov5pytorch/valid/images
+test: E:/tmp/trash-detection.v35.yolov5pytorch/test/images
+
+nc: 29
+names:
+  - Aluminium foil
+  - Bottle cap
+  - Broken glass
+  - Cigarette
+  - Clear plastic bottle
+  - Crisp packet
+  - Cup
+  - Drink can
+  - Food Carton
+  - Food container
+  - Food waste
+  - Garbage bag
+  - Glass bottle
+  - Lid
+  - Other Carton
+  - Other can
+  - Other container
+  - Other plastic bottle
+  - Other plastic wrapper
+  - Other plastic
+  - Paper bag
+  - Paper
+  - Plastic bag wrapper
+  - Plastic film
+  - Pop tab
+  - Single-use carrier bag
+  - Straw
+  - Styrofoam piece
+  - Unlabeled litter
