@@ -1,0 +1,15 @@
+export const staffFormUrdu: Record<string, string> = {
+  'Full name is required.': 'پورا نام درج کریں۔',
+  'Enter a name between 2 and 150 characters.': 'نام 2 سے 150 حروف کے درمیان درج کریں۔',
+  'Use letters only in the name.': 'نام میں صرف حروف استعمال کریں۔',
+  'Phone number is required.': 'فون نمبر درج کریں۔',
+  'Enter a Pakistan mobile number, like 03001234567.': 'پاکستانی موبائل نمبر درج کریں، مثلاً \u206603001234567\u2069۔',
+  'Enter a valid email, like name@example.com.': 'درست ای میل درج کریں، مثلاً \u2066name@example.com\u2069۔',
+  'Choose a site.': 'ایک مقام منتخب کریں۔',
+  'Enter both shift start and shift end.': 'شفٹ کے شروع اور ختم ہونے کے دونوں اوقات درج کریں۔',
+  'Shift start and end must be different.': 'شفٹ کے شروع اور ختم ہونے کے اوقات مختلف ہونے چاہییں۔',
+  'Enter a reason.': 'وجہ درج کریں۔',
+  'Keep the reason under 1000 characters.': 'وجہ زیادہ سے زیادہ 1000 حروف میں لکھیں۔',
+  'This phone number is already used by another staff member.': 'یہ فون نمبر پہلے ہی کسی دوسرے کارکن کے استعمال میں ہے۔',
+  'This email is already used by another staff member.': 'یہ ای میل پہلے ہی کسی دوسرے کارکن کے استعمال میں ہے۔',
+};

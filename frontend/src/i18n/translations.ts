@@ -1,0 +1,642 @@
+import { onboardingUrdu } from "./onboardingTranslations.ts";
+import { serviceUrdu } from "./serviceTranslations.ts";
+import { platformServiceUrdu } from "./platformServiceTranslations.ts";
+import { platformCompanyUrdu } from "./platformCompanyTranslations.ts";
+import { billingUrdu } from "./billingTranslations.ts";
+import { reviewUrdu } from "./reviewTranslations.ts";
+import { workforceUrdu } from "./workforceTranslations.ts";
+import { staffFormUrdu } from "./staffFormTranslations.ts";
+import { workDaysUrdu } from "./workDaysTranslations.ts";
+import { accountUrdu } from "./accountTranslations.ts";
+import { attendanceContextUrdu } from "./attendanceContextTranslations.ts";
+import { setupUrdu } from "./setupTranslations.ts";
+import { launchUrdu } from "./launchTranslations.ts";
+import { attendancePhotoUrdu } from "./attendancePhotoTranslations.ts";
+import { managerUrdu } from "./managerTranslations.ts";
+import { workspaceRedesignUrdu } from "./workspaceRedesignTranslations.ts";
+import { reliabilityUrdu } from "./reliabilityTranslations.ts";
+import { schedulePageUrdu } from "./schedulePageTranslations.ts";
+// Shared English/Urdu vocabulary. Keep web and native copies in parity.
+export type Language = "en" | "ur";
+export const urdu: Record<string, string> = {
+  "Overdue": "وقت گزر چکا ہے",
+  "Scan QR to take photos": "تصاویر لینے کے لیے کیو آر اسکین کریں",
+  "Scan the assigned room QR again to begin taking task photos.": "کام کی تصاویر شروع کرنے کے لیے اسی کمرے کا کیو آر دوبارہ اسکین کریں۔",
+  "Scan room to continue photos": "تصاویر جاری رکھنے کے لیے کمرے کا کوڈ اسکین کریں",
+  "Scan the room QR again to continue with the missing task photos. Your saved photos are kept.": "باقی تصاویر لینے کے لیے کمرے کا کیو آر دوبارہ اسکین کریں۔ محفوظ تصاویر برقرار ہیں۔",
+  "Shift details": "شفٹ کی تفصیل",
+  "Cleaning task": "صفائی کا کام",
+  "Your cleaning task": "آپ کی صفائی کا کام",
+  "Scan room QR": "کمرے کا کیو آر اسکین کریں",
+  "Clean, then take photos": "صفائی کریں، پھر تصاویر لیں",
+  "Photo guide": "تصویر کی رہنمائی",
+  "Your workflow": "آپ کے کام کا طریقہ",
+  "Check in, complete your cleaning tasks, and upload every required photo.": "حاضری لگائیں، صفائی کے کام مکمل کریں اور ہر ضروری تصویر اپ لوڈ کریں۔",
+  "Complete every required photo. Scan the room QR to begin.": "ہر ضروری تصویر مکمل کریں۔ شروع کرنے کے لیے کمرے کا کیو آر اسکین کریں۔",
+  "Keep people out of the photos, including mirror reflections.": "تصاویر میں لوگ اور آئینے میں ان کے عکس شامل نہ ہوں۔",
+  "Internet needed to upload. Reconnect, then tap Upload again.": "اپ لوڈ کے لیے انٹرنیٹ ضروری ہے۔ دوبارہ رابطہ کریں، پھر دوبارہ اپ لوڈ کریں دبائیں۔",
+  "Uploading and checking photo…": "تصویر اپ لوڈ اور چیک ہو رہی ہے…",
+  "Upload this photo again": "یہ تصویر دوبارہ اپ لوڈ کریں",
+  "Upload again": "دوبارہ اپ لوڈ کریں",
+  "Check result": "نتیجہ دیکھیں",
+  "This picture is temporary. If you close this screen, take it again.": "یہ تصویر عارضی ہے۔ اس اسکرین کو بند کرنے پر نئی تصویر لیں۔",
+  "Scan room and take a new photo": "کمرے کا کوڈ اسکین کریں اور نئی تصویر لیں",
+  "Clean items, then scan QR": "اشیا صاف کریں، پھر کیو آر اسکین کریں",
+  "Scan room to retake photos": "نئی تصاویر لینے کے لیے کمرے کا کوڈ اسکین کریں",
+  "View photo results": "تصاویر کے نتائج دیکھیں",
+  "Load task photos": "کام کی تصاویر کھولیں",
+  "Complete the remaining required photos.": "باقی ضروری تصاویر مکمل کریں۔",
+  "Reconnect, then upload the photo again.": "دوبارہ رابطہ کریں، پھر تصویر دوبارہ اپ لوڈ کریں۔",
+  "The photo check or upload could not finish. Upload this photo again.": "تصویر کی جانچ یا اپ لوڈ مکمل نہیں ہو سکا۔ یہ تصویر دوبارہ اپ لوڈ کریں۔",
+  "This photo is still being checked. Tap Check result shortly.": "اس تصویر کی جانچ جاری ہے۔ تھوڑی دیر بعد نتیجہ دیکھیں دبائیں۔",
+  "This photo is still being checked. Check again shortly.": "اس تصویر کی جانچ جاری ہے۔ تھوڑی دیر بعد دوبارہ دیکھیں۔",
+  "The photo has not finished uploading. Tap Upload again.": "تصویر کا اپ لوڈ مکمل نہیں ہوا۔ دوبارہ اپ لوڈ کریں دبائیں۔",
+  "Upload again to continue. If you close this screen, take a new photo.": "جاری رکھنے کے لیے دوبارہ اپ لوڈ کریں۔ یہ اسکرین بند کرنے پر نئی تصویر لیں۔",
+  "Internet needed to continue. Reconnect, then scan the room QR.": "جاری رکھنے کے لیے انٹرنیٹ ضروری ہے۔ دوبارہ رابطہ کریں، پھر کمرے کا کیو آر اسکین کریں۔",
+
+  "Clean {surfaces} and take another photo.": "{surfaces} صاف کریں اور نئی تصویر لیں۔",
+  " and ": " اور ",
+  bowl: "کموڈ کا اندرونی حصہ", seat: "سیٹ", "squat pan": "فرش والا کموڈ", footrests: "پاؤں رکھنے کی جگہیں",
+  exterior: "باہر کا حصہ", base: "نچلا حصہ", basin: "بیسن", drain: "نالی", tap: "نل",
+  "mirror surface": "آئینے کی سطح", "floor zone": "فرش", "bin opening": "کوڑے دان کا کھلا حصہ",
+  "bin interior": "کوڑے دان کا اندرونی حصہ", "surrounding floor": "آس پاس کا فرش",
+  "Follow the correction below and take another photo.": "نیچے دی گئی ہدایت کے مطابق نئی تصویر لیں۔",
+  "Clean the affected surface, scan the room QR again, then take a new photo.": "متعلقہ سطح صاف کریں، کمرے کا کیو آر دوبارہ اسکین کریں، پھر نئی تصویر لیں۔",
+  "Photograph the actual room or surface, not an image on another screen. Take another photo.": "اصل کمرے یا سطح کی تصویر لیں، کسی دوسری اسکرین پر موجود تصویر کی نہیں۔ نئی تصویر لیں۔",
+  "Internet needed to continue. Reconnect to load this review.":
+    "آگے بڑھنے کے لیے انٹرنیٹ ضروری ہے۔ جائزہ کھولنے کے لیے دوبارہ رابطہ کریں۔",
+  "Internet needed to save a decision. Reconnect and try again. Your note stays on this page.":
+    "فیصلہ محفوظ کرنے کے لیے انٹرنیٹ ضروری ہے۔ دوبارہ رابطہ کر کے کوشش کریں۔ آپ کا نوٹ اس صفحے پر برقرار ہے۔",
+  "Could not refresh this review. The information shown may be out of date.":
+    "جائزہ تازہ نہیں ہو سکا۔ دکھائی گئی معلومات پرانی ہو سکتی ہیں۔",
+
+  "Accept this photo": "یہ تصویر قبول کریں",
+  "Accept this room photo": "کمرے کی یہ تصویر قبول کریں",
+  "Ask for another photo": "دوبارہ تصویر مانگیں",
+  "Ask for more cleaning": "مزید صفائی کا کہیں",
+  "Give more time for photos": "تصاویر کے لیے مزید وقت دیں",
+  "Reject this photo": "یہ تصویر مسترد کریں",
+  "Report a repair needed": "مرمت کی ضرورت بتائیں",
+  "Make an exception for this photo": "اس تصویر کی شرط میں استثنا دیں",
+  "Close this issue": "یہ مسئلہ بند کریں",
+  "Required photos are missing": "ضروری تصاویر موجود نہیں",
+  "Photo checking is unavailable": "تصویر کی جانچ دستیاب نہیں",
+  "This photo needs a privacy review": "اس تصویر کی رازداری کا جائزہ ضروری ہے",
+  "More cleaning is needed": "مزید صفائی ضروری ہے",
+  "A photo needs your review": "ایک تصویر کو آپ کے جائزے کی ضرورت ہے",
+  "Open the task photos to see which required views are still missing. This issue can be closed only after the requirements are satisfied.":
+    "کام کی تصاویر کھول کر دیکھیں کہ کون سے ضروری منظر باقی ہیں۔ تمام شرائط پوری ہونے کے بعد ہی یہ مسئلہ بند ہو سکتا ہے۔",
+  "A checking service could not complete its review. This does not mean the area is dirty.":
+    "جانچ کی سروس اپنا جائزہ مکمل نہیں کر سکی۔ اس کا مطلب یہ نہیں کہ جگہ گندی ہے۔",
+  "Review carefully before deciding. Ask for a safer photo if personal information or people are visible.":
+    "فیصلے سے پہلے غور سے دیکھیں۔ اگر لوگ یا ذاتی معلومات نظر آئیں تو محفوظ تصویر مانگیں۔",
+  "Check the photo, then choose what should happen next.":
+    "تصویر دیکھیں، پھر اگلا قدم منتخب کریں۔",
+  "Refresh this review before choosing an action.":
+    "قدم منتخب کرنے سے پہلے جائزہ تازہ کریں۔",
+  "Decision saved. The task status below reflects the server review.":
+    "فیصلہ محفوظ ہو گیا۔ نیچے کام کی حالت سرور کے جائزے کے مطابق ہے۔",
+  "No decision is available for this issue. Refresh the review or check your location access.":
+    "اس مسئلے کے لیے فیصلہ دستیاب نہیں۔ جائزہ تازہ کریں یا مقام تک اپنی رسائی چیک کریں۔",
+  "Other manager options": "مینیجر کے دیگر اختیارات",
+  "Use these only after checking the requirements. Closing an issue does not replace missing photos.":
+    "شرائط چیک کرنے کے بعد ہی یہ اختیارات استعمال کریں۔ مسئلہ بند کرنے سے غائب تصاویر کی شرط پوری نہیں ہوتی۔",
+  "Room photo you reviewed": "کمرے کی تصویر جس کا آپ نے جائزہ لیا",
+  "Minutes after the original deadline": "اصل آخری وقت کے بعد منٹ",
+  "Completed follow-up task number": "مکمل کیے گئے اگلے کام کا نمبر",
+  "Use a completed task in this same room with fresh accepted replacement photos.":
+    "اسی کمرے کا مکمل کام استعمال کریں جس کی نئی متبادل تصاویر قبول ہو چکی ہوں۔",
+  "Why are you taking this action?": "آپ یہ قدم کیوں لے رہے ہیں؟",
+  "Choose a reason": "وجہ منتخب کریں",
+  "What did you check?": "آپ نے کیا چیک کیا؟",
+  "Write a short note for the team and review history.":
+    "ٹیم اور جائزے کے ریکارڈ کے لیے مختصر نوٹ لکھیں۔",
+  "This review changed. Refresh before saving. Your note is kept.":
+    "یہ جائزہ بدل گیا ہے۔ محفوظ کرنے سے پہلے تازہ کریں۔ آپ کا نوٹ محفوظ ہے۔",
+  "Could not save your decision. Check your connection and try again.":
+    "فیصلہ محفوظ نہیں ہو سکا۔ انٹرنیٹ چیک کر کے دوبارہ کوشش کریں۔",
+  "This action is no longer available. Choose another option.":
+    "یہ قدم اب دستیاب نہیں۔ دوسرا اختیار منتخب کریں۔",
+  "Refresh review": "جائزہ تازہ کریں",
+  "Saving decision…": "فیصلہ محفوظ ہو رہا ہے…",
+  "Save decision": "فیصلہ محفوظ کریں",
+  "This photo is not available for review yet.":
+    "یہ تصویر ابھی جائزے کے لیے دستیاب نہیں۔",
+  "Could not mark this review as read.": "جائزے کو پڑھا گیا درج نہیں کر سکے۔",
+  "Loading review…": "جائزہ لوڈ ہو رہا ہے…",
+  "Review unavailable. Check your connection and location access, then try again.":
+    "جائزہ دستیاب نہیں۔ انٹرنیٹ اور مقام تک رسائی چیک کر کے دوبارہ کوشش کریں۔",
+  "Back to photo reviews": "تصاویر کے جائزوں میں واپس جائیں",
+  "Check what is missing and choose the next step.":
+    "دیکھیں کیا باقی ہے اور اگلا قدم منتخب کریں۔",
+  Due: "آخری وقت",
+  "This task is already complete. Use a completed follow-up task with fresh accepted photos to address new concerns. The original completion stays unchanged.":
+    "یہ کام مکمل ہو چکا ہے۔ نئے مسائل کے لیے ایسا اگلا مکمل کام استعمال کریں جس کی نئی تصاویر قبول ہوں۔ اصل تکمیل برقرار رہے گی۔",
+  "Review room setup": "کمرے کی ترتیب دیکھیں",
+  "Issue closed": "مسئلہ بند ہو گیا",
+  "There is no photo attached to this issue.":
+    "اس مسئلے کے ساتھ کوئی تصویر موجود نہیں۔",
+  "View task photos": "کام کی تصاویر دیکھیں",
+  "Check again": "دوبارہ چیک کریں",
+  "The deadline has passed. If photos are still missing, arrange follow-up work for this room.":
+    "آخری وقت گزر چکا ہے۔ اگر تصاویر ابھی باقی ہیں تو اس کمرے کے لیے اگلا کام طے کریں۔",
+  "Open cleaning schedule": "صفائی کا شیڈول کھولیں",
+  "Earlier photos": "پہلے کی تصاویر",
+  "Task status": "کام کی حالت",
+  "Task details and review history": "کام کی تفصیل اور جائزے کا ریکارڈ",
+  "Review number": "جائزے کا نمبر",
+  "No review decisions yet.": "ابھی کوئی فیصلہ درج نہیں ہوا۔",
+  "Load older history": "پرانا ریکارڈ لوڈ کریں",
+  "Could not load older history.": "پرانا ریکارڈ لوڈ نہیں ہو سکا۔",
+  "System event": "سسٹم کی کارروائی",
+  "This decision is audited. When all remaining requirements and blocking issues are satisfied, the task becomes Completed with exceptions.":
+    "یہ فیصلہ ریکارڈ میں محفوظ ہوگا۔ تمام باقی شرائط اور مسائل حل ہونے پر کام استثنا کے ساتھ مکمل ہوگا۔",
+  "Marks the fixture for maintenance. Required evidence remains unresolved; waive it separately if appropriate.":
+    "سامان کے لیے مرمت درج ہوگی۔ ضروری تصویر کی شرط باقی رہے گی؛ مناسب ہو تو الگ سے استثنا دیں۔",
+  "Resolves a satisfied issue. It does not waive required evidence.":
+    "پوری ہو چکی شرط کا مسئلہ بند ہوتا ہے۔ ضروری تصاویر کی شرط ختم نہیں ہوتی۔",
+  "One audited extension, measured from the original task deadline. Existing photos are retained.":
+    "ایک توسیع ریکارڈ کی جائے گی جو اصل آخری وقت سے شمار ہوگی۔ موجودہ تصاویر محفوظ رہیں گی۔",
+  "The affected view stays unresolved until the worker submits acceptable replacement evidence.":
+    "یہ منظر تب تک نامکمل رہے گا جب تک عملہ قابل قبول متبادل تصویر نہ بھیجے۔",
+
+  "{count} photos recorded": "{count} تصاویر درج ہیں",
+  "{count} photos received": "{count} تصاویر موصول ہوئیں",
+  "Results updated": "نتائج تازہ کیے گئے",
+  "Each photo is checked before the next":
+    "اگلی تصویر سے پہلے ہر تصویر چیک ہوتی ہے",
+  "Information unavailable": "ریکارڈ دستیاب نہیں",
+  "Your attendance is recorded. Continue with your next task.":
+    "آپ کی حاضری درج ہے۔ اپنا اگلا کام کریں۔",
+  Overview: "خلاصہ",
+  Today: "آج",
+  Locations: "مقامات",
+  Team: "عملہ",
+  Attendance: "حاضری",
+  Managers: "منیجرز",
+  "Plan & billing": "پلان اور ادائیگی",
+  Workspace: "کام کی جگہ",
+  Administration: "انتظام",
+  Details: "تفصیل",
+  "Review photos": "تصاویر دیکھیں",
+  Exceptions: "تصاویر دیکھیں",
+  "Sign out": "سائن آؤٹ",
+  "Signing out…": "سائن آؤٹ ہو رہا ہے…",
+  Administrator: "مالک",
+  Manager: "منیجر",
+  "Open navigation": "مینو کھولیں",
+  Close: "بند کریں",
+  Language: "زبان",
+  Listen: "سنیں",
+  "Stop listening": "سننا بند کریں",
+  "Voice is not available. Ask your manager to read this instruction.":
+    "آواز دستیاب نہیں۔ منیجر سے یہ ہدایت پڑھنے کو کہیں۔",
+  "Try again": "دوبارہ کوشش کریں",
+  Retry: "دوبارہ کوشش کریں",
+  Refresh: "تازہ کریں",
+  "Refreshing…": "تازہ ہو رہا ہے…",
+  "Loading…": "لوڈ ہو رہا ہے…",
+  "Search staff": "عملہ تلاش کریں",
+  "Search name or email": "نام یا ای میل تلاش کریں",
+  "All locations": "تمام مقامات",
+  "My assigned locations": "میرے مقامات",
+  "All staff": "تمام عملہ",
+  Present: "حاضر",
+  Absent: "غیر حاضر",
+  "Not checked in": "حاضری نہیں لگی",
+  "Overdue work": "وقت سے زیادہ کام",
+  "Unassigned work": "بغیر عملے کے کام",
+  "Waiting for review": "جائزے کا انتظار",
+  "Waiting for manager review": "منیجر کے جائزے کا انتظار",
+  "Needs attention": "توجہ درکار",
+  "Needs review": "جائزہ درکار",
+  "Cleaning progress": "صفائی کی پیش رفت",
+  "Check attendance": "حاضری دیکھیں",
+  "Open task": "کام کھولیں",
+  "Assign staff": "عملہ مقرر کریں",
+  Review: "جائزہ لیں",
+  "No issues right now": "اس وقت کوئی مسئلہ نہیں",
+  "Your team is on track.": "آپ کا عملہ درست وقت پر کام کر رہا ہے۔",
+  "No staff yet": "ابھی عملہ نہیں ہے",
+  "Add staff to a location to see today’s work.":
+    "آج کا کام دیکھنے کے لیے کسی مقام پر عملہ مقرر کریں۔",
+  "Clear filters": "فلٹر ہٹائیں",
+  Staff: "عملہ",
+  Location: "مقام",
+  Shift: "شفٹ",
+  Tasks: "کام",
+  Status: "حالت",
+  "Next action": "اگلا قدم",
+  "Open details": "تفصیل دیکھیں",
+  Search: "تلاش",
+  "No matches": "کوئی نتیجہ نہیں",
+  "Try another name or clear your filters.":
+    "دوسرا نام تلاش کریں یا فلٹر ہٹائیں۔",
+  "Daily overview": "آج کا خلاصہ",
+  "Today’s work": "آج کا کام",
+  "Start with the items that need you.":
+    "پہلے وہ کام دیکھیں جنہیں آپ کی توجہ چاہیے۔",
+  "Today’s attendance": "آج کی حاضری",
+  "Submitted work": "جمع کیا گیا کام",
+  "Submitted is separate from approved.":
+    "کام جمع ہونا اور منظور ہونا الگ ہیں۔",
+  "Recorded today": "آج کا ریکارڈ",
+  Verified: "تصدیق شدہ",
+  "Accepted with exceptions": "استثنا کے ساتھ منظور",
+  "Awaiting review": "جائزے کا انتظار",
+  "No trend data yet": "رجحان کے لیے ابھی ڈیٹا نہیں",
+  "Open today’s records": "آج کا ریکارڈ کھولیں",
+  "Show details": "تفصیل دکھائیں",
+  "Hide details": "تفصیل چھپائیں",
+  "No work scheduled": "کوئی کام مقرر نہیں",
+  "No locations yet": "ابھی کوئی مقام نہیں",
+  "Set up a location and add your team.":
+    "مقام بنائیں اور اپنا عملہ شامل کریں۔",
+  "Manage locations": "مقامات کا انتظام",
+  "Attendance could not load. Try again.":
+    "حاضری لوڈ نہیں ہوئی۔ دوبارہ کوشش کریں۔",
+  "Today could not load. Check your internet and try again.":
+    "آج کا ریکارڈ لوڈ نہیں ہوا۔ انٹرنیٹ چیک کر کے دوبارہ کوشش کریں۔",
+  "Internet needed to continue": "آگے بڑھنے کے لیے انٹرنیٹ ضروری ہے",
+  "You’re offline": "انٹرنیٹ بند ہے",
+  "Saved photos stay on this phone. Reconnect and keep the app open to upload.":
+    "محفوظ تصاویر اس فون پر موجود ہیں۔ انٹرنیٹ چلائیں اور اپ لوڈ کے لیے ایپ کھلی رکھیں۔",
+  "You are viewing the last loaded information.":
+    "آپ آخری لوڈ کیا گیا ریکارڈ دیکھ رہے ہیں۔",
+  "Hello, {name}": "السلام علیکم، {name}",
+  "My day": "میرا دن",
+  "My shift": "میری شفٹ",
+  "Today’s tasks": "آج کے کام",
+  "Today's Tasks": "آج کے کام",
+  "Your next task": "آپ کا اگلا کام",
+  "View all tasks": "تمام کام دیکھیں",
+  "Help & account": "مدد اور اکاؤنٹ",
+  "Ask your manager": "منیجر سے مدد لیں",
+  "Ask your manager about your location, shift or task.":
+    "مقام، شفٹ یا کام کے بارے میں منیجر سے پوچھیں۔",
+  "Your account": "آپ کا اکاؤنٹ",
+  "Check in": "حاضری لگائیں",
+  "Check out": "روانگی درج کریں",
+  "Check In": "حاضری لگائیں",
+  "Check Out": "روانگی درج کریں",
+  "Check In Late": "تاخیر سے حاضری لگائیں",
+  "Complete Check Out": "روانگی درج کریں",
+  "Ready to check in": "حاضری لگانے کے لیے تیار",
+  "Checked in": "حاضری لگ گئی",
+  "Checked In": "حاضری لگ گئی",
+  "Checked out": "روانگی درج ہو گئی",
+  "Checked Out": "روانگی درج ہو گئی",
+  "Shift completed": "شفٹ مکمل",
+  "Upcoming Shift": "اگلی شفٹ",
+  "Not Assigned": "مقام مقرر نہیں",
+  "No Shift": "کوئی شفٹ نہیں",
+  "No location assigned": "کوئی مقام مقرر نہیں",
+  "No shift loaded for today": "آج کی شفٹ دستیاب نہیں",
+  "You are currently on shift": "آپ کی شفٹ جاری ہے",
+  "Ready to check out": "روانگی درج کریں",
+  "Late check-in is still allowed": "اب بھی تاخیر سے حاضری لگا سکتے ہیں",
+  "Check-in has not opened yet": "حاضری کا وقت ابھی نہیں آیا",
+  "Shift time closed": "شفٹ کا وقت ختم ہو گیا",
+  "Checkout is overdue": "روانگی درج کرنا باقی ہے",
+  "Attendance record loaded": "حاضری کا ریکارڈ دستیاب ہے",
+  "Check In Not Open Yet": "حاضری کا وقت نہیں آیا",
+  "Check Out Not Ready": "روانگی کا وقت نہیں آیا",
+  "Shift Time Closed": "شفٹ کا وقت ختم ہو گیا",
+  "Missed Checkout": "روانگی درج نہیں ہوئی",
+  "Shift Closed": "شفٹ ختم",
+  "Check-In Open": "حاضری کا وقت ہے",
+  "Late Window": "تاخیر سے حاضری",
+  "Checked In Late": "حاضری تاخیر سے لگی",
+  "Not recorded": "درج نہیں",
+  Recorded: "درج ہے",
+  "Check-In Opens": "حاضری شروع",
+  "Late After": "اس وقت کے بعد تاخیر",
+  "Shift Ended": "شفٹ ختم",
+  "Check Out After": "روانگی کا وقت",
+  "No tasks for today": "آج کوئی کام نہیں",
+  "No tasks yet today.": "آج ابھی کوئی کام نہیں۔",
+  "Your manager has not assigned work for today.":
+    "منیجر نے آج کے لیے کام مقرر نہیں کیا۔",
+  "All done for today": "آج کا کام مکمل",
+  "Your submitted work is kept in your task list.":
+    "آپ کا جمع کیا گیا کام فہرست میں موجود ہے۔",
+  "Start cleaning": "صفائی شروع کریں",
+  "Starting cleaning…": "صفائی شروع ہو رہی ہے…",
+  "Finish cleaning": "صفائی مکمل کریں",
+  "Take task photos": "کام کی تصاویر لیں",
+  "Continue photos": "تصاویر جاری رکھیں",
+  "Work submitted": "کام جمع ہو گیا",
+  "Task completed": "کام جمع ہو گیا",
+  Completed: "جمع ہو گیا",
+  "In progress": "کام جاری ہے",
+  "Not started": "شروع نہیں ہوا",
+  Pending: "شروع نہیں ہوا",
+  Cancelled: "منسوخ",
+  Missed: "رہ گیا",
+  "Needs cleaning": "مزید صفائی کریں",
+  "Photo needed": "تصویر لیں",
+  "Photo saved on this phone": "تصویر اس فون پر محفوظ ہے",
+  "Photo uploading": "تصویر اپ لوڈ ہو رہی ہے",
+  "Photo received and being checked": "تصویر موصول ہو گئی، جانچ جاری ہے",
+  "Take another photo": "دوسری تصویر لیں",
+  "Photo approved": "تصویر منظور ہو گئی",
+  "Photo accepted by manager": "منیجر نے تصویر منظور کی",
+  "Requirement waived by manager": "منیجر نے اس تصویر کی شرط ہٹا دی",
+  "Sign in to upload saved photos": "محفوظ تصاویر بھیجنے کے لیے سائن ان کریں",
+  "Saved photo needs help": "محفوظ تصویر کے لیے مدد درکار",
+  "Photo check could not finish": "تصویر کی جانچ مکمل نہیں ہوئی",
+  "Not taken yet": "ابھی تصویر نہیں لی",
+  "Saved photos are kept.": "محفوظ تصاویر موجود ہیں۔",
+  "Please wait…": "انتظار کریں…",
+  "Back to tasks": "کام کی فہرست پر واپس",
+  Cancel: "منسوخ کریں",
+  Success: "کامیاب",
+  "Check-in recorded.": "حاضری درج ہو گئی۔",
+  "Check-out recorded.": "روانگی درج ہو گئی۔",
+  "Camera required": "کیمرے کی اجازت ضروری ہے",
+  "Location required": "لوکیشن کی اجازت ضروری ہے",
+  "Open settings": "سیٹنگز کھولیں",
+  "Take selfie": "اپنی تصویر لیں",
+  "Check-in selfie": "حاضری کی تصویر",
+  "Check-out selfie": "روانگی کی تصویر",
+  "Keep your face inside the frame, then take your selfie.":
+    "چہرہ فریم کے اندر رکھیں، پھر تصویر لیں۔",
+  "Allow camera access to capture an attendance image.":
+    "حاضری کی تصویر کے لیے کیمرے کی اجازت دیں۔",
+  "Allow location access to mark attendance.":
+    "حاضری لگانے کے لیے لوکیشن کی اجازت دیں۔",
+  "Confirm room": "کمرہ چیک کریں",
+  "Take photos": "تصاویر لیں",
+  "Submit work": "کام جمع کریں",
+  Complete: "جمع کریں",
+  "Your assigned area": "آپ کا مقررہ کمرہ",
+  "Ready to finish?": "کام جمع کرنے کے لیے تیار؟",
+  "Continue your photos": "باقی تصاویر لیں",
+  "Make sure the room is empty and safe, including mirror reflections.":
+    "کمرہ خالی اور محفوظ ہونا چاہیے۔ آئینے میں بھی کوئی شخص نظر نہ آئے۔",
+  "Scan the area QR again, confirm your location, then follow the photo guide.":
+    "کمرے کا QR دوبارہ اسکین کریں، پھر ہدایات کے مطابق تصاویر لیں۔",
+  "Your saved photos are kept. Continue with the remaining views.":
+    "آپ کی تصاویر محفوظ ہیں۔ باقی تصاویر لیں۔",
+  "Room is empty, continue": "کمرہ خالی ہے، آگے بڑھیں",
+  "Scan the area QR": "کمرے کا QR اسکین کریں",
+  "Checking your location…": "آپ کی لوکیشن چیک ہو رہی ہے…",
+  "Confirming room": "کمرہ چیک ہو رہا ہے",
+  "Room check needs another try": "کمرہ دوبارہ چیک کریں",
+  "Check your camera and precise location permissions. Your saved photos are kept.":
+    "کیمرے اور لوکیشن کی اجازت چیک کریں۔ آپ کی تصاویر محفوظ ہیں۔",
+  "Retry room and location check": "کمرہ اور لوکیشن دوبارہ چیک کریں",
+  "Allow camera": "کیمرے کی اجازت دیں",
+  "Open camera settings": "کیمرے کی سیٹنگز کھولیں",
+  "Next photo": "اگلی تصویر",
+  "Room photo": "کمرے کی تصویر",
+  "Show the entrance and nearby room.": "دروازہ اور قریب کا کمرہ دکھائیں۔",
+  "Show the room and its items.": "کمرہ اور اس میں موجود چیزیں دکھائیں۔",
+  "Show the whole item.": "پوری چیز دکھائیں۔",
+  "Show the bowl interior and seat.": "کموڈ کے اندر کا حصہ اور سیٹ دکھائیں۔",
+  "Show the exterior and base with nearby surroundings.":
+    "باہر کا حصہ، نچلا حصہ اور آس پاس کی جگہ دکھائیں۔",
+  "Show the entire basin, drain and tap.": "پورا بیسن، نالی اور نل دکھائیں۔",
+  "Show the entire mirror. Keep people out of reflections.":
+    "پورا آئینہ دکھائیں۔ عکس میں کوئی شخص نظر نہ آئے۔",
+  "Show the bin opening and interior.":
+    "کوڑے دان کا کھلا حصہ اور اندر کا حصہ دکھائیں۔",
+  "Show the exterior and surrounding floor.":
+    "باہر کا حصہ اور آس پاس کا فرش دکھائیں۔",
+  "Show the whole configured floor zone.": "فرش کا پورا مقررہ حصہ دکھائیں۔",
+  "Keep people out of the photo, including mirror reflections.":
+    "تصویر اور آئینے کے عکس میں کوئی شخص نظر نہ آئے۔",
+  "Take photo": "تصویر لیں",
+  "Torch on": "روشنی چلائیں",
+  "Torch off": "روشنی بند کریں",
+  "Restart camera": "کیمرہ دوبارہ کھولیں",
+  "Checking photo…": "تصویر کی جانچ جاری ہے…",
+  "Keep the app open. The next item opens when this photo has been checked.":
+    "ایپ کھلی رکھیں۔ تصویر کی جانچ کے بعد اگلا قدم کھلے گا۔",
+  "Room occupied, pause photos": "کمرے میں کوئی ہے، تصاویر روکیں",
+  "Room occupied, ask manager": "کمرے میں کوئی ہے، منیجر سے پوچھیں",
+  "Room occupied — pause": "کمرے میں کوئی ہے، رک جائیں",
+  "Having trouble?": "مدد چاہیے؟",
+  "Close help": "مدد بند کریں",
+  "Get help with this task": "اس کام میں مدد لیں",
+  "Pause if someone enters the room. Ask your manager when you cannot continue.":
+    "کوئی کمرے میں آئے تو رک جائیں۔ آگے نہ بڑھ سکیں تو منیجر سے پوچھیں۔",
+  "Item damaged": "چیز خراب ہے",
+  "Cannot access item": "چیز تک نہیں پہنچ سکتے",
+  "Cannot find this item": "یہ چیز نہیں مل رہی",
+  "Location problem, ask manager": "لوکیشن کا مسئلہ، منیجر سے پوچھیں",
+  "Refresh results": "نتائج تازہ کریں",
+  "Retry saved uploads": "محفوظ تصاویر دوبارہ بھیجیں",
+  "Retake affected views": "دوسری تصویر لیں",
+  "Re-clean items, then scan QR": "دوبارہ صفائی کریں، پھر QR اسکین کریں",
+  "Scan room to renew photo window": "مزید وقت کے لیے کمرے کا QR اسکین کریں",
+  "Saved photos could not open": "محفوظ تصاویر نہیں کھلیں",
+  "Keep the app data to preserve your photos. Retry, or ask your manager for help.":
+    "تصاویر محفوظ رکھنے کے لیے ایپ کا ڈیٹا نہ مٹائیں۔ دوبارہ کوشش کریں یا منیجر سے مدد لیں۔",
+  "Retry photo storage": "محفوظ تصاویر دوبارہ کھولیں",
+  "Loading required inventory…": "ضروری تصاویر کی فہرست لوڈ ہو رہی ہے…",
+  "Retry loading task": "کام دوبارہ لوڈ کریں",
+  "Photo needs attention": "تصویر پر توجہ دیں",
+  "Keep the app open while the current photo uploads and is checked.":
+    "تصویر بھیجنے اور جانچ مکمل ہونے تک ایپ کھلی رکھیں۔",
+  "Your work has been submitted. Your manager may still need to review it.":
+    "آپ کا کام جمع ہو گیا ہے۔ منیجر کو ابھی جائزہ لینا پڑ سکتا ہے۔",
+  "Saved locally does not mean received.":
+    "فون پر محفوظ ہونے کا مطلب یہ نہیں کہ تصویر موصول ہو گئی ہے۔",
+  "Photo {current} of {total}": "تصویر {current} از {total}",
+  "{count} photos checked": "{count} تصاویر کی جانچ ہوئی",
+  "{count} of {total} submitted": "{total} میں سے {count} کام جمع ہوئے",
+  "{count} of {total} present": "{total} میں سے {count} حاضر",
+  "{count} staff": "{count} افراد",
+  "{count} tasks": "{count} کام",
+  "{count} waiting": "{count} انتظار میں",
+  "Due {time}": "وقت {time}",
+  "Time remaining: {time}": "باقی وقت: {time}",
+  Toilet: "ٹوائلٹ",
+  "Indian toilet": "انڈین ٹوائلٹ",
+  "Western toilet": "ویسٹرن ٹوائلٹ",
+  "Show the whole Indian toilet pan clearly.": "انڈین ٹوائلٹ کا پورا پین واضح طور پر دکھائیں۔",
+  "Show the whole toilet bowl and seat.": "ٹوائلٹ کا پورا پیالہ اور سیٹ دکھائیں۔",
+  "Show the outside and base of the toilet.": "ٹوائلٹ کا باہر والا اور نچلا حصہ دکھائیں۔",
+  "This photo does not show the Indian toilet. Please show the whole Indian toilet pan clearly and take another photo.": "اس تصویر میں انڈین ٹوائلٹ نہیں ہے۔ انڈین ٹوائلٹ کا پورا پین واضح دکھائیں اور نئی تصویر لیں۔",
+  "The Indian toilet is not clean. Please clean the toilet pan, then scan the room QR and take another photo.": "انڈین ٹوائلٹ صاف نہیں ہے۔ ٹوائلٹ کا پین صاف کریں، پھر کمرے کا کیو آر اسکین کر کے نئی تصویر لیں۔",
+  Sink: "بیسن",
+  Mirror: "آئینہ",
+  Bin: "کوڑے دان",
+  "Floor zone": "فرش کا حصہ",
+  Room: "کمرہ",
+  "Check-in opens at {time}": "حاضری {time} پر شروع ہو گی",
+  "Check-out opens at {time}": "روانگی {time} پر درج کر سکتے ہیں",
+  "Check in before starting a task.": "کام شروع کرنے سے پہلے حاضری لگائیں۔",
+  "Opening camera…": "کیمرہ کھل رہا ہے…",
+  "Submitting work…": "کام جمع ہو رہا ہے…",
+  "Your work is ready to submit. Manager review may still be needed.":
+    "آپ کا کام جمع کرنے کے لیے تیار ہے۔ منیجر کا جائزہ ابھی باقی ہو سکتا ہے۔",
+  "{count} required photos": "{count} ضروری تصاویر",
+  "Scan the assigned room QR to start cleaning.":
+    "صفائی شروع کرنے کے لیے مقررہ کمرے کا QR اسکین کریں۔",
+  "Sign in to your shift": "اپنی شفٹ میں سائن ان کریں",
+  "Sign In": "سائن ان",
+  Password: "پاس ورڈ",
+  Email: "ای میل",
+  "Check in, clean your area, and send your task photos.":
+    "حاضری لگائیں، اپنا کمرہ صاف کریں اور کام کی تصاویر بھیجیں۔",
+  "Ready to clean": "صفائی کے لیے تیار",
+  "Finish task": "کام مکمل کریں",
+  "Clean the area. When you’re done, scan the room QR again to take task photos.":
+    "کمرہ صاف کریں۔ پھر کام کی تصاویر لینے کے لیے کمرے کا QR دوبارہ اسکین کریں۔",
+  "Hold the QR inside the frame. It scans automatically.":
+    "QR کو فریم کے اندر رکھیں۔ یہ خود اسکین ہو جائے گا۔",
+  "Allow camera access to scan the room marker.":
+    "کمرے کا QR اسکین کرنے کے لیے کیمرے کی اجازت دیں۔",
+  "Confirming area…": "کمرہ چیک ہو رہا ہے…",
+  "Scan again": "دوبارہ اسکین کریں",
+  "Restart scanner": "اسکینر دوبارہ کھولیں",
+  "Point your camera at the QR for {area}. It scans automatically.":
+    "کیمرہ {area} کے QR کی طرف کریں۔ یہ خود اسکین ہو جائے گا۔",
+  "Your photo is saved. Ask your manager for help.":
+    "آپ کی تصویر محفوظ ہے۔ منیجر سے مدد لیں۔",
+  "Photo is blurry. Hold still and retake.":
+    "تصویر دھندلی ہے۔ فون سیدھا رکھ کر دوبارہ تصویر لیں۔",
+  "Too dark. Turn on the light or torch.":
+    "اندھیرا ہے۔ بتی یا فون کی روشنی چلائیں۔",
+  "Too much glare. Change your angle and retake.":
+    "روشنی کا عکس زیادہ ہے۔ زاویہ بدل کر دوبارہ تصویر لیں۔",
+  "Photo is too small. Move closer and retake.":
+    "تصویر بہت چھوٹی ہے۔ قریب جا کر دوبارہ تصویر لیں۔",
+  "Time expired. Scan the room QR again to continue this item. Your earlier photos are kept.":
+    "وقت ختم ہو گیا۔ آگے بڑھنے کے لیے کمرے کا QR دوبارہ اسکین کریں۔ پچھلی تصاویر محفوظ ہیں۔",
+  "Time expired. Scan the room QR again to continue this item.":
+    "وقت ختم ہو گیا۔ آگے بڑھنے کے لیے کمرے کا QR دوبارہ اسکین کریں۔",
+  "Photos paused. Continue when the room is empty.":
+    "تصاویر روک دی گئی ہیں۔ کمرہ خالی ہو تو جاری رکھیں۔",
+  "Photos paused. This photo was not saved. Take it again when the room is empty.":
+    "تصاویر روک دی گئی ہیں۔ یہ تصویر محفوظ نہیں ہوئی۔ کمرہ خالی ہو تو دوبارہ لیں۔",
+  "Keep location turned on. Finding your position can take up to 20 seconds; opening the photo session may take a little longer.":
+    "لوکیشن چلتی رہنے دیں۔ آپ کی جگہ چیک ہونے میں کچھ وقت لگ سکتا ہے۔",
+  "Previously completed": "پہلے مکمل ہوا",
+  "Verified complete": "تصدیق شدہ کام",
+  "Completed with exceptions": "استثنا کے ساتھ منظور",
+  "Waiting for checks": "تصویر کی جانچ کا انتظار",
+  "Staff fixing": "عملہ دوبارہ کام کر رہا ہے",
+  "Needs manager": "منیجر کا جائزہ درکار",
+  "Completed · Needs manager review": "کام جمع ہے، منیجر کا جائزہ باقی ہے",
+  "Completed · Verification pending": "کام جمع ہے، تصدیق باقی ہے",
+  "Photos to review": "جائزے کے لیے تصاویر",
+  "Review the photos that need your decision.":
+    "جن تصاویر کو آپ کے فیصلے کی ضرورت ہے ان کا جائزہ لیں۔",
+  "More filters": "مزید فلٹر",
+  "No photos need review right now.":
+    "اس وقت کسی تصویر کے جائزے کی ضرورت نہیں۔",
+  "Too dark": "اندھیرا ہے",
+  "Cleanliness needs review": "صفائی کے جائزے کی ضرورت ہے",
+  "Photo checks could not finish": "تصویر کی جانچ مکمل نہیں ہوئی",
+  "Clean (manual approval)": "صاف، منیجر کی منظوری سے",
+  "Ready to submit": "کام جمع کرنے کے لیے تیار",
+  "Follow the photo guide to finish your task.":
+    "کام مکمل کرنے کے لیے تصویر کی ہدایات پر عمل کریں۔",
+  "Assigned work only": "صرف عملے کو دیا گیا کام",
+  "Edit schedule": "شیڈول بدلیں",
+  "Task photos": "کام کی تصاویر",
+  "Take a fresh selfie. Keep location turned on.":
+    "اپنی نئی تصویر لیں۔ لوکیشن کھلی رکھیں۔",
+  "{pending} not started · {active} in progress":
+    "{pending} کام شروع نہیں ہوئے، {active} جاری ہیں",
+  "If you were on shift and this is wrong, contact your manager.":
+    "اگر آپ شفٹ پر تھے اور یہ غلط ہے تو اپنے منیجر سے رابطہ کریں۔",
+  "Show the whole required surface and retake.":
+    "مطلوبہ سطح پوری دکھائیں اور نئی تصویر لیں۔",
+  "Photograph the item shown on this screen.":
+    "اس اسکرین پر دکھائی گئی چیز کی تصویر لیں۔",
+  "Include the whole required surface.": "پوری مطلوبہ سطح تصویر میں دکھائیں۔",
+  "Turn on the light or torch.": "لائٹ یا ٹارچ جلائیں۔",
+  "Hold still and retake.": "فون ساکن رکھ کر نئی تصویر لیں۔",
+  "Take a fresh photo showing this fixture and its surroundings.":
+    "اس چیز اور آس پاس کی جگہ کی نئی تصویر لیں۔",
+  "Wait until the room is empty.": "کمرہ خالی ہونے کا انتظار کریں۔",
+  "Ask your manager to review this fixture.":
+    "منیجر سے اس چیز کا جائزہ لینے کو کہیں۔",
+  "You do not have access to this location. Choose an assigned location or ask your owner.":
+    "آپ کو اس مقام تک رسائی نہیں ہے۔ اپنا مقررہ مقام چنیں یا کمپنی کے مالک سے پوچھیں۔",
+  "Choose a location": "مقام چنیں",
+  Area: "جگہ",
+  State: "حالت",
+  Priority: "ترجیح",
+  Reason: "وجہ",
+  "Worker ID": "عملے کا نمبر",
+  "All areas": "تمام جگہیں",
+  "All states": "تمام حالتیں",
+  "All priorities": "تمام ترجیحات",
+  "All reasons": "تمام وجوہات",
+  "Loading cases…": "جائزے کھل رہے ہیں…",
+  "No cases match these filters.": "ان فلٹرز کے مطابق کوئی جائزہ نہیں۔",
+  "Load more cases": "مزید جائزے دکھائیں",
+  Unread: "نیا",
+  "Show connection settings": "کنکشن کی ترتیبات دکھائیں",
+  "Hide connection settings": "کنکشن کی ترتیبات چھپائیں",
+  "Reconnect, then refresh before making changes.":
+    "دوبارہ کنکشن بنائیں، پھر تبدیلی سے پہلے ریکارڈ تازہ کریں۔",
+  "Today has not loaded yet. Reconnect and refresh.":
+    "آج کا ریکارڈ ابھی نہیں کھلا۔ انٹرنیٹ جوڑ کر تازہ کریں۔",
+  "Compare the last 7 days": "گزشتہ 7 دنوں کا موازنہ دیکھیں",
+  "Last 7 days": "گزشتہ 7 دن",
+  "Previous 7 days": "اس سے پچھلے 7 دن",
+  "Submitted tasks out of scheduled tasks. Cancelled work is excluded. Includes today’s unfinished shifts; submission is separate from approval.":
+    "جمع کیے گئے کاموں کا مقررہ کاموں سے موازنہ۔ منسوخ کام شامل نہیں۔ آج کی نامکمل شفٹیں شامل ہیں۔ کام جمع ہونا منظوری سے الگ ہے۔",
+  "Trends could not load. Try again.": "رجحانات نہیں کھلے۔ دوبارہ کوشش کریں۔",
+  "No scheduled work": "کوئی کام مقرر نہیں",
+  "{from} to {to}": "{from} سے {to} تک",
+  "Scan the task QR": "کام کا QR اسکین کریں",
+  "Scan this task’s QR code again to continue taking photos.": "تصاویر جاری رکھنے کے لیے اس کام کا QR دوبارہ اسکین کریں۔",
+  "Photo window ended. Scan this task’s QR code again before taking another photo.": "تصاویر کا وقت ختم ہو گیا۔ نئی تصویر سے پہلے اس کام کا QR دوبارہ اسکین کریں۔",
+  "Clean the area. When you’re done, scan this task’s QR code again to take task photos.": "حصہ صاف کریں۔ مکمل ہونے پر کام کی تصاویر لینے کے لیے اسی کام کا QR دوبارہ اسکین کریں۔",
+  "1 · Scan task QR": "1 · کام کا QR اسکین کریں",
+  "Open the installed Hygene Ops Staff app to scan the task QR.": "کام کا QR اسکین کرنے کے لیے انسٹال شدہ Hygene Ops Staff ایپ کھولیں۔",
+  "Allow camera access to scan the task QR code.": "کام کا QR اسکین کرنے کے لیے کیمرے کی اجازت دیں۔",
+  "Complete every required photo. Scan the task QR to begin.": "ہر مطلوبہ تصویر مکمل کریں۔ شروع کرنے کے لیے کام کا QR اسکین کریں۔",
+  "Open the installed staff app to scan the task QR and take photos.": "کام کا QR اسکین کرنے اور تصاویر لینے کے لیے انسٹال شدہ عملے کی ایپ کھولیں۔",
+  "Internet needed to continue. Reconnect, then scan this task’s QR code.": "جاری رکھنے کے لیے انٹرنیٹ درکار ہے۔ دوبارہ رابطہ کر کے اسی کام کا QR اسکین کریں۔",
+  "Internet needed to confirm the room. Reconnect, then scan this task’s QR code.": "حصے کی تصدیق کے لیے انٹرنیٹ درکار ہے۔ دوبارہ رابطہ کر کے اسی کام کا QR اسکین کریں۔",
+  "Scan task QR and take a new photo": "کام کا QR اسکین کر کے نئی تصویر لیں",
+  "Scan task QR to retake photos": "دوبارہ تصاویر لینے کے لیے کام کا QR اسکین کریں",
+  "Scan task QR to continue photos": "تصاویر جاری رکھنے کے لیے کام کا QR اسکین کریں",
+  "Scan task QR to renew photo window": "تصاویر کا وقت دوبارہ شروع کرنے کے لیے کام کا QR اسکین کریں",
+  "Clean the affected surface, scan this task’s QR code again, then take a new photo.": "متعلقہ سطح صاف کریں، اسی کام کا QR دوبارہ اسکین کریں، پھر نئی تصویر لیں۔",
+  "Scan this task’s QR code and take the required photo.": "اسی کام کا QR اسکین کریں اور مطلوبہ تصویر لیں۔",
+  "Scan the task QR to begin.": "شروع کرنے کے لیے کام کا QR اسکین کریں۔",
+  "Use the task QR code for {area}. Your task starts after the QR is confirmed.": "{area} کے لیے اس کام کا QR استعمال کریں۔ QR کی تصدیق پر کام شروع ہو گا۔",
+  "Clean this item, then scan the task QR again": "یہ شے صاف کریں، پھر کام کا QR دوبارہ اسکین کریں",
+  "Load more tasks": "مزید کام دکھائیں",
+  "Loading tasks…": "کام کھل رہے ہیں…",
+  "Your working day": "آپ کا کام کا دن",
+  "Your shift": "آپ کی شفٹ",
+  "Task alerts": "کام کی اطلاعات",
+  "Alert registration has not been checked on this screen. Your assigned work stays available.": "اس اسکرین پر اطلاعات کی رجسٹریشن ابھی چیک نہیں ہوئی۔ آپ کا مقررہ کام دستیاب ہے۔",
+  "Permission and delivery are different things. Registration does not confirm an alert was delivered.": "اجازت اور ترسیل الگ چیزیں ہیں۔ رجسٹریشن سے اطلاع کی ترسیل کی تصدیق نہیں ہوتی۔",
+  "Scan this task’s QR": "اس کام کا کیو آر اسکین کریں",
+  "Cleaning started": "صفائی شروع ہو گئی",
+  "Scan to start": "شروع کرنے کے لیے اسکین کریں",
+  "Starting work is separate from submitting it. Scan the same task QR again when you are ready for photos.": "کام شروع کرنا اور جمع کرنا الگ ہیں۔ تصاویر کے لیے تیار ہوں تو اسی کام کا کیو آر دوبارہ اسکین کریں۔",
+  "Use the code for this assigned task. A room code or another task cannot start this work.": "اسی مقررہ کام کا کوڈ استعمال کریں۔ کمرے یا کسی دوسرے کام کا کوڈ اسے شروع نہیں کر سکتا۔",
+};
+
+export function translate(
+  text: string,
+  language: Language,
+  values: Record<string, string | number> = {},
+): string {
+  const template =
+    language === "ur" ? (onboardingUrdu[text] ?? serviceUrdu[text] ?? platformServiceUrdu[text] ?? platformCompanyUrdu[text] ?? billingUrdu[text] ?? reviewUrdu[text] ?? staffFormUrdu[text] ?? workforceUrdu[text] ?? accountUrdu[text] ?? attendanceContextUrdu[text] ?? setupUrdu[text] ?? launchUrdu[text] ?? attendancePhotoUrdu[text] ?? managerUrdu[text] ?? urdu[text] ?? workspaceRedesignUrdu[text] ?? workDaysUrdu[text] ?? reliabilityUrdu[text] ?? schedulePageUrdu[text] ?? text) : text;
+  return template.replace(/\{(\w+)\}/g, (token, key: string) =>
+    String(values[key] ?? token),
+  );
+}
+export function translateText(text: string, language: Language): string {
+  if (language === "en") return text;
+  if (managerUrdu[text] || urdu[text]) return managerUrdu[text] ?? urdu[text];
+  // Only recognizable fixture labels are translated; names entered by users remain intact.
+  return text.replace(
+    /\b(Indian toilet|Western toilet|Toilet|Sink|Mirror|Bin|Floor zone)\b/g,
+    (word) => urdu[word] ?? word,
+  );
+}
