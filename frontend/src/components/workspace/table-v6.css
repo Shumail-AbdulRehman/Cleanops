@@ -1,0 +1,234 @@
+/* Legacy classes remain for unmigrated screens; new rules need only wx classes. */
+.workspace .wx-data-table,
+.workspace .wx-pagination,
+.workspace .wx-tabs {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-size: var(--wx-body-size);
+  line-height: var(--wx-body-leading);
+  font-variant-numeric: var(--wx-numerals);
+}
+
+.workspace .wx-data-table {
+  border: var(--wx-panel-border-width) solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+  background: var(--wx-surface);
+}
+
+.workspace .wx-data-table table { inline-size: 100%; border-collapse: collapse; }
+.workspace .wx-data-table thead tr { background: var(--wx-soft); }
+.workspace .wx-data-table th,
+.workspace .wx-data-table td {
+  padding: var(--wx-table-cell-padding);
+  text-align: start;
+  vertical-align: middle;
+  border-block-end: var(--wx-panel-border-width) solid var(--wx-line);
+}
+.workspace .wx-data-table th {
+  color: var(--wx-muted);
+  font-size: var(--wx-table-header-size);
+  font-weight: var(--wx-label-weight);
+}
+.workspace .wx-data-table td { color: var(--wx-ink); }
+.workspace .wx-data-table tbody tr:last-child td { border-block-end: 0; }
+.workspace .wx-table-row {
+  transition: background-color var(--wx-duration-feedback) var(--wx-ease-feedback);
+}
+.workspace .wx-table-row:hover { background: var(--wx-soft); }
+.workspace .wx-table-row[aria-selected="true"],
+.workspace .wx-table-row[aria-selected="true"]:hover { background: var(--wx-blue-wash); }
+.workspace .wx-table-row[tabindex] { cursor: pointer; }
+.workspace .wx-table-row[tabindex]:active { background: var(--wx-blue-wash); }
+.workspace .wx-table-cell-label { display: none; }
+.workspace .wx-card-sort { display: none; }
+.workspace .wx-table-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-block-size: 24px;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.workspace .wx-table-sort svg { flex-shrink: 0; color: var(--wx-muted); }
+.workspace .wx-table-sort:hover,
+.workspace .wx-table-sort:active,
+.workspace .wx-data-table th[aria-sort="ascending"] .wx-table-sort,
+.workspace .wx-data-table th[aria-sort="descending"] .wx-table-sort { color: var(--wx-blue); }
+
+.workspace .wx-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-block: 16px;
+  color: var(--wx-muted);
+  font-size: var(--wx-small-size-max);
+}
+.workspace .wx-pagination > p { margin: 0; }
+.workspace .wx-pagination > div,
+.workspace .wx-pagination > label { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.workspace .wx-pagination-button,
+.workspace .wx-pagination select {
+  min-block-size: var(--wx-button-height);
+  max-inline-size: 100%;
+  padding-inline: 12px;
+  border: var(--wx-panel-border-width) solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+  font-family: inherit;
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+  box-shadow: none;
+}
+.workspace .wx-card-sort select {
+  min-block-size: var(--wx-touch-target-min);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  padding-inline: 12px;
+  border: var(--wx-panel-border-width) solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+  font: inherit;
+}
+.workspace .wx-pagination select { inline-size: auto; min-inline-size: 64px; }
+.workspace .wx-pagination-button { white-space: normal; height: auto; }
+.workspace .wx-pagination-button:hover:not(:disabled),
+.workspace .wx-pagination select:hover:not(:disabled) { background: var(--wx-soft); border-color: var(--wx-blue-line); }
+.workspace .wx-pagination-button:disabled { opacity: .5; cursor: not-allowed; }
+
+.workspace .wx-tab-list {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  border-block-end: var(--wx-panel-border-width) solid var(--wx-line);
+}
+.workspace .wx-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-inline-size: var(--wx-touch-target-min);
+  min-block-size: var(--wx-button-height);
+  max-inline-size: 100%;
+  padding-block: 12px;
+  padding-inline: 0;
+  border-block-end: var(--wx-tab-underline-width) solid transparent;
+  background: transparent;
+  color: var(--wx-muted);
+  font-family: inherit;
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+  text-align: start;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.workspace .wx-tab:hover:not(:disabled) { color: var(--wx-blue); }
+.workspace .wx-tab[data-state="active"] { color: var(--wx-ink); border-block-end-color: var(--wx-blue); }
+.workspace .wx-tab:disabled { opacity: .5; cursor: not-allowed; }
+.workspace .wx-tab-count {
+  flex-shrink: 0;
+  padding-inline: 6px;
+  border-radius: var(--wx-radius-pill);
+  background: var(--wx-bar-track);
+  color: var(--wx-muted);
+  font-size: var(--wx-pill-size);
+  font-weight: var(--wx-pill-weight);
+}
+.workspace .wx-tab-panel { min-inline-size: 0; }
+.workspace .wx-tab,
+.workspace .wx-pagination-button,
+.workspace .wx-pagination select {
+  transition: color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    background-color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    border-color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    transform var(--wx-duration-press) var(--wx-ease-out);
+}
+.workspace .wx-tab:active:not(:disabled),
+.workspace .wx-pagination-button:active:not(:disabled) { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-data-table:focus-visible,
+.workspace .wx-table-row:focus-visible,
+.workspace .wx-table-sort:focus-visible,
+.workspace .wx-pagination-button:focus-visible,
+.workspace .wx-pagination select:focus-visible,
+.workspace .wx-card-sort select:focus-visible,
+.workspace .wx-tab:focus-visible,
+.workspace .wx-tab-panel:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: -2px;
+}
+.workspace .wx-data-table:lang(ur),
+.workspace .wx-pagination:lang(ur),
+.workspace .wx-tabs:lang(ur) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+
+@media (width < 620px) {
+  .workspace .wx-card-sort {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-block-end: 12px;
+    color: var(--wx-muted);
+    font-family: var(--wx-font-body);
+    font-size: var(--wx-small-size-max);
+  }
+  .workspace .wx-card-sort:lang(ur) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+  .workspace .wx-data-table-cards { border: 0; border-radius: 0; background: transparent; overflow: visible; }
+  .workspace .wx-data-table-cards table,
+  .workspace .wx-data-table-cards tbody { display: block; }
+  /* Keep column headers available to assistive technology in card mode. */
+  .workspace .wx-data-table-cards thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  /* Phone sorting uses the visible select, so clipped header buttons cannot take focus. */
+  .workspace .wx-data-table-cards thead .wx-table-sort { visibility: hidden; }
+  .workspace .wx-data-table-cards .wx-table-row {
+    display: grid;
+    gap: 12px;
+    margin-block-end: 12px;
+    padding: var(--wx-table-cell-padding);
+    border: var(--wx-panel-border-width) solid var(--wx-line);
+    border-radius: var(--wx-radius-md);
+    background: var(--wx-surface);
+  }
+  .workspace .wx-data-table-cards .wx-table-row[aria-selected="true"] { background: var(--wx-blue-wash); }
+  .workspace .wx-data-table-cards .wx-table-row:hover { background: var(--wx-soft); }
+  .workspace .wx-data-table-cards .wx-table-row[aria-selected="true"]:hover { background: var(--wx-blue-wash); }
+  .workspace .wx-data-table-cards td {
+    display: block;
+    min-inline-size: 0;
+    padding: 0;
+    border: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+  .workspace .wx-data-table-cards .wx-table-cell-label {
+    display: block;
+    margin-block-end: 4px;
+    color: var(--wx-muted);
+    font-size: var(--wx-table-header-size);
+    font-weight: var(--wx-label-weight);
+  }
+  .workspace .wx-data-table-cards .wx-table-expanded-row { display: block; padding: var(--wx-table-cell-padding); }
+  .workspace .wx-data-table-cards :is(a, button, input, select, summary) { min-block-size: var(--wx-touch-target-min); min-inline-size: var(--wx-touch-target-min); }
+  .workspace .wx-data-table-cards :is(a, button) { display: inline-flex; align-items: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace .wx-tab:active:not(:disabled),
+  .workspace .wx-pagination-button:active:not(:disabled) { transform: none; }
+}

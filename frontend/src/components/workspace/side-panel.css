@@ -1,0 +1,133 @@
+/* Carry workspace tokens and language through the Radix body portal. */
+.workspace.wx-side-panel-portal { display: contents; }
+
+.workspace .wx-side-panel-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--wx-navy) 35%, transparent);
+}
+.workspace .wx-side-panel-scrim[data-state="open"] { animation: wx-scrim-in var(--wx-duration-scrim) var(--wx-ease-feedback); }
+.workspace .wx-side-panel-scrim[data-state="closed"] { animation: wx-scrim-out var(--wx-duration-scrim) var(--wx-ease-feedback); }
+
+.workspace .wx-side-panel {
+  box-sizing: border-box;
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: 51;
+  display: flex;
+  flex-direction: column;
+  inline-size: var(--wx-side-panel-width);
+  max-inline-size: 100%;
+  block-size: 100vh;
+  block-size: 100dvh;
+  min-inline-size: 0;
+  padding: 0;
+  border: 0;
+  border-inline-start: 1px solid var(--wx-line);
+  outline: none;
+  color: var(--wx-ink);
+  background: var(--wx-surface);
+  font-family: var(--wx-font-body);
+  font-size: var(--wx-body-size);
+  font-weight: var(--wx-body-weight);
+  font-variant-numeric: var(--wx-numerals);
+  line-height: var(--wx-body-leading);
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+.workspace .wx-side-panel-wide { inline-size: var(--wx-side-panel-width-wide); }
+.workspace .wx-side-panel:lang(ur) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+.workspace .wx-side-panel[data-state="open"] { animation: wx-panel-in var(--wx-duration-panel) var(--wx-ease-panel); }
+.workspace .wx-side-panel[data-state="closed"] { animation: wx-panel-out var(--wx-duration-panel) var(--wx-ease-panel); }
+.workspace .wx-side-panel[dir="rtl"][data-state="open"] { animation-name: wx-panel-in-rtl; }
+.workspace .wx-side-panel[dir="rtl"][data-state="closed"] { animation-name: wx-panel-out-rtl; }
+
+.workspace :is(.wx-side-panel-header, .wx-side-panel-footer) {
+  box-sizing: border-box;
+  position: sticky;
+  z-index: 1;
+  flex: none;
+  padding-block: var(--wx-panel-padding-block);
+  padding-inline: var(--wx-panel-padding-inline);
+  background: var(--wx-surface);
+}
+.workspace .wx-side-panel-header {
+  inset-block-start: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--wx-panel-gap);
+  border-block-end: 1px solid var(--wx-line);
+}
+.workspace .wx-side-panel-heading { flex: 1; min-inline-size: 0; }
+.workspace .wx-side-panel-title {
+  margin: 0;
+  font-family: var(--wx-font-heading);
+  font-size: var(--wx-panel-title-size);
+  font-weight: var(--wx-panel-title-weight);
+  line-height: var(--wx-panel-title-leading);
+  letter-spacing: normal;
+  outline: none;
+}
+.workspace .wx-side-panel-title:lang(ur) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+.workspace .wx-side-panel-description {
+  margin-block: 6px 0;
+  color: var(--wx-muted);
+  font-size: var(--wx-small-size-max);
+  line-height: inherit;
+}
+.workspace .wx-side-panel-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--wx-touch-target-min);
+  min-block-size: var(--wx-touch-target-min);
+  padding: 8px;
+  border: 0;
+  border-radius: var(--wx-radius-md);
+  color: var(--wx-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: color var(--wx-duration-feedback) var(--wx-ease-feedback), background var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-out);
+}
+.workspace .wx-side-panel-close svg { inline-size: 18px; block-size: 18px; }
+.workspace .wx-side-panel-close:hover:not(:disabled) { color: var(--wx-ink); background: var(--wx-soft); }
+.workspace .wx-side-panel-close:focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.workspace .wx-side-panel-close:active:not(:disabled) { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-side-panel-close:disabled { cursor: default; color: var(--wx-faint); background: var(--wx-soft); }
+
+.workspace .wx-side-panel-body {
+  box-sizing: border-box;
+  flex: 1;
+  min-block-size: 0;
+  min-inline-size: 0;
+  padding-block: var(--wx-panel-padding-block);
+  padding-inline: var(--wx-panel-padding-inline);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--wx-line-strong) var(--wx-surface);
+}
+.workspace .wx-side-panel-footer { inset-block-end: 0; border-block-start: 1px solid var(--wx-line); }
+.workspace .wx-side-panel-footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; min-inline-size: 0; }
+.workspace .wx-side-panel-footer-row > * { min-inline-size: 0; max-inline-size: 100%; overflow-wrap: anywhere; white-space: normal; }
+.workspace .wx-side-panel-field-error { margin-block: 6px 0; color: var(--wx-bad); font-size: var(--wx-small-size-max); line-height: inherit; }
+
+@media (max-width: 620px) {
+  .workspace .wx-side-panel { inline-size: 100%; border-inline-start: 0; }
+}
+
+@keyframes wx-panel-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes wx-panel-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes wx-panel-in-rtl { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes wx-panel-out-rtl { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes wx-scrim-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes wx-scrim-out { from { opacity: 1; } to { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace.wx-side-panel-portal .wx-side-panel[data-state="open"] { animation: wx-scrim-in var(--wx-duration-panel-reduced) var(--wx-ease-feedback); animation-duration: var(--wx-duration-panel-reduced) !important; }
+  .workspace.wx-side-panel-portal .wx-side-panel[data-state="closed"] { animation: wx-scrim-out var(--wx-duration-panel-reduced) var(--wx-ease-feedback); animation-duration: var(--wx-duration-panel-reduced) !important; }
+  .workspace .wx-side-panel-scrim { animation: none !important; }
+  .workspace .wx-side-panel-close:active:not(:disabled) { transform: none; }
+}

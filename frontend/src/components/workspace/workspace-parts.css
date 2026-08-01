@@ -1,0 +1,136 @@
+.workspace .wx-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--wx-avatar-size);
+  block-size: var(--wx-avatar-size);
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.workspace .wx-avatar--small {
+  inline-size: var(--wx-avatar-size-sm);
+  block-size: var(--wx-avatar-size-sm);
+}
+
+.workspace .wx-avatar--large {
+  inline-size: var(--wx-avatar-size-lg);
+  block-size: var(--wx-avatar-size-lg);
+}
+
+.workspace .wx-avatar--person { border-radius: var(--wx-radius-pill); }
+.workspace .wx-avatar--site { border-radius: var(--wx-site-avatar-radius); }
+.workspace .wx-avatar--tint-0 { background: var(--wx-tint-0-bg); color: var(--wx-tint-0-fg); }
+.workspace .wx-avatar--tint-1 { background: var(--wx-tint-1-bg); color: var(--wx-tint-1-fg); }
+.workspace .wx-avatar--tint-2 { background: var(--wx-tint-2-bg); color: var(--wx-tint-2-fg); }
+.workspace .wx-avatar--tint-3 { background: var(--wx-tint-3-bg); color: var(--wx-tint-3-fg); }
+.workspace .wx-avatar--tint-4 { background: var(--wx-tint-4-bg); color: var(--wx-tint-4-fg); }
+.workspace .wx-avatar--tint-5 { background: var(--wx-tint-5-bg); color: var(--wx-tint-5-fg); }
+
+.workspace .wx-avatar--empty {
+  border: var(--wx-panel-border-width) dashed var(--wx-line-strong);
+  background: none;
+}
+
+.workspace .wx-avatar--person svg { inline-size: 100%; block-size: 100%; }
+.workspace .wx-avatar--site svg { inline-size: 55%; block-size: 55%; }
+
+.workspace .wx-status-pill,
+.workspace .wx-task-ticks,
+.workspace .wx-meter-row {
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  font-family: var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals);
+}
+
+.workspace .wx-status-pill:lang(ur),
+.workspace .wx-task-ticks:lang(ur),
+.workspace .wx-meter-row:lang(ur) { font-family: var(--wx-font-urdu); }
+
+.workspace .wx-status-pill {
+  display: inline-block;
+  padding-block: 3px;
+  padding-inline: 9px;
+  border-radius: var(--wx-radius-pill);
+  font-size: var(--wx-pill-size);
+  font-weight: var(--wx-pill-weight);
+  line-height: var(--wx-body-leading);
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+}
+
+.workspace .wx-status-pill:lang(ur) { line-height: normal; }
+.workspace .wx-status-pill--neutral { color: var(--wx-muted); background: var(--wx-soft); }
+.workspace .wx-status-pill--ok { color: var(--wx-ok); background: var(--wx-ok-wash); }
+.workspace .wx-status-pill--progress { color: var(--wx-blue-press); background: var(--wx-blue-wash); }
+.workspace .wx-status-pill--attention { color: var(--wx-ink); background: var(--wx-yellow); }
+.workspace .wx-status-pill--bad { color: var(--wx-bad); background: var(--wx-bad-wash); }
+
+/* StatusBadge supplies its label mapping; only the outer pill supplies visuals. */
+.workspace .wx-status-pill > .wx-status-pill__label {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  white-space: normal;
+}
+
+.workspace .wx-task-ticks { display: inline-flex; vertical-align: middle; }
+.workspace .wx-task-ticks__boxes { display: flex; flex-wrap: wrap; gap: 3px; }
+.workspace .wx-task-ticks__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: 12px;
+  block-size: 12px;
+  border: var(--wx-panel-border-width) solid var(--wx-line-strong);
+  border-radius: 2px;
+  background: var(--wx-surface);
+}
+.workspace .wx-task-ticks__box--done {
+  border-color: var(--wx-blue);
+  background: var(--wx-blue);
+  color: var(--wx-surface);
+}
+.workspace .wx-task-ticks__box svg { inline-size: 10px; block-size: 10px; stroke-width: 3; }
+
+.workspace .wx-task-ticks__meter {
+  display: block;
+  inline-size: 168px;
+  max-inline-size: 100%;
+  block-size: 6px;
+  overflow: hidden;
+  border-radius: var(--wx-radius-pill);
+  background: var(--wx-bar-track);
+}
+.workspace .wx-task-ticks__meter > span {
+  display: block;
+  block-size: 100%;
+  border-radius: inherit;
+  background: var(--wx-blue);
+}
+
+.workspace .wx-meter-row { color: var(--wx-muted); font-size: var(--wx-small-size-max); line-height: var(--wx-body-leading); }
+.workspace .wx-meter-row:lang(ur) { line-height: normal; }
+.workspace .wx-meter-row__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.workspace .wx-meter-row__name { min-inline-size: 0; font-weight: var(--wx-label-weight); overflow-wrap: anywhere; }
+.workspace .wx-meter-row__figure { flex-shrink: 0; max-inline-size: 50%; overflow-wrap: anywhere; text-align: end; }
+.workspace .wx-meter-row__track {
+  margin-block-start: 6px;
+  block-size: 5px;
+  overflow: hidden;
+  border-radius: var(--wx-radius-pill);
+  background: var(--wx-bar-track);
+}
+.workspace .wx-meter-row__track > span { display: block; block-size: 100%; border-radius: inherit; background: var(--wx-blue); }
+.workspace .wx-meter-row--attendance .wx-meter-row__track > span { background: var(--wx-ink); }
+.workspace .wx-meter-row__subline { margin-block-start: 6px; overflow-wrap: anywhere; }
