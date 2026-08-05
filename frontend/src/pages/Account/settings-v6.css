@@ -1,0 +1,208 @@
+/* Settings owns this layout. The workspace shell supplies the closed token set. */
+.workspace .wx-settings {
+ min-inline-size: 0;
+ color: var(--wx-ink);
+ font: var(--wx-body-weight) var(--wx-body-size)/var(--wx-body-leading) var(--wx-font-body);
+ font-variant-numeric: var(--wx-numerals);
+}
+.workspace .wx-settings .wx-page-header { margin-block-end: 24px; }
+.workspace .wx-settings-layout {
+ display: grid;
+ grid-template-columns: 220px minmax(0, 1fr);
+ align-items: start;
+ gap: 24px;
+}
+.workspace .wx-settings-nav { display: grid; gap: 2px; min-inline-size: 0; }
+.workspace .wx-settings-nav button {
+ min-block-size: var(--wx-button-height);
+ padding: 8px 12px;
+ border: 1px solid transparent;
+ border-radius: var(--wx-radius-md);
+ background: transparent;
+ color: var(--wx-muted);
+ text-align: start;
+ font: var(--wx-label-weight) var(--wx-label-size)/1.5 var(--wx-font-body);
+ overflow-wrap: anywhere;
+ cursor: pointer;
+}
+.workspace .wx-settings-nav button[aria-pressed=true] {
+ color: var(--wx-ink);
+ background: var(--wx-surface);
+ border-color: var(--wx-line);
+}
+.workspace .wx-settings-nav button:hover { background: var(--wx-soft); color: var(--wx-ink); }
+.workspace .wx-settings-content { min-inline-size: 0; }
+.workspace .wx-settings-panel {
+ min-inline-size: 0;
+ padding: var(--wx-panel-padding-block) var(--wx-panel-padding-inline);
+ border: 1px solid var(--wx-line);
+ border-radius: var(--wx-radius-lg);
+ background: var(--wx-surface);
+ box-shadow: var(--wx-panel-shadow);
+}
+.workspace .wx-settings h2, .workspace .wx-settings h3 {
+ margin: 0 0 16px;
+ color: var(--wx-ink);
+ font: var(--wx-panel-title-weight) var(--wx-panel-title-size)/var(--wx-panel-title-leading) var(--wx-font-heading);
+ letter-spacing: normal;
+}
+.workspace .wx-settings p { max-inline-size: 75ch; overflow-wrap: anywhere; }
+.workspace .wx-settings-form, .workspace .wx-settings .account-form {
+ display: grid;
+ gap: 16px;
+ max-inline-size: 560px;
+ margin: 0;
+}
+.workspace .wx-settings-form label, .workspace .wx-settings .account-form label {
+ display: grid;
+ gap: 8px;
+ min-inline-size: 0;
+ color: var(--wx-ink);
+ font-size: var(--wx-label-size);
+ font-weight: var(--wx-label-weight);
+}
+.workspace .wx-settings input {
+ inline-size: 100%;
+ min-inline-size: 0;
+ block-size: var(--wx-field-height);
+ min-block-size: var(--wx-field-height);
+ padding: 8px 12px;
+ border: 1px solid var(--wx-line-strong);
+ border-radius: var(--wx-radius-md);
+ background: var(--wx-surface);
+ color: var(--wx-ink);
+ font: inherit;
+ font-weight: var(--wx-body-weight);
+ box-shadow: none;
+ caret-color: var(--wx-blue);
+}
+.workspace .wx-settings input:focus-visible {
+ border-color: var(--wx-blue);
+ outline: 3px solid var(--wx-blue-wash);
+ outline-offset: 1px;
+ box-shadow: none;
+}
+.workspace .wx-settings button[data-slot=button] {
+ justify-self: start;
+ min-block-size: var(--wx-button-height);
+ min-inline-size: var(--wx-touch-target-min);
+ block-size: auto;
+ padding: 9px 14px;
+ border: 1px solid transparent;
+ border-radius: var(--wx-radius-md);
+ background: var(--wx-blue);
+ color: var(--wx-surface);
+ font: var(--wx-label-weight) var(--wx-label-size)/1.5 var(--wx-font-body);
+ white-space: normal;
+ overflow-wrap: anywhere;
+ box-shadow: none;
+ cursor: pointer;
+}
+.workspace .wx-settings button[data-variant=outline] {
+ background: var(--wx-surface);
+ color: var(--wx-ink);
+ border-color: var(--wx-line-strong);
+}
+.workspace .wx-settings button[data-variant=ghost] {
+ background: transparent;
+ color: var(--wx-blue);
+}
+.workspace .wx-settings button[data-slot=button]:hover:not(:disabled) { background: var(--wx-blue-press); }
+.workspace .wx-settings button[data-variant=outline]:hover:not(:disabled),
+.workspace .wx-settings button[data-variant=ghost]:hover:not(:disabled) { background: var(--wx-blue-wash); color: var(--wx-blue-press); }
+.workspace .wx-settings button, .workspace .wx-settings a {
+ transition: color var(--wx-duration-feedback) var(--wx-ease-feedback), background-color var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-out);
+}
+.workspace .wx-settings button:active:not(:disabled), .workspace .wx-settings a:active { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-settings button:focus-visible, .workspace .wx-settings a:focus-visible {
+ outline: 3px solid var(--wx-blue);
+ outline-offset: 3px;
+}
+.workspace .wx-settings button:disabled, .workspace .wx-settings input:disabled { opacity: .55; cursor: not-allowed; }
+.workspace .wx-settings-help, .workspace .wx-settings .account-help {
+ margin: 0;
+ color: var(--wx-muted);
+ font-size: var(--wx-small-size-max);
+}
+.workspace .wx-settings-notice {
+ margin: 0;
+ padding: 12px 14px;
+ border: 1px solid var(--wx-line);
+ border-radius: var(--wx-radius-md);
+ background: var(--wx-soft);
+ color: var(--wx-muted);
+ font-size: var(--wx-small-size-max);
+}
+.workspace .wx-settings-error, .workspace .wx-settings .account-error { color: var(--wx-bad); margin-block: 12px; }
+.workspace .wx-settings-form [role=status] { color: var(--wx-ok); }
+.workspace .wx-settings-supporting { color: var(--wx-muted); margin-block: 0 16px; }
+.workspace .wx-settings .wx-settings-reload { margin-block-start: 12px; }
+.workspace .wx-settings-protected, .workspace .wx-settings-verification {
+ margin-block-start: 24px;
+ padding-block-start: 24px;
+ border-block-start: 1px solid var(--wx-line);
+}
+.workspace .wx-settings-protected > p + p { margin-block-start: 12px; }
+.workspace .wx-settings-protected h2, .workspace .wx-settings-verification h3 { margin-block-end: 12px; }
+.workspace .wx-settings-verification > p { margin-block-end: 16px; }
+.workspace .wx-settings-verification .wx-settings-form { margin-block-start: 16px; }
+.workspace .wx-settings-links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-block-start: 8px; }
+.workspace .wx-settings a {
+ display: inline-flex;
+ align-items: center;
+ min-block-size: var(--wx-touch-target-min);
+ max-inline-size: 100%;
+ padding-block: 8px;
+ color: var(--wx-blue);
+ text-underline-offset: 4px;
+ overflow-wrap: anywhere;
+}
+.workspace .wx-settings a:hover { color: var(--wx-blue-press); text-decoration: underline; }
+.workspace .wx-settings-facts { margin: 0; max-inline-size: 560px; }
+.workspace .wx-settings-facts > div {
+ display: grid;
+ grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+ gap: 16px;
+ padding-block: 13px;
+ border-block-end: 1px solid var(--wx-line);
+}
+.workspace .wx-settings-facts > div:last-child { border: 0; }
+.workspace .wx-settings-facts dt { color: var(--wx-muted); font-size: var(--wx-label-size); }
+.workspace .wx-settings-facts dd { margin: 0; text-align: end; font-weight: var(--wx-label-weight); overflow-wrap: anywhere; }
+.workspace .wx-settings-facts dd bdi { overflow-wrap: anywhere; }
+.workspace .wx-settings-loading { max-inline-size: 560px; }
+.workspace .wx-settings-loading > div { display: grid; gap: 16px; padding-block: 8px; }
+.workspace .wx-settings-loading .wx-sk-full { block-size: var(--wx-field-height); }
+.workspace .wx-settings-loading-label {
+ position: absolute;
+ inline-size: 1px;
+ block-size: 1px;
+ padding: 0;
+ overflow: hidden;
+ clip-path: inset(50%);
+ white-space: nowrap;
+}
+.workspace .wx-settings-state { display: grid; justify-items: start; gap: 16px; }
+.workspace .wx-settings [hidden] { display: none; }
+.workspace .wx-settings-own-security > .wx-settings-panel { max-inline-size: 850px; }
+.workspace .wx-settings-own-security .wx-settings-help { margin-block-start: 16px; }
+.workspace .wx-settings:dir(rtl), .workspace .wx-settings:dir(rtl) :is(h2,h3,label,button,p,dd,dt) {
+ font-family: var(--wx-font-urdu);
+ line-height: 1.85;
+ letter-spacing: normal;
+}
+@media (max-width: 900px) {
+ .workspace .wx-settings-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+ .workspace .wx-settings-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+ .workspace .wx-settings-nav button { text-align: center; }
+}
+@media (max-width: 620px) {
+ .workspace .wx-settings-panel { padding: 20px 16px; }
+ .workspace .wx-settings-facts > div { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+ .workspace .wx-settings-facts dd { text-align: start; }
+ .workspace .wx-settings button[data-slot=button] { inline-size: 100%; }
+ .workspace .wx-settings a { min-inline-size: var(--wx-touch-target-min); }
+}
+@media (prefers-reduced-motion: reduce) {
+ .workspace .wx-settings button:active:not(:disabled), .workspace .wx-settings a:active { transform: none; }
+}

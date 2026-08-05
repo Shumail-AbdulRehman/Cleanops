@@ -1,0 +1,14 @@
+.account-form { display: grid; gap: 16px; max-width: 480px; }
+.account-form label { display: grid; gap: 8px; font-weight: 550; }
+.account-form input { min-height: 48px; }
+.workspace .account-form button { min-height: 48px; justify-self: start; white-space: normal; height: auto; }
+.account-help { color: var(--muted-foreground); font-size: 14px; margin-block: 12px; }
+.account-form .account-help { margin: 0; }
+.account-error { color: var(--danger-ink); }
+.account-public { min-height: 100vh; }
+.account-public a { text-underline-offset: 4px; }
+.account-public [role="status"] p { margin-block-start: 16px; }
+.account-public section { min-width: 0; }
+@media (max-width: 620px) {
+ .workspace .account-form button { width: 100%; }
+}
