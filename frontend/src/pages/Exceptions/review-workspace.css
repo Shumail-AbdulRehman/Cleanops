@@ -1,0 +1,23 @@
+/* Retained ProtectedEvidence inspection/thumbnail and ReviewDetail decision-container styles. */
+.workspace .v5-evidence-thumbnail { display:flex; height:64px; width:100%; align-items:center; justify-content:center; background:var(--muted); border-radius:4px; overflow:hidden; font-size:10px; }
+.workspace .v5-evidence-thumbnail img { width:100%; height:100%; object-fit:cover; }
+.workspace .v5-evidence-toolbar { display:flex; align-items:center; gap:8px; flex-wrap:wrap; min-height:48px; padding:6px 10px; background:var(--muted); border:1px solid var(--border); border-radius:8px 8px 0 0; }
+.workspace .v5-evidence-toolbar button { min-width:44px; min-height:44px; height:auto; padding:6px; }
+.workspace .v5-evidence-toolbar output { min-width:44px; font-size:12px; text-align:center; font-variant-numeric:tabular-nums; }
+.workspace .v5-evidence-toolbar button:last-child { margin-inline-start:auto; font-size:12px; }
+.workspace .v5-evidence-stage { height:330px; overflow:auto; background:var(--muted); border:1px solid var(--border); border-top:0; border-radius:0 0 8px 8px; }
+.workspace .v5-evidence-stage img { width:100%; height:100%; object-fit:contain; display:block; }
+.workspace .v5-decision-card { align-self:start; }
+.workspace .v5-decision-card>.ops-panel-body { padding:24px; }
+.workspace .v5-decision-card h3 { font-size:17px; font-weight:650; margin:0 0 6px; }
+.workspace .v5-decision-card textarea { background:var(--card); }
+@media(min-width:1700px) {
+ .workspace .v5-decision-card { position:sticky; top:24px; }
+}
+@media(max-width:650px) {
+ .workspace .v5-evidence-stage { height:280px; }
+ .workspace .v5-decision-card>.ops-panel-body { padding:16px; }
+}
+
+@media(max-width:650px) { .workspace .v5-evidence-toolbar button { min-width:48px; min-height:48px; } }
+.workspace .v5-evidence-stage:focus-visible,.workspace .ops-image-zoom:focus-visible { outline:3px solid var(--primary); outline-offset:3px; }

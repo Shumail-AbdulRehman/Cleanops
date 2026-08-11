@@ -1,0 +1,69 @@
+.workspace .wx-decision {
+  display: grid;
+  gap: 12px;
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font: var(--wx-body-weight) var(--wx-body-size)/var(--wx-body-leading) var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals);
+  overflow-wrap: anywhere;
+}
+.workspace .wx-decision :is(h3, h4, p) { margin: 0; line-height: inherit; }
+.workspace .wx-decision h3 { font: var(--wx-panel-title-weight) var(--wx-panel-title-size)/var(--wx-panel-title-leading) var(--wx-font-heading); }
+.workspace .wx-decision h4 { font-size: var(--wx-small-size-max); font-weight: var(--wx-small-weight-min); color: var(--wx-muted); }
+.workspace .wx-decision .wx-decision-hint { max-inline-size: 75ch; color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-decision-outcomes { display: grid; gap: 10px; min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+.workspace .wx-decision-outcome { display: flex; align-items: start; gap: 12px; min-inline-size: 0; margin: 0; padding: 12px 14px; border: 1px solid var(--wx-line-strong); border-radius: var(--wx-radius-md); background: var(--wx-surface); cursor: pointer; transition: background-color var(--wx-duration-feedback) var(--wx-ease-feedback), border-color var(--wx-duration-feedback) var(--wx-ease-feedback); }
+.workspace .wx-decision-outcome > span { display: grid; gap: 3px; min-inline-size: 0; }
+.workspace .wx-decision-outcome strong { font-size: var(--wx-label-size); font-weight: var(--wx-label-weight); }
+.workspace .wx-decision-outcome small { color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-decision-outcome input { appearance: auto; flex: 0 0 17px; inline-size: 17px; block-size: 17px; min-block-size: 0; margin: 3px 0 0; padding: 0; accent-color: var(--wx-blue); cursor: inherit; }
+.workspace .wx-decision-outcome:hover { background: var(--wx-soft); border-color: var(--wx-blue-line); }
+.workspace .wx-decision-outcome:has(:checked) { background: var(--wx-blue-wash); border-color: var(--wx-blue); }
+.workspace .wx-decision-outcome:has(:checked):hover { border-color: var(--wx-blue-press); }
+.workspace .wx-decision-outcome:active { background: var(--wx-rail-hover); }
+.workspace .wx-decision-outcome:has(:focus-visible) { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.workspace .wx-decision-outcomes:disabled .wx-decision-outcome { cursor: not-allowed; opacity: .55; }
+.workspace .wx-decision-form { display: grid; gap: 12px; min-inline-size: 0; }
+.workspace .wx-decision-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 14px; }
+.workspace .wx-decision-field { display: grid; align-content: start; gap: 7px; min-inline-size: 0; }
+.workspace .wx-decision-field > label { font-size: var(--wx-label-size); font-weight: var(--wx-label-weight); }
+.workspace .wx-decision-field :is(select, textarea) { inline-size: 100%; max-inline-size: 100%; min-inline-size: 0; min-block-size: var(--wx-field-height); border: 1px solid var(--wx-line-strong); border-radius: var(--wx-radius-md); padding: 9px 12px; color: var(--wx-ink); background: var(--wx-surface); font: inherit; font-size: var(--wx-label-size); text-align: start; caret-color: var(--wx-blue); }
+.workspace .wx-decision-field textarea { resize: vertical; }
+.workspace .wx-decision-field textarea::placeholder { color: var(--wx-muted); opacity: 1; }
+.workspace .wx-decision-field :is(select, textarea):hover:not(:disabled) { border-color: var(--wx-muted); }
+.workspace .wx-decision-field :is(select, textarea):focus { border-color: var(--wx-blue); outline: 2px solid var(--wx-blue-wash); outline-offset: 1px; }
+.workspace .wx-decision-field :is(select, textarea)[aria-invalid=true] { border-color: var(--wx-bad); }
+.workspace .wx-decision-field :is(select, textarea):disabled { background: var(--wx-soft); color: var(--wx-muted); cursor: not-allowed; }
+.workspace .wx-decision .wx-decision-error { color: var(--wx-bad); font-size: var(--wx-small-size-max); }
+.workspace .wx-decision-notice { display: grid; gap: 12px; min-inline-size: 0; padding: 12px; border: 1px solid var(--wx-line); border-radius: var(--wx-radius-md); background: var(--wx-soft); color: var(--wx-muted); font-size: var(--wx-small-size-max); overflow-wrap: anywhere; }
+.workspace .wx-decision-notice p { margin: 0; }
+.workspace .wx-decision-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; min-inline-size: 0; }
+.workspace .wx-decision-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-block-size: var(--wx-button-height); block-size: auto; min-inline-size: var(--wx-touch-target-min); max-inline-size: 100%; padding: 9px 14px; border: 1px solid var(--wx-line-strong); border-radius: var(--wx-radius-md); color: var(--wx-ink); background: var(--wx-surface); box-shadow: none; font: var(--wx-label-weight) var(--wx-label-size)/1.5 var(--wx-font-body); white-space: normal; overflow-wrap: anywhere; text-align: center; text-decoration: none; cursor: pointer; transition: color var(--wx-duration-feedback) var(--wx-ease-feedback), background-color var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-out); }
+.workspace .wx-decision-button:hover { color: var(--wx-ink); background: var(--wx-soft); }
+.workspace .wx-decision-button--primary { color: var(--wx-surface); background: var(--wx-blue); border-color: var(--wx-blue); }
+.workspace .wx-decision-button--primary:hover { color: var(--wx-surface); background: var(--wx-blue-press); border-color: var(--wx-blue-press); }
+.workspace .wx-decision-button--ghost { color: var(--wx-muted); background: transparent; border-color: transparent; }
+.workspace .wx-decision-button:focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.workspace .wx-decision-button:active { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-decision-button:disabled { cursor: not-allowed; opacity: .55; transform: none; }
+.workspace .wx-decision-record { display: grid; gap: 12px; min-inline-size: 0; padding: 18px; border: 1px solid var(--wx-line); border-radius: var(--wx-radius-md); background: var(--wx-soft); }
+.workspace .wx-decision .wx-decision-result { font-size: var(--wx-panel-title-size); font-weight: var(--wx-label-weight); }
+.workspace .wx-decision-facts { display: grid; margin: 0; min-inline-size: 0; font-size: var(--wx-small-size-max); }
+.workspace .wx-decision-facts > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 10px; align-items: start; padding-block: 12px; min-inline-size: 0; border-block-end: 1px solid var(--wx-line); }
+.workspace .wx-decision-facts dt { color: var(--wx-muted); }
+.workspace .wx-decision-facts dd { min-inline-size: 0; margin: 0; text-align: end; font-weight: var(--wx-label-weight); }
+.workspace .wx-decision-saved-note { display: grid; gap: 4px; min-inline-size: 0; }
+.workspace .wx-decision-saved-note p { white-space: pre-wrap; }
+.workspace .wx-decision ::selection { background: var(--wx-blue-wash); color: var(--wx-blue-press); }
+.workspace[dir=rtl] .wx-decision-arrow, [dir=rtl] .workspace .wx-decision-arrow { transform: scaleX(-1); }
+.workspace[lang^=ur] .wx-decision, [lang^=ur] .workspace .wx-decision { font-family: var(--wx-font-urdu); line-height: 1.85; }
+.workspace[lang^=ur] .wx-decision :is(h3, h4, button, a), [lang^=ur] .workspace .wx-decision :is(h3, h4, button, a) { font-family: var(--wx-font-urdu); line-height: 1.85; letter-spacing: normal; }
+@media (width < 620px) {
+  .workspace .wx-decision-fields { grid-template-columns: minmax(0, 1fr); }
+  .workspace .wx-decision-facts > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .workspace .wx-decision-facts dd { text-align: start; }
+  .workspace .wx-decision-footer > * { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace .wx-decision-button:active { transform: none; }
+}
