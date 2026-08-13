@@ -1,0 +1,14 @@
+/* Screen layout uses the shared flow's closed token set. */
+.flow-shell .login-password-label { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; }
+.flow-shell .login-password-label a { font-size: 13px; }
+.flow-shell .login-alternative { margin-block-start: 24px; text-align: center; }
+.flow-shell .login-platform-link { margin-block-start: 12px; text-align: center; }
+.flow-shell :is(.login-password-label, .login-alternative, .login-platform-link) a { display: inline-flex; align-items: center; min-block-size: 44px; }
+.flow-shell .login-notice { margin-block-start: 20px; }
+.flow-shell .login-worksheet { font-size: 13px; }
+.flow-shell .login-worksheet-header { display: flex; justify-content: space-between; gap: 12px; padding-block-end: 12px; border-block-end: 1px solid var(--flow-line); }
+.flow-shell .login-worksheet-header > span { color: var(--flow-muted); font-size: 12px; }
+.flow-shell .login-worksheet ul { list-style: none; padding: 0; margin: 0; }
+.flow-shell .login-worksheet li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; align-items: center; gap: 8px; padding-block: 12px; border-block-end: 1px solid var(--flow-line); }
+.flow-shell .login-worksheet li:last-child { border-block-end: 0; }
+.flow-shell .login-worksheet .flow-chip-later { background: var(--flow-canvas); color: var(--flow-muted); }
