@@ -1,0 +1,179 @@
+.wx-schedule-details-facts {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+  margin: 0;
+}
+
+.wx-schedule-details-facts dt,
+.wx-schedule-details-shift {
+  color: var(--wx-muted);
+  font-size: 0.875rem;
+}
+
+.wx-schedule-details-facts dd {
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.wx-schedule-details-future {
+  grid-column: 2;
+}
+
+.wx-schedule-details-repeat,
+.wx-schedule-details-worker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wx-schedule-details-repeat {
+  flex-wrap: wrap;
+}
+
+.wx-schedule-details-letters {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.wx-schedule-details-letters span {
+  display: grid;
+  place-items: center;
+  min-inline-size: 15px;
+  min-block-size: 20px;
+  padding-inline: 2px;
+  border-radius: var(--wx-radius-sm);
+  color: var(--wx-faint);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.wx-schedule-details-letters [data-active="true"] {
+  color: var(--wx-blue);
+  background: var(--wx-blue-wash);
+}
+
+.workspace .wx-schedule-details-worker .wx-avatar {
+  inline-size: 28px;
+  block-size: 28px;
+}
+
+.workspace .wx-schedule-details-worker .wx-schedule-details-open-avatar {
+  border-color: var(--wx-bad);
+  background: var(--wx-bad-wash);
+}
+
+.wx-schedule-details-unassigned {
+  color: var(--wx-bad);
+}
+
+.wx-schedule-details-review {
+  margin-block-start: 20px;
+  padding: 12px 14px;
+  border: 1px solid var(--wx-yellow-line);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-yellow-wash);
+}
+
+.wx-schedule-details h3 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.wx-schedule-details-review p {
+  margin-block: 4px 0;
+  color: var(--wx-muted);
+}
+
+.wx-schedule-details-review a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 40px;
+  color: var(--wx-blue-press);
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.wx-schedule-details-upcoming {
+  margin-block-start: 20px;
+}
+
+.wx-schedule-details-upcoming ul {
+  margin-block: 8px 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--wx-line);
+  border-radius: var(--wx-radius-md);
+}
+
+.wx-schedule-details-upcoming li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 10px 12px;
+  color: var(--wx-muted);
+}
+
+.wx-schedule-details-upcoming li + li {
+  border-block-start: 1px solid var(--wx-line);
+}
+
+.wx-schedule-details-upcoming time {
+  color: var(--wx-ink);
+  font-weight: 650;
+}
+
+.workspace .wx-schedule-details-footer {
+  justify-content: space-between;
+}
+
+.wx-schedule-details-delete {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.workspace .wx-schedule-details-footer .wx-schedule-details-edit {
+  color: var(--wx-surface);
+  background: var(--wx-blue);
+}
+
+.workspace .wx-schedule-details-footer .wx-schedule-details-edit:hover {
+  background: var(--wx-blue-press);
+}
+
+.workspace .wx-schedule-details-delete [aria-haspopup="dialog"] {
+  min-block-size: 40px;
+  color: var(--wx-bad);
+  background: none;
+}
+
+.workspace .wx-schedule-details-delete [aria-haspopup="dialog"]:hover:not(:disabled) {
+  background: var(--wx-bad-wash);
+}
+
+.wx-schedule-details-review a:focus-visible,
+.wx-schedule-details-footer button:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: 2px;
+}
+
+/* DeleteButton portals its confirmation to the body at a lower layer than SidePanel. */
+body:has(.wx-schedule-details-delete [aria-expanded="true"]) >
+  :is([data-slot="dialog-overlay"], [data-slot="dialog-content"])[data-state="open"] {
+  z-index: 52;
+}
+
+@media (max-width: 620px) {
+  .workspace .wx-schedule-details-footer .wx-schedule-details-edit {
+    inline-size: 100%;
+  }
+
+  .wx-schedule-details-delete {
+    margin-inline-start: auto;
+  }
+}

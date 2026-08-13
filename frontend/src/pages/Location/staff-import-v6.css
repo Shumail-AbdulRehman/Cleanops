@@ -1,0 +1,100 @@
+.workspace .wx-staff-import {
+  display: grid;
+  gap: 24px;
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font-size: var(--wx-body-size);
+  line-height: var(--wx-body-leading);
+}
+.workspace .wx-staff-import :is(p, h3) { margin: 0; line-height: inherit; overflow-wrap: anywhere; }
+.workspace .wx-staff-import-step { display: grid; gap: 10px; min-inline-size: 0; }
+.workspace .wx-staff-import-step h3 { font-size: var(--wx-label-size); font-weight: var(--wx-label-weight); }
+.workspace .wx-staff-import-step > :is(p, label) { color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-staff-import-step > .wx-staff-import-button { justify-self: start; }
+.workspace .wx-staff-import-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-inline-size: var(--wx-touch-target-min);
+  max-inline-size: 100%;
+  min-block-size: var(--wx-button-height);
+  block-size: auto;
+  padding-block: 9px;
+  padding-inline: 14px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+  line-height: var(--wx-body-leading);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  box-shadow: none;
+  cursor: pointer;
+  transition: color var(--wx-duration-feedback) var(--wx-ease-feedback), background var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-out);
+}
+.workspace .wx-staff-import-button svg { flex: none; }
+.workspace .wx-staff-import-button:hover:not(:disabled) { color: var(--wx-ink); background: var(--wx-soft); }
+.workspace .wx-staff-import-button:active:not(:disabled) { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-staff-import-button:focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.workspace .wx-staff-import-button:disabled { color: var(--wx-muted); background: var(--wx-soft); opacity: .6; cursor: default; }
+.workspace .wx-staff-import-primary { border-color: var(--wx-blue); background: var(--wx-blue); color: var(--wx-surface); }
+.workspace .wx-staff-import-primary:hover:not(:disabled) { border-color: var(--wx-blue-press); background: var(--wx-blue-press); color: var(--wx-surface); }
+.workspace .wx-staff-import-upload {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-inline-size: 0;
+  min-block-size: 76px;
+  padding: 16px;
+  border: 1px dashed var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  color: var(--wx-muted);
+  background: var(--wx-surface);
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+  transition: background var(--wx-duration-feedback) var(--wx-ease-feedback), border-color var(--wx-duration-feedback) var(--wx-ease-feedback);
+}
+.workspace .wx-staff-import-upload svg { flex: none; }
+.workspace .wx-staff-import-upload span { min-inline-size: 0; overflow-wrap: anywhere; }
+.workspace .wx-staff-import-upload input { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; cursor: pointer; }
+.workspace .wx-staff-import-upload:hover:not([aria-disabled="true"]) { border-color: var(--wx-blue); background: var(--wx-soft); }
+.workspace .wx-staff-import-upload:active:not([aria-disabled="true"]) { background: var(--wx-blue-wash); }
+.workspace .wx-staff-import-upload:focus-within { border-color: var(--wx-blue); outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.workspace .wx-staff-import-upload[aria-disabled="true"] { background: var(--wx-soft); opacity: .6; }
+.workspace .wx-staff-import-upload input:disabled { cursor: default; }
+.workspace :is(.wx-staff-import-error, .wx-staff-import-progress) { display: grid; gap: 12px; padding: 14px; border-radius: var(--wx-radius-md); }
+.workspace .wx-staff-import-error { color: var(--wx-bad); background: var(--wx-bad-wash); }
+.workspace .wx-staff-import-error .wx-staff-import-button { justify-self: start; }
+.workspace .wx-staff-import-progress { color: var(--wx-muted); background: var(--wx-soft); }
+.workspace .wx-staff-import-preview { padding-block-start: 20px; border-block-start: 1px solid var(--wx-line); }
+.workspace .wx-staff-import-preview .wx-data-table { border-radius: var(--wx-radius-md); }
+.workspace .wx-staff-import-preview :is(th, td) { padding: 10px 8px; overflow-wrap: anywhere; }
+.workspace .wx-staff-import-preview table { table-layout: fixed; }
+.workspace .wx-staff-import-preview :is(th, td):first-child { inline-size: 44px; }
+.workspace .wx-staff-import-preview :is(th, td):nth-child(2) { inline-size: 40%; }
+.workspace .wx-staff-import-preview :is(th, td):nth-child(3) { inline-size: 88px; }
+.workspace .wx-staff-import-person { display: grid; gap: 4px; min-inline-size: 0; }
+.workspace .wx-staff-import-person strong { color: var(--wx-ink); font-weight: var(--wx-label-weight); }
+.workspace .wx-staff-import-person span { font-size: var(--wx-small-size-min); }
+.workspace .wx-staff-import-row-status { display: grid; justify-items: start; gap: 6px; min-inline-size: 0; }
+.workspace .wx-staff-import-row-status p { color: var(--wx-bad); font-size: var(--wx-small-size-min); }
+.workspace .wx-staff-import-step > .wx-staff-import-correction { color: var(--wx-bad); }
+.workspace .wx-staff-import-success { display: grid; gap: 16px; }
+.workspace .wx-staff-import-success-icon { display: grid; place-items: center; inline-size: 48px; block-size: 48px; border-radius: var(--wx-radius-pill); color: var(--wx-ok); background: var(--wx-ok-wash); }
+.workspace .wx-staff-import-result { font-family: var(--wx-font-heading); font-size: var(--wx-panel-title-size); font-weight: var(--wx-panel-title-weight); }
+.workspace .wx-staff-import-success > p:last-child { color: var(--wx-muted); }
+.workspace .wx-staff-import:lang(ur), .workspace .wx-staff-import-button:lang(ur), .workspace .wx-staff-import-result:lang(ur) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+.workspace .wx-staff-import ::selection { color: var(--wx-ink); background: var(--wx-blue-line); }
+@media (max-width: 620px) {
+  .workspace .wx-staff-import-preview :is(th, td):nth-child(n) { inline-size: auto; }
+  .workspace .wx-staff-import-preview .wx-pagination > div { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace .wx-staff-import-button:active:not(:disabled) { transform: none; }
+}

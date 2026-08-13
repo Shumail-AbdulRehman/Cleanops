@@ -1,0 +1,244 @@
+.schedule-staff-week {
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.35;
+}
+
+.schedule-staff-week:lang(ur) {
+  font-family: var(--wx-font-urdu);
+}
+
+.schedule-staff-week__grid,
+.schedule-staff-week__agenda-list {
+  overflow: auto;
+  border: 1px solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+  background: var(--wx-surface);
+}
+
+.schedule-staff-week__table {
+  inline-size: 100%;
+  min-inline-size: 660px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: start;
+}
+
+.schedule-staff-week__table thead,
+.schedule-staff-week__table [data-today] {
+  background-color: var(--wx-soft);
+}
+
+.schedule-staff-week__table thead th {
+  padding-block: 11px;
+  padding-inline: 12px;
+  color: var(--wx-muted);
+  font-size: 13px;
+  font-weight: 650;
+  text-align: start;
+}
+
+.schedule-staff-week__table thead [data-today] { color: var(--wx-blue); }
+.schedule-staff-week__staff-heading { inline-size: 220px; }
+
+.schedule-staff-week__person,
+.schedule-staff-week__cell {
+  block-size: 92px;
+  border-block-start: 1px solid var(--wx-line);
+  vertical-align: top;
+}
+
+.schedule-staff-week__person {
+  padding: 12px;
+  font-weight: 400;
+  text-align: start;
+}
+
+.schedule-staff-week__identity,
+.schedule-staff-week__agenda-worker {
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.schedule-staff-week__identity {
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.schedule-staff-week .wx-avatar.schedule-staff-week__avatar {
+  inline-size: 28px;
+  block-size: 28px;
+}
+
+.schedule-staff-week__person-info,
+.schedule-staff-week__agenda-time,
+.schedule-staff-week__agenda-schedule {
+  display: grid;
+  gap: 2px;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.schedule-staff-week__primary { font-weight: 650; }
+
+.schedule-staff-week__secondary {
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.schedule-staff-week__cell {
+  padding-block: 8px;
+  padding-inline: 6px;
+  border-inline-start: 1px solid var(--wx-line);
+}
+
+.schedule-staff-week__cell[data-day-off] {
+  background: repeating-linear-gradient(135deg, var(--wx-soft) 0 6px, var(--wx-canvas) 6px 12px);
+  color: var(--wx-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.schedule-staff-week__blocks {
+  display: grid;
+  gap: 4px;
+}
+
+.schedule-staff-week__block,
+.schedule-staff-week__more,
+.schedule-staff-week__agenda-row {
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 40px;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.schedule-staff-week__block {
+  display: grid;
+  align-content: center;
+  padding-block: 5px;
+  padding-inline: 7px;
+  border: 1px solid var(--wx-blue-line);
+  border-radius: var(--wx-radius-sm);
+  background-color: var(--wx-blue-wash);
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+
+.schedule-staff-week__start {
+  color: var(--wx-blue-press);
+  font-weight: 700;
+}
+
+.schedule-staff-week__start,
+.schedule-staff-week__agenda-time bdi { justify-self: start; }
+
+.schedule-staff-week__block-title,
+.schedule-staff-week__agenda-worker bdi {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.schedule-staff-week__more {
+  padding-inline: 7px;
+  border: 0;
+  border-radius: var(--wx-radius-sm);
+  background-color: transparent;
+  color: var(--wx-blue);
+  font-size: 12.5px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.schedule-staff-week [data-unassigned] .schedule-staff-week__person,
+.schedule-staff-week [data-unassigned] .schedule-staff-week__block,
+.schedule-staff-week__agenda-row[data-unassigned] {
+  background-color: var(--wx-bad-wash);
+}
+
+.schedule-staff-week [data-unassigned] .schedule-staff-week__name,
+.schedule-staff-week [data-unassigned] .schedule-staff-week__start,
+.schedule-staff-week [data-unassigned] .schedule-staff-week__agenda-worker { color: var(--wx-bad); }
+
+.schedule-staff-week [data-unassigned] .schedule-staff-week__block,
+.schedule-staff-week [data-unassigned] .schedule-staff-week__avatar { border: 1px dashed var(--wx-bad); }
+
+.schedule-staff-week__block:focus-visible,
+.schedule-staff-week__more:focus-visible,
+.schedule-staff-week__agenda-row:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: -2px;
+}
+
+.schedule-staff-week__agenda { display: none; }
+
+.schedule-staff-week__agenda-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-block-end: 10px;
+}
+
+.schedule-staff-week__agenda-heading h3 {
+  margin: 0;
+  font-family: var(--wx-font-heading);
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.schedule-staff-week__agenda-heading h3:lang(ur) { font-family: var(--wx-font-urdu); }
+
+.schedule-staff-week__agenda-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.schedule-staff-week__agenda-list li + li { border-block-start: 1px solid var(--wx-line); }
+
+.schedule-staff-week__agenda-row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-block-size: 64px;
+  padding-block: 10px;
+  padding-inline: 12px;
+  border: 0;
+  background-color: var(--wx-surface);
+}
+
+.schedule-staff-week__agenda-worker {
+  gap: 6px;
+  max-inline-size: 112px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+@media (pointer: fine) {
+  .schedule-staff-week__block,
+  .schedule-staff-week__more,
+  .schedule-staff-week__agenda-row {
+    transition: background-color var(--wx-duration-press) var(--wx-ease-feedback);
+  }
+
+  .schedule-staff-week .schedule-staff-week__block:hover,
+  .schedule-staff-week__more:hover,
+  .schedule-staff-week .schedule-staff-week__agenda-row:hover { background-color: var(--wx-soft); }
+}
+
+@media (width < 620px) {
+  .schedule-staff-week__grid { display: none; }
+  .schedule-staff-week__agenda { display: block; }
+}

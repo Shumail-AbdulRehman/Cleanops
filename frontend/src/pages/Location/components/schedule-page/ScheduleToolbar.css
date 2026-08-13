@@ -1,0 +1,93 @@
+.schedule-toolbar,
+.schedule-toolbar__sheet {
+  display: grid;
+  gap: 12px;
+}
+
+.schedule-toolbar__row,
+.schedule-toolbar__selects,
+.schedule-toolbar__chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.schedule-toolbar__desktop {
+  min-inline-size: 0;
+}
+
+.workspace .schedule-toolbar .schedule-toolbar__search {
+  flex: 1 1 280px;
+  min-inline-size: min(280px, 100%);
+}
+
+.workspace .schedule-toolbar .wx-segmented-control {
+  background: var(--wx-soft);
+}
+
+.workspace .schedule-toolbar .wx-filter-segment {
+  min-block-size: 40px;
+  border: 1px solid var(--wx-soft);
+}
+
+.workspace .schedule-toolbar .wx-filter-segment[aria-pressed="true"],
+.workspace .schedule-toolbar .wx-filter-segment[aria-pressed="true"]:hover:not(:disabled) {
+  color: var(--wx-ink);
+  background: var(--wx-surface);
+  border-color: var(--wx-line-strong);
+}
+
+.workspace .schedule-toolbar__chips .wx-filter-chip {
+  min-block-size: 40px;
+}
+
+.workspace .schedule-toolbar__chips .wx-filter-chip:nth-child(2) .wx-filter-count {
+  padding-inline: 5px;
+  color: var(--wx-ink);
+  background: var(--wx-yellow);
+  border-radius: var(--wx-radius-pill);
+}
+
+.workspace .schedule-toolbar__chips > .wx-filter-chip[aria-pressed="true"],
+.workspace .schedule-toolbar__chips > .wx-filter-chip[aria-pressed="true"]:hover:not(:disabled) {
+  color: var(--wx-blue-press);
+  background: var(--wx-blue-wash);
+  border-color: var(--wx-blue-line);
+}
+
+.workspace .schedule-toolbar .schedule-toolbar__open-filters {
+  display: none;
+}
+
+.schedule-toolbar__sheet .schedule-toolbar__selects {
+  display: grid;
+}
+
+@media (width < 620px) {
+  .schedule-toolbar__desktop {
+    display: none;
+  }
+
+  .schedule-toolbar__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .schedule-toolbar__row .wx-segmented-control {
+    justify-self: start;
+  }
+
+  .workspace .schedule-toolbar .schedule-toolbar__search {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+
+  .workspace .schedule-toolbar .schedule-toolbar__open-filters {
+    display: inline-flex;
+    grid-row: 1;
+    grid-column: 2;
+  }
+}

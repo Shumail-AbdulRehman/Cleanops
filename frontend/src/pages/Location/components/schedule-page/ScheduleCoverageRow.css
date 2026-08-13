@@ -1,0 +1,218 @@
+.schedule-coverage {
+  display: grid;
+  gap: 8px;
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule-coverage__bar,
+.schedule-coverage__navigation {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.schedule-coverage__bar {
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.schedule-coverage__navigation {
+  gap: 8px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.schedule-coverage .schedule-coverage__week-arrow {
+  border: 1px solid var(--wx-line);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+}
+
+.schedule-coverage__week-arrow:dir(rtl) svg {
+  scale: -1 1;
+}
+
+.schedule-coverage .schedule-coverage__this-week {
+  padding-inline: 6px;
+  color: var(--wx-blue);
+  font-weight: 700;
+}
+
+.schedule-coverage__hint {
+  margin: 0;
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.schedule-coverage__days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.schedule-coverage__day {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-block-size: 40px;
+  padding-block: 10px 12px;
+  padding-inline: 12px;
+  border: 1px solid var(--wx-line);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+  line-height: 1.3;
+  text-align: start;
+  cursor: pointer;
+}
+
+.schedule-coverage__day[data-today="true"] {
+  background: var(--wx-soft);
+}
+
+.schedule-coverage__day[aria-pressed="true"] {
+  border-color: var(--wx-blue);
+  background: var(--wx-blue-wash);
+  box-shadow: inset 0 0 0 1px var(--wx-blue);
+}
+
+.schedule-coverage__day-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.schedule-coverage__day-heading time {
+  white-space: nowrap;
+}
+
+.schedule-coverage__today {
+  padding-inline: 6px;
+  border: 1px solid var(--wx-blue-line);
+  border-radius: var(--wx-radius-pill);
+  background: var(--wx-surface);
+  color: var(--wx-blue);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.schedule-coverage__jobs {
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.schedule-coverage__jobs strong {
+  color: var(--wx-ink);
+  font-family: var(--wx-font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.schedule-coverage__meter,
+.schedule-coverage__meter > span {
+  display: block;
+  block-size: 4px;
+  border-radius: var(--wx-radius-pill);
+}
+
+.schedule-coverage__meter {
+  background: var(--wx-bar-track);
+}
+
+.schedule-coverage__meter > span {
+  background: var(--wx-blue-mid);
+}
+
+.schedule-coverage__day[aria-pressed="true"] .schedule-coverage__meter > span {
+  background: var(--wx-blue);
+}
+
+.schedule-coverage__counts {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 4px;
+  color: var(--wx-muted);
+  font-size: 12.5px;
+}
+
+.schedule-coverage__open {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-inline-start: auto;
+  color: var(--wx-bad);
+  font-weight: 650;
+}
+
+.schedule-coverage__open::before {
+  content: "";
+  flex: none;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: var(--wx-radius-pill);
+  background: var(--wx-bad);
+}
+
+.schedule-coverage button {
+  translate: none;
+  transition:
+    scale var(--wx-duration-press) var(--wx-ease-out),
+    background-color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    border-color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    box-shadow var(--wx-duration-feedback) var(--wx-ease-feedback);
+}
+
+.schedule-coverage button:active {
+  scale: 0.97;
+}
+
+.schedule-coverage button:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: -3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .schedule-coverage .schedule-coverage__week-arrow:hover,
+  .schedule-coverage .schedule-coverage__this-week:hover {
+    background: var(--wx-soft);
+  }
+}
+
+@media (width < 620px) {
+  .schedule-coverage__hint,
+  .schedule-coverage__staff {
+    display: none;
+  }
+
+  .schedule-coverage__days {
+    grid-template-columns: repeat(7, 88px);
+    overflow: auto;
+  }
+
+  .schedule-coverage__day {
+    padding-inline: 8px;
+  }
+
+  .schedule-coverage__day-heading {
+    align-content: start;
+    min-block-size: 38px;
+  }
+
+  .schedule-coverage__open {
+    margin-inline-start: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schedule-coverage button:active {
+    scale: none;
+  }
+}
