@@ -1,0 +1,355 @@
+/* Closed onboarding palette. Everything, including shared primitive overrides, is scoped. */
+.flow-shell {
+  --flow-primary: #2556d8;
+  --flow-primary-dark: #1d42b1;
+  --flow-wash: #eef3ff;
+  --flow-canvas: #f8fafc;
+  --flow-paper: #ffffff;
+  --flow-ink: #0f172a;
+  --flow-muted: #475569;
+  --flow-line: #dce4ee;
+  --flow-placeholder: #64748b;
+  --flow-skeleton: #e8eef6;
+  --flow-ok-ink: #16613d;
+  --flow-ok-fill: #ecf7f0;
+  --flow-warn-ink: #7b4200;
+  --flow-warn-fill: #fff7e5;
+  --flow-bad-ink: #a32128;
+  --flow-bad-fill: #fff0ef;
+  --flow-table-soft: #334155;
+  --flow-table-track: #ffffff99;
+  --flow-table-base: #eaf3ff;
+  --flow-aurora-blue: #7ea6ff;
+  --flow-aurora-mint: #6fe0cf;
+  --flow-aurora-sky: #a7c4ff;
+  --flow-aurora-seafoam: #b7f0e4;
+  --flow-panel-mint: #d6f6ec;
+  --flow-panel-sky: #d6edfb;
+  --flow-panel-blue: #d2e2ff;
+  --flow-sheet-behind: #ffffffa6;
+  position: relative;
+  isolation: isolate;
+  min-block-size: 100dvh;
+  padding-block-end: 56px;
+  overflow-x: clip;
+  color-scheme: light;
+  color: var(--flow-ink);
+  font: 400 15px/1.55 'Inter Variable', Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+  scrollbar-color: var(--flow-placeholder) var(--flow-canvas);
+}
+
+.flow-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 70% at 0% 0%, var(--flow-aurora-blue), transparent 70%),
+    radial-gradient(50% 60% at 100% 0%, var(--flow-aurora-mint), transparent 68%),
+    radial-gradient(70% 70% at 100% 100%, var(--flow-aurora-sky), transparent 70%),
+    radial-gradient(55% 60% at 0% 100%, var(--flow-aurora-seafoam), transparent 70%),
+    var(--flow-table-base);
+}
+.flow-shell .flow-supergraphic {
+  position: fixed;
+  inset-inline-end: -7vw;
+  inset-block-end: -16vh;
+  inline-size: min(68vw, 980px);
+  z-index: -1;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--flow-paper);
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .4;
+}
+.flow-shell[dir='rtl'] .flow-supergraphic { transform: scaleX(-1); }
+.flow-shell *, .flow-shell *::before, .flow-shell *::after { box-sizing: border-box; }
+.flow-shell :is(h1, h2, h3, p, ol, ul) { margin: 0; }
+.flow-shell :is(button, input, select) { font: inherit; }
+.flow-shell a { color: var(--flow-primary); text-underline-offset: 3px; }
+.flow-shell ::selection { color: var(--flow-ink); background: var(--flow-wash); }
+.flow-shell :focus-visible { outline: 3px solid var(--flow-primary); outline-offset: 2px; }
+.flow-shell [hidden] { display: none !important; }
+.flow-shell .flow-sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.flow-shell .flow-skip {
+  position: fixed;
+  inset-block-start: 8px;
+  inset-inline-start: 8px;
+  z-index: 10;
+  padding: 12px 16px;
+  border-radius: 7px;
+  background: var(--flow-paper);
+  transform: translateY(-200%);
+}
+.flow-shell .flow-skip:focus { transform: none; }
+.flow-shell .flow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  padding: 20px clamp(16px, 3vw, 32px);
+}
+.flow-shell .flow-brand { display: inline-flex; align-items: center; min-block-size: 44px; text-decoration: none; }
+.flow-shell .hygene-logo { gap: 8px; }
+.flow-shell .hygene-mark { inline-size: 36px; block-size: 36px; }
+.flow-shell .hygene-wordmark {
+  font: 750 21px/1 'Manrope Variable', sans-serif;
+  letter-spacing: -.05em;
+  color: var(--flow-ink);
+}
+.flow-shell .hygene-wordmark > span { font-weight: 500; color: inherit; }
+.flow-shell .flow-header-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-inline-start: auto; }
+.flow-shell .language-choice { display: inline-flex; align-items: center; gap: 0; padding: 4px; border: 0; border-radius: 8px; background: var(--flow-table-track); }
+.flow-shell .language-choice > svg { display: none; }
+.flow-shell .language-choice button {
+  min-block-size: 44px;
+  min-inline-size: 44px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--flow-table-soft);
+  font-size: 13px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: none;
+  animation: none;
+}
+.flow-shell .language-choice button[aria-pressed='true'] { background: var(--flow-paper); color: var(--flow-primary-dark); box-shadow: none; }
+.flow-shell .flow-stage { position: relative; inline-size: calc(100% - 32px); max-inline-size: 520px; margin: 32px auto 0; }
+.flow-shell .flow-stage[data-size='split'] { max-inline-size: 980px; }
+.flow-shell .flow-stage[data-size='plan'] { max-inline-size: 880px; }
+.flow-shell .flow-stage[data-size='wide'] { max-inline-size: 1040px; }
+.flow-shell .flow-stack { position: absolute; inset-inline: 0; inset-block-start: 0; block-size: 40px; pointer-events: none; }
+.flow-shell .flow-edge {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--flow-line);
+  border-block-end: 0;
+  border-radius: 12px 12px 0 0;
+  background: var(--flow-paper);
+  opacity: 0;
+  transform: translateY(8px) scaleX(.975);
+  transition: opacity 240ms cubic-bezier(.23, 1, .32, 1), transform 240ms cubic-bezier(.23, 1, .32, 1);
+}
+.flow-shell .flow-edge:nth-child(1)[data-visible='true'] { opacity: 1; transform: translateY(-6px) scaleX(.975); }
+.flow-shell .flow-edge:nth-child(2)[data-visible='true'] { opacity: .8; transform: translateY(-12px) scaleX(.95); }
+.flow-shell .flow-edge:nth-child(3)[data-visible='true'] { opacity: .6; transform: translateY(-18px) scaleX(.925); }
+.flow-shell .flow-sheet {
+  position: relative;
+  border: 1px solid var(--flow-line);
+  border-radius: 12px;
+  padding: clamp(24px, 4vw, 40px);
+  background: var(--flow-paper);
+  box-shadow: 0 1px 2px rgb(15 23 42 / .04), 0 18px 44px -28px rgb(15 23 42 / .22);
+  animation: flow-sheet-enter 240ms cubic-bezier(.23, 1, .32, 1);
+}
+.flow-shell .flow-content { min-inline-size: 0; animation: flow-content-enter 200ms cubic-bezier(.23, 1, .32, 1); }
+/* Changing the CSS animation name replays the entrance without remounting form/frame children. */
+.flow-shell .flow-sheet[data-step='account'] { animation-name: flow-sheet-account; }
+.flow-shell .flow-sheet[data-step='plan'] { animation-name: flow-sheet-plan; }
+.flow-shell .flow-sheet[data-step='payment'] { animation-name: flow-sheet-payment; }
+.flow-shell .flow-sheet[data-step='workspace'] { animation-name: flow-sheet-workspace; }
+.flow-shell .flow-sheet[data-step='done'] { animation-name: flow-sheet-done; }
+.flow-shell .flow-sheet[data-step='account'] .flow-content { animation-name: flow-content-account; }
+.flow-shell .flow-sheet[data-step='plan'] .flow-content { animation-name: flow-content-plan; }
+.flow-shell .flow-sheet[data-step='payment'] .flow-content { animation-name: flow-content-payment; }
+.flow-shell .flow-sheet[data-step='workspace'] .flow-content { animation-name: flow-content-workspace; }
+.flow-shell .flow-sheet[data-step='done'] .flow-content { animation-name: flow-content-done; }
+.flow-shell .flow-panel { display: none; }
+.flow-shell .flow-steps { margin-block-end: 32px; padding-block-end: 20px; border-block-end: 1px solid var(--flow-line); }
+.flow-shell .flow-steps ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; list-style: none; padding: 0; }
+.flow-shell .flow-steps li { display: flex; align-items: center; gap: 8px; min-inline-size: 0; font-size: 13px; font-weight: 550; color: var(--flow-muted); }
+.flow-shell .flow-steps li > span:not(.flow-step-box) { overflow-wrap: anywhere; }
+.flow-shell .flow-step-box {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 20px;
+  block-size: 20px;
+  border: 1.5px solid var(--flow-line);
+  border-radius: 5px;
+  background: var(--flow-paper);
+  transition: background-color 260ms cubic-bezier(.23, 1, .32, 1) 60ms, border-color 260ms cubic-bezier(.23, 1, .32, 1) 60ms;
+}
+.flow-shell .flow-step-box svg { inline-size: 16px; block-size: 16px; fill: none; stroke: var(--flow-paper); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.flow-shell .flow-step-box path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 260ms cubic-bezier(.23, 1, .32, 1) 60ms; }
+.flow-shell [data-complete='true'] > .flow-step-box { background: var(--flow-primary); border-color: var(--flow-primary); }
+.flow-shell [data-complete='true'] > .flow-step-box path { stroke-dashoffset: 0; }
+.flow-shell .flow-steps :is([aria-current='step'], [data-complete='true']) { color: var(--flow-ink); }
+.flow-shell [aria-current='step'] > .flow-step-box { border-color: var(--flow-primary); background: var(--flow-wash); }
+
+/* Reusable type and control styles for the screens that follow. */
+.flow-shell h1 { font: 650 36px/1.15 'Inter Variable', Arial, sans-serif; letter-spacing: -.035em; text-wrap: balance; overflow-wrap: anywhere; }
+.flow-shell :is(h2, h3, .flow-section-title) { font: 650 17px/1.4 'Inter Variable', Arial, sans-serif; letter-spacing: -.02em; text-wrap: balance; }
+.flow-shell .flow-lede { margin-block-start: 8px; font-size: 16px; line-height: 1.55; color: var(--flow-muted); }
+.flow-shell .flow-fine { font-size: 13px; line-height: 1.5; color: var(--flow-muted); }
+.flow-shell .flow-price { font-size: 22px; font-weight: 650; line-height: 1.2; letter-spacing: -.03em; }
+.flow-shell .flow-form { display: grid; gap: 20px; margin-block-start: 24px; }
+.flow-shell .flow-field { display: grid; gap: 8px; min-inline-size: 0; }
+.flow-shell .flow-field label { font-size: 14px; font-weight: 550; line-height: 1.4; }
+.flow-shell :is(.flow-input, [data-slot='input']) {
+  inline-size: 100%; min-inline-size: 0; min-block-size: 48px; padding: 12px 16px;
+  border: 1px solid var(--flow-line); border-radius: 7px; background: var(--flow-paper); color: var(--flow-ink);
+  box-shadow: none; caret-color: var(--flow-primary);
+  transition: border-color 160ms cubic-bezier(.23, 1, .32, 1), background-color 160ms cubic-bezier(.23, 1, .32, 1);
+}
+.flow-shell :is(.flow-input, [data-slot='input'])::placeholder { color: var(--flow-placeholder); opacity: 1; }
+.flow-shell :is(.flow-input, [data-slot='input']):focus-visible { border-color: var(--flow-primary); box-shadow: none; }
+.flow-shell :is(.flow-input, [data-slot='input'])[aria-invalid='true'] { border-color: var(--flow-bad-ink); }
+.flow-shell .flow-password { position: relative; direction: ltr; }
+.flow-shell .flow-password input { padding-inline-end: 80px; }
+.flow-shell .flow-password-toggle { position: absolute; inset-inline-end: 4px; inset-block: 0; min-block-size: 44px; padding-inline: 12px; border: 0; border-radius: 5px; background: transparent; color: var(--flow-primary); cursor: pointer; }
+.flow-shell .flow-button {
+  display: inline-flex; justify-content: center; align-items: center; gap: 8px;
+  min-block-size: 48px; padding: 12px 20px; border: 1px solid var(--flow-primary); border-radius: 7px;
+  background: var(--flow-primary); color: var(--flow-paper); font-size: 15px; font-weight: 600; line-height: 1.4;
+  text-decoration: none; white-space: normal; text-align: center; cursor: pointer; box-shadow: none;
+  transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), border-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 120ms cubic-bezier(.23, 1, .32, 1);
+}
+.flow-shell .flow-form .flow-button, .flow-shell .flow-button-full { inline-size: 100%; }
+.flow-shell .flow-button-secondary { background: var(--flow-paper); border-color: var(--flow-line); color: var(--flow-ink); }
+.flow-shell .flow-button:active:not(:disabled, [aria-disabled='true']) { transform: scale(.98); }
+.flow-shell .flow-button:is(:disabled, [aria-disabled='true']) { cursor: not-allowed; opacity: .6; }
+.flow-shell .flow-button[aria-busy='true'] { cursor: progress; opacity: .8; }
+.flow-shell .flow-button[aria-busy='true']::before, .flow-shell .flow-spinner {
+  content: ''; flex: none; inline-size: 16px; block-size: 16px; border: 2px solid currentColor;
+  border-inline-end-color: transparent; border-radius: 50%; animation: flow-spin 700ms linear infinite;
+}
+.flow-shell .flow-notice { padding: 12px 16px; border-radius: 7px; font-size: 14px; background: var(--flow-wash); color: var(--flow-ink); animation: flow-notice-enter 200ms cubic-bezier(.23, 1, .32, 1); }
+.flow-shell .flow-notice-ok, .flow-shell .flow-chip-ok { background: var(--flow-ok-fill); color: var(--flow-ok-ink); }
+.flow-shell .flow-notice-warn, .flow-shell .flow-chip-warn { background: var(--flow-warn-fill); color: var(--flow-warn-ink); }
+.flow-shell .flow-notice-bad, .flow-shell .flow-chip-bad { background: var(--flow-bad-fill); color: var(--flow-bad-ink); }
+.flow-shell .flow-field-error { font-size: 14px; color: var(--flow-bad-ink); animation: flow-notice-enter 200ms cubic-bezier(.23, 1, .32, 1); }
+.flow-shell .flow-chip { display: inline-flex; padding: 4px 8px; border-radius: 5px; font-size: 12px; font-weight: 550; line-height: 1.4; }
+.flow-shell .flow-skeleton { display: block; min-block-size: 20px; border-radius: 5px; background: var(--flow-skeleton); animation: flow-breathe 1100ms ease-in-out infinite alternate; }
+.flow-shell .flow-wait { display: flex; align-items: center; justify-content: center; gap: 14px; min-block-size: 72px; }
+.flow-shell .flow-wait h1, .flow-shell .flow-wait p { font-size: 17px; font-weight: 600; line-height: 1.4; letter-spacing: -.01em; color: var(--flow-ink); outline: 0; }
+.flow-shell .flow-wait-box { flex: none; display: grid; place-items: center; inline-size: 34px; block-size: 34px; border: 2px solid var(--flow-primary); border-radius: 9px; background: var(--flow-wash); }
+.flow-shell .flow-wait-box svg { inline-size: 22px; block-size: 22px; fill: none; stroke: var(--flow-primary); stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.flow-shell .flow-wait-box path { stroke-dasharray: 1; animation: flow-wait-tick 1500ms cubic-bezier(.23, 1, .32, 1) infinite; }
+.flow-shell:has(.flow-wait-page) { display: flex; flex-direction: column; min-block-size: 100vh; padding-block-end: 0; }
+.flow-shell:has(.flow-wait-page) > .flow-stage { margin-block: auto; padding-block: 32px; }
+.flow-shell .flow-card-wait { display: grid; gap: 18px; }
+.flow-shell .flow-card-wait .flow-wait { min-block-size: 0; gap: 12px; }
+.flow-shell .flow-card-wait .flow-wait p { font-size: 15px; }
+.flow-shell .flow-card-wait .flow-wait-box { inline-size: 28px; block-size: 28px; border-radius: 8px; }
+.flow-shell .flow-card-wait .flow-wait-box svg { inline-size: 18px; block-size: 18px; }
+.flow-shell .flow-card-ghost { position: relative; display: grid; gap: 16px; overflow: hidden; }
+.flow-shell .flow-card-ghost::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 25%, color-mix(in srgb, var(--flow-primary) 10%, transparent) 50%, transparent 75%); transform: translateX(-100%); animation: flow-card-sweep 1500ms ease-in-out infinite; }
+.flow-shell .flow-card-ghost-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.flow-shell .flow-card-ghost-label { display: block; inline-size: 84px; block-size: 10px; margin-block-end: 9px; border-radius: 3px; background: var(--flow-skeleton); }
+.flow-shell .flow-card-ghost .flow-skeleton { block-size: 48px; border: 1px solid var(--flow-line); border-radius: 7px; background: var(--flow-paper); animation: none; }
+.flow-shell .flow-card-ghost .flow-card-ghost-button { margin-block-start: 4px; border-color: var(--flow-wash); background: var(--flow-wash); }
+.flow-shell .flow-price-enter { animation: flow-price-enter 160ms cubic-bezier(.23, 1, .32, 1); }
+.flow-shell .flow-frame-ready { animation: flow-fade 240ms cubic-bezier(.23, 1, .32, 1); }
+.flow-shell .flow-disclosure[open] > :not(summary) { animation: flow-fade 160ms cubic-bezier(.23, 1, .32, 1); }
+.flow-shell .flow-disclosure summary { min-block-size: 44px; cursor: pointer; }
+.flow-shell .flow-interval { position: relative; display: inline-flex; padding: 4px; border: 1px solid var(--flow-line); border-radius: 7px; background: var(--flow-canvas); }
+.flow-shell .flow-interval button { z-index: 1; min-block-size: 44px; padding: 8px 16px; border: 0; border-radius: 5px; background: transparent; color: var(--flow-muted); cursor: pointer; transition: color 160ms cubic-bezier(.23, 1, .32, 1); }
+.flow-shell .flow-interval button[aria-pressed='true'] { color: var(--flow-ink); }
+.flow-shell .flow-interval-thumb { position: absolute; inset-block: 4px; inset-inline-start: 4px; inline-size: calc((100% - 8px) / 2); border-radius: 5px; background: var(--flow-paper); transition: transform 200ms cubic-bezier(.77, 0, .175, 1); }
+.flow-shell .flow-interval:has(button:last-child[aria-pressed='true']) .flow-interval-thumb { transform: translateX(100%); }
+.flow-shell[dir='rtl'] .flow-interval:has(button:last-child[aria-pressed='true']) .flow-interval-thumb { transform: translateX(-100%); }
+.flow-shell .flow-plan-row { border: 1px solid var(--flow-line); border-radius: 8px; transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), border-color 120ms cubic-bezier(.23, 1, .32, 1); }
+.flow-shell .flow-plan-row:has(input:checked) { background: var(--flow-wash); outline: 1.5px solid var(--flow-primary); outline-offset: -1.5px; }
+.flow-shell .flow-plan-row input[type='radio'] { accent-color: var(--flow-primary); }
+.flow-shell .flow-confirming-ring { position: relative; }
+.flow-shell .flow-confirming-ring::after { content: ''; position: absolute; inset: -4px; border: 1.5px solid var(--flow-primary); border-radius: 8px; animation: flow-ring 1200ms cubic-bezier(.23, 1, .32, 1) infinite; }
+.flow-shell .flow-ready-stamp { display: grid; place-items: center; inline-size: 64px; block-size: 64px; border-radius: 50%; background: var(--flow-wash); color: var(--flow-primary); animation: flow-stamp 280ms cubic-bezier(.23, 1, .32, 1); }
+.flow-shell .flow-ready-stamp svg { inline-size: 40px; block-size: 40px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.flow-shell .flow-ready-stamp path { stroke-dasharray: 1; stroke-dashoffset: 0; animation: flow-draw 420ms cubic-bezier(.23, 1, .32, 1) 280ms backwards; }
+
+/* Split screens provide their own worksheet copy; this shell supplies its material and motion. */
+@media (min-width: 861px) {
+  .flow-shell .flow-sheet[data-size='split'] { padding: 0; overflow: hidden; }
+  .flow-shell .flow-sheet[data-size='split'] .flow-steps { display: none; }
+  .flow-shell .flow-sheet[data-size='split'] .flow-body { display: grid; grid-template-columns: minmax(0, 1fr) 440px; }
+  .flow-shell .flow-sheet[data-size='split'] .flow-content { padding: clamp(32px, 4vw, 52px); align-self: center; }
+  .flow-shell .flow-sheet[data-size='split'] .flow-body:not(:has(.flow-panel)) { grid-template-columns: minmax(0, 1fr); }
+  .flow-shell .flow-panel { display: flex; position: relative; isolation: isolate; flex-direction: column; justify-content: center; gap: 24px; padding: clamp(28px, 4vw, 48px); overflow: hidden; background: linear-gradient(160deg, var(--flow-panel-mint), var(--flow-panel-sky) 55%, var(--flow-panel-blue)); }
+  .flow-shell .flow-panel::before { content: ''; position: absolute; z-index: -1; inset-inline-end: -20%; inset-block-end: -24%; inline-size: 78%; aspect-ratio: 1; background: var(--flow-paper); opacity: .6; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 55 36 81 92 14' fill='none' stroke='black' stroke-width='15' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .flow-shell[dir='rtl'] .flow-panel::before { transform: scaleX(-1); }
+}
+.flow-shell .flow-panel-headline { font-size: 22px; font-weight: 600; line-height: 1.3; letter-spacing: -.025em; text-wrap: balance; }
+.flow-shell .flow-worksheet { position: relative; isolation: isolate; padding: 20px 24px; border-radius: 10px; transform: rotate(-1.2deg); box-shadow: 0 1px 2px rgb(15 23 42 / .05), 0 24px 40px -26px rgb(15 23 42 / .35); }
+.flow-shell .flow-worksheet::before { content: ''; position: absolute; z-index: -2; inset: 4px -4px -4px 4px; border-radius: 10px; background: var(--flow-sheet-behind); transform: rotate(2.2deg); }
+.flow-shell .flow-worksheet::after { content: ''; position: absolute; z-index: -1; inset: 0; border-radius: 10px; background: var(--flow-paper); }
+.flow-shell[dir='rtl'] .flow-worksheet { transform: rotate(1.2deg); }
+.flow-shell[dir='rtl'] .flow-worksheet::before { transform: rotate(-2.2deg); }
+.flow-shell .flow-worksheet [data-complete='true'] > .flow-step-box path { animation: flow-draw 260ms cubic-bezier(.23, 1, .32, 1) 420ms backwards; }
+.flow-shell .flow-worksheet :nth-child(2) > .flow-step-box path { animation-delay: 610ms; }
+.flow-shell .flow-worksheet :nth-child(3) > .flow-step-box path { animation-delay: 800ms; }
+.flow-shell .flow-worksheet :nth-child(4) > .flow-step-box path { animation-delay: 990ms; }
+.flow-shell .flow-worksheet :nth-child(5) > .flow-step-box path { animation-delay: 1180ms; }
+
+@media (hover: hover) and (pointer: fine) {
+  .flow-shell .flow-button:not(:disabled, [aria-disabled='true']):hover { background: var(--flow-primary-dark); border-color: var(--flow-primary-dark); }
+  .flow-shell .flow-button-secondary:not(:disabled, [aria-disabled='true']):hover { background: var(--flow-canvas); border-color: var(--flow-line); }
+  .flow-shell .flow-plan-row:not(:has(input:checked)):hover { background: var(--flow-canvas); }
+  .flow-shell :is(.flow-input, [data-slot='input']):hover { border-color: var(--flow-placeholder); }
+}
+/* The decision bar is sticky below md. Scrolling and focus must stop clear of it. */
+@media (max-width: 767px) {
+  html:has(.flow-shell .flow-plan-row) { scroll-padding-bottom: 11rem; }
+  .flow-shell .flow-plan-row, .flow-shell .flow-plan-row input { scroll-margin-bottom: 11rem; }
+}
+
+@media (max-width: 560px) {
+  .flow-shell .flow-header { padding: 16px; }
+  .flow-shell .hygene-wordmark { font-size: 18px; }
+  .flow-shell .flow-steps li { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 12px; }
+  .flow-shell h1 { font-size: 28px; }
+}
+@media (max-width: 380px) {
+  .flow-shell .flow-stage { inline-size: 100%; }
+  .flow-shell .flow-sheet { padding-inline: 4px; border-inline: 0; border-radius: 0; box-shadow: none; }
+  .flow-shell .flow-sheet:not([data-size='wide']) { padding-inline: 16px; }
+}
+.flow-shell[dir='rtl'] { font-family: 'Noto Sans Arabic', Tahoma, sans-serif; line-height: 1.85; }
+.flow-shell[dir='rtl'] :is(h1, h2, h3, .flow-section-title, .flow-panel-headline) { font-family: 'Noto Sans Arabic', Tahoma, sans-serif; font-weight: 600; line-height: 1.6; letter-spacing: normal; }
+.flow-shell[dir='rtl'] :is(.flow-field label, .flow-steps li, .flow-chip, .language-choice button) { font-weight: 600; }
+.flow-shell[dir='rtl'] :is(.flow-price, .flow-lede, .flow-fine) { line-height: 1.85; letter-spacing: normal; }
+.flow-shell :is([type='email'], [type='password'], .flow-ltr) { direction: ltr; text-align: start; unicode-bidi: isolate; }
+
+@keyframes flow-sheet-enter { from { opacity: .4; transform: translateY(10px) scale(.992); } to { opacity: 1; transform: none; } }
+@keyframes flow-content-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes flow-sheet-account { from { opacity: .4; transform: translateY(10px) scale(.992); } }
+@keyframes flow-sheet-plan { from { opacity: .4; transform: translateY(10px) scale(.992); } }
+@keyframes flow-sheet-payment { from { opacity: .4; transform: translateY(10px) scale(.992); } }
+@keyframes flow-sheet-workspace { from { opacity: .4; transform: translateY(10px) scale(.992); } }
+@keyframes flow-sheet-done { from { opacity: .4; transform: translateY(10px) scale(.992); } }
+@keyframes flow-content-account { from { opacity: 0; transform: translateY(8px); } }
+@keyframes flow-content-plan { from { opacity: 0; transform: translateY(8px); } }
+@keyframes flow-content-payment { from { opacity: 0; transform: translateY(8px); } }
+@keyframes flow-content-workspace { from { opacity: 0; transform: translateY(8px); } }
+@keyframes flow-content-done { from { opacity: 0; transform: translateY(8px); } }
+@keyframes flow-notice-enter { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes flow-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes flow-price-enter { from { opacity: .25; } to { opacity: 1; } }
+@keyframes flow-breathe { to { opacity: .55; } }
+@keyframes flow-wait-tick { 0% { stroke-dashoffset: 1; opacity: 1; } 55%, 82% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes flow-card-sweep { to { transform: translateX(100%); } }
+@keyframes flow-spin { to { transform: rotate(360deg); } }
+@keyframes flow-ring { from { opacity: .7; transform: scale(.85); } to { opacity: 0; transform: scale(1.15); } }
+@keyframes flow-stamp { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
+@keyframes flow-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-shell *, .flow-shell *::before, .flow-shell *::after { animation: none !important; transition: none !important; }
+  .flow-shell .flow-confirming-ring::after { display: none; }
+  .flow-shell :is(.flow-notice, .flow-field-error, .flow-frame-ready) { animation: flow-fade 120ms linear !important; }
+}
