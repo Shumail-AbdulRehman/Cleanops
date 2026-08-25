@@ -1,0 +1,103 @@
+.px-console {
+  --px-rail-faint: #8d9ab3;
+  --px-bad-line: #efc4c2;
+  --px-plan-starter: #8fb0f2;
+  --px-plan-pro: #4f7fe6;
+  --px-plan-enterprise: #1d3fae;
+  --px-heat-0: #eef1f6;
+  --px-heat-1: #c9d8fb;
+  --px-heat-2: #8fb0f2;
+  --px-heat-3: #4f7fe6;
+  --px-heat-4: #1d3fae;
+  --px-state-active: #2556d8;
+  --px-state-past-due: #ffd21f;
+  --px-state-ending: #b86e1a;
+  --px-state-cancelled: #c3ccda;
+  --px-state-never: #e8ecf3;
+  --px-ring-good: #1f8a52;
+  --px-callout: #111c36;
+
+  background-color: var(--wx-canvas);
+  color: var(--wx-ink);
+  caret-color: var(--wx-blue);
+  scrollbar-color: var(--wx-line-strong) transparent;
+}
+
+.px-console::selection,
+.px-console ::selection {
+  background-color: var(--wx-blue-line);
+  color: var(--wx-ink);
+}
+
+.px-console:focus-visible,
+.px-console :focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: 2px;
+}
+
+.px-console table {
+  font-variant-numeric: var(--wx-numerals);
+}
+
+.px-console .px-panel {
+  min-width: 0;
+  padding: var(--wx-panel-padding-block) var(--wx-panel-padding-inline);
+  background-color: var(--wx-surface);
+  border: var(--wx-panel-border-width) solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+}
+
+.px-console .px-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--wx-panel-gap);
+}
+
+.px-console .px-grid > * {
+  min-width: 0;
+}
+
+.px-console .px-grid > .px-span-3 {
+  grid-column: span 3;
+}
+
+.px-console .px-grid > .px-span-4 {
+  grid-column: span 4;
+}
+
+.px-console .px-grid > .px-span-6 {
+  grid-column: span 6;
+}
+
+.px-console .px-grid > .px-span-8 {
+  grid-column: span 8;
+}
+
+@media (max-width: 1320px) {
+  .px-console .px-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .px-console .px-grid > .px-span-3,
+  .px-console .px-grid > .px-span-4 {
+    grid-column: span 3;
+  }
+
+  .px-console .px-grid > .px-span-6,
+  .px-console .px-grid > .px-span-8 {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .px-console .px-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .px-console .px-grid > .px-span-3,
+  .px-console .px-grid > .px-span-4,
+  .px-console .px-grid > .px-span-6,
+  .px-console .px-grid > .px-span-8 {
+    grid-column: 1 / -1;
+  }
+}

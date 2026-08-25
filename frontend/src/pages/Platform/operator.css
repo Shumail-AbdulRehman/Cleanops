@@ -1,0 +1,39 @@
+.workspace.operator-page { min-height: 100dvh; }
+.operator-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding: 20px 32px; border-block-end: 1px solid var(--border); background: var(--card); }
+.operator-content { display: grid; gap: 24px; width: min(100%, 620px); padding: 40px 28px; margin-inline: auto; }
+.operator-content > svg { color: var(--primary); }
+.operator-content > h1 + p { margin-block-start: -12px; color: var(--muted-foreground); }
+.operator-notice { display: grid; gap: 16px; padding: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
+.operator-notice p, .operator-requirements { color: var(--muted-foreground); }
+.operator-requirements { display: grid; gap: 12px; padding-inline-start: 20px; list-style: disc; }
+.operator-content .operator-link { display: inline-flex; align-items: center; min-height: 48px; color: var(--primary); text-decoration: underline; text-underline-offset: 4px; width: fit-content; }
+.operator-content :focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+@media (max-width: 620px) {
+  .operator-header { padding: 16px; }
+  .operator-content { padding: 32px 20px; }
+  .operator-notice { padding: 20px; }
+}
+.workspace.operator-page .language-choice button,
+.workspace.operator-page [data-slot="button"] { min-height: 48px; }
+
+/* Public entry uses the same centered foundation as the approved V5 journeys.
+   Authenticated metadata workspaces retain OperatorShell's separate contract. */
+.operator-access .v5-auth-panel { display:flex; flex-direction:column; }
+.operator-access .operator-identity { display:inline-flex; align-items:center; align-self:flex-start; order:-1; gap:6px; padding:4px 8px; margin-block-end:24px; border-radius:5px; background:var(--accent); color:var(--primary); font-size:12px; font-weight:600; }
+.operator-access .operator-provider-state { display:grid; gap:12px; }
+.operator-access .operator-provider-state h2 { font-size:16px; line-height:1.4; font-weight:600; }
+.operator-access .operator-provider-state p { color:var(--muted-foreground); font-size:14px; }
+.operator-access .operator-provider-state [data-slot="button"] { width:100%; min-height:44px; height:auto; white-space:normal; padding:10px 16px; }
+.operator-access .operator-requirements { margin-block-start:24px; padding-block-start:20px; border-block-start:1px solid var(--border); gap:12px; font-size:13px; line-height:1.6; }
+.operator-access .operator-cleanup { display:grid; gap:12px; padding-block-start:20px; margin-block-start:24px; border-block-start:1px solid var(--border); }
+.operator-access .operator-cleanup p { color:var(--muted-foreground); font-size:13px; }
+.operator-access .operator-cleanup [data-slot="button"] { min-height:44px; height:auto; white-space:normal; }
+.operator-access .operator-callback-error { border:1px solid var(--danger-ink); border-radius:7px; padding:16px; }
+.operator-access .v5-auth-footer a { display:inline-flex; align-items:center; min-height:44px; }
+.operator-access .v5-auth-language button { min-height:44px; }
+.operator-access :focus-visible { outline:3px solid var(--primary); outline-offset:3px; }
+[dir="rtl"] .operator-access .operator-requirements { line-height:1.85; }
+@media(max-width:620px) {
+ .operator-access .v5-auth h1 { font-size:27px; }
+ .operator-access .operator-provider-state [data-slot="button"], .operator-access .operator-cleanup [data-slot="button"], .operator-access .v5-auth-footer a, .operator-access .v5-auth-language button { min-height:48px; }
+}

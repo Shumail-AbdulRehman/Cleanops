@@ -1,0 +1,89 @@
+.px-overview-page > .px-overview-figures,
+.px-overview-page > .px-overview-notice,
+.px-overview-page > .px-overview-figures > .wx-sk-metrics {
+  grid-column: 1 / -1;
+}
+
+.px-overview-page > .px-overview-revenue {
+  display: contents;
+}
+
+.px-overview-page > .px-overview-figures > .wx-sk-metrics {
+  grid-template-columns: inherit;
+}
+
+.px-overview-page > .px-overview-empty {
+  border-color: var(--wx-blue-line);
+  background: var(--wx-blue-wash);
+}
+
+.px-overview-empty h2,
+.px-overview-error h2 {
+  margin: 0;
+  color: var(--wx-ink);
+  font: 750 17px/1.35 var(--wx-font-heading);
+}
+
+.px-overview-empty p,
+.px-overview-error p {
+  margin: 6px 0 0;
+  color: var(--wx-muted);
+}
+
+.px-overview-error button {
+  min-block-size: 40px;
+  min-inline-size: 40px;
+  margin-block-start: 16px;
+  padding-inline: 16px;
+  border: 0;
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-blue);
+  color: var(--wx-surface);
+  font: 650 14px var(--wx-font-body);
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 120ms var(--wx-ease-out);
+}
+
+.px-overview-error button:enabled:hover {
+  background: var(--wx-blue-press);
+}
+
+.px-overview-error button:enabled:active {
+  transform: scale(.97);
+}
+
+.px-overview-error button:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: 2px;
+}
+
+.px-overview-error button:disabled {
+  cursor: progress;
+}
+
+@media (width <= 1320px) {
+  .px-overview-page > .px-overview-revenue > .px-overview-revenue-panel,
+  .px-console .px-overview-page > [data-skeleton-panel='plans'] {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (760px < width <= 1320px) {
+  .px-overview-page > .px-overview-attention {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .px-overview-page > .px-overview-figures > .wx-sk-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .px-overview-page .wx-sk-metric:first-child {
+    grid-column: span 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-overview-error button:enabled:active {
+    transform: none;
+  }
+}

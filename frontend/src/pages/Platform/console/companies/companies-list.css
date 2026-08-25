@@ -1,0 +1,172 @@
+.px-companies-list {
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals);
+}
+
+.px-companies-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.workspace .px-companies-filters .wx-find-field { inline-size: min(280px, 100%); }
+.workspace .px-companies-filters .wx-filter-trigger { min-block-size: var(--wx-field-height); }
+.px-companies-results { min-inline-size: 0; margin-block-start: 14px; scroll-margin-block-start: 16px; }
+
+.workspace .px-companies-table th,
+.workspace .px-companies-table td { padding: 12px 16px; }
+.workspace .px-companies-table .px-companies-monthly { text-align: end; }
+.px-companies-table .wx-table-row { position: relative; }
+.px-companies-table .px-companies-company { inline-size: 22%; }
+
+.px-companies-identity,
+.px-companies-pills {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.px-companies-identity {
+  overflow-wrap: anywhere;
+  color: var(--wx-muted);
+  font-size: var(--wx-label-size);
+}
+
+.px-companies-link {
+  color: var(--wx-ink);
+  font-size: var(--wx-body-size);
+  font-weight: 700;
+}
+
+/* Keep the table semantics and make the company link easy to hit anywhere in the row. */
+.px-companies-link::after { position: absolute; inset: 0; content: ''; }
+.px-companies-link:focus-visible::after {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: -2px;
+}
+.px-companies-table .wx-table-row:hover .px-companies-link,
+.px-companies-link:focus-visible { color: var(--wx-blue); }
+.px-companies-link:focus-visible { text-decoration: underline; }
+
+.workspace .px-companies-plan {
+  border: 1px solid var(--wx-line-strong);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+}
+
+.px-companies-capacity {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--wx-muted);
+  font-size: var(--wx-label-size);
+  white-space: nowrap;
+}
+
+.px-companies-meter {
+  display: inline-flex;
+  inline-size: clamp(40px, 5vw, 70px);
+  block-size: 6px;
+  border-radius: var(--wx-radius-pill);
+  background: var(--wx-blue-wash);
+}
+
+.px-companies-meter > span { border-radius: inherit; background: var(--wx-blue); }
+.px-companies-meter[data-full] { background: var(--wx-warn-wash); }
+.px-companies-meter[data-full] > span { background: var(--px-state-ending); }
+
+.px-companies-activity { display: inline-flex; inline-size: min(96px, 100%); }
+.px-companies-activity .px-mini-bars { block-size: 22px; fill: var(--wx-blue-mid); }
+
+.px-companies-button {
+  min-block-size: var(--wx-button-height);
+  min-inline-size: var(--wx-touch-target-min);
+  padding-inline: 12px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+  transition: background-color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    border-color var(--wx-duration-feedback) var(--wx-ease-feedback),
+    transform var(--wx-duration-press) var(--wx-ease-out);
+}
+
+.px-companies-button:hover:not(:disabled) { border-color: var(--wx-blue-line); background: var(--wx-soft); }
+.px-companies-button:active:not(:disabled) { transform: scale(var(--wx-press-scale)); }
+.px-companies-button:focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.px-companies-button:disabled { opacity: .5; }
+
+.px-companies-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-block-start: 12px;
+}
+
+.px-companies-message,
+.px-companies-skeleton {
+  border: 1px solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+  background: var(--wx-surface);
+}
+
+.px-companies-message {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  color: var(--wx-muted);
+  text-align: center;
+}
+
+.px-companies-skeleton > div {
+  min-block-size: 64px;
+  padding: 16px;
+  border-block-end: 1px solid var(--wx-line);
+}
+
+.px-companies-skeleton > div:first-child { min-block-size: 44px; background: var(--wx-soft); }
+.px-companies-skeleton > div:last-child { border-block-end: 0; }
+.px-companies-skeleton > div::before {
+  display: block;
+  inline-size: min(180px, 65%);
+  block-size: 12px;
+  border-radius: var(--wx-radius-sm);
+  background: var(--wx-bar-track);
+  content: '';
+}
+
+@media (width >= 620px) {
+  .px-companies-table table { min-inline-size: 830px; }
+  .px-companies-table th,
+  .px-companies-table .wx-status-pill { white-space: nowrap; }
+}
+
+@media (width < 620px) {
+  .workspace .px-companies-filters .wx-find-field { inline-size: 100%; }
+  .workspace .px-companies-table td {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    text-align: start;
+  }
+  .workspace .px-companies-table .px-companies-company { display: block; inline-size: auto; }
+  .workspace .px-companies-table .px-companies-monthly { text-align: start; }
+  .px-companies-table .px-companies-company .wx-table-cell-label { display: none; }
+  .px-companies-table .wx-table-cell-label { margin-block-end: 0; }
+  .px-companies-table td:not(.px-companies-company) > :nth-child(2) { justify-self: end; }
+  .px-companies-pills { align-items: flex-end; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-companies-button:active:not(:disabled) { transform: none; }
+}

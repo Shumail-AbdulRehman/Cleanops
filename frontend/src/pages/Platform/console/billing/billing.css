@@ -1,0 +1,262 @@
+.workspace .px-billing-tabs {
+  gap: 4px;
+}
+
+.workspace .px-billing-tabs .wx-tab {
+  padding-inline: 14px;
+  text-decoration: none;
+}
+
+.workspace .px-billing-tabs .wx-tab[aria-current='page'] {
+  border-block-end-color: var(--wx-blue);
+  color: var(--wx-ink);
+}
+
+.px-subscriptions-view {
+  display: grid;
+  gap: 16px;
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font: var(--wx-body-size)/var(--wx-body-leading) var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals);
+  overflow-wrap: anywhere;
+}
+
+.px-subscription-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr);
+  gap: 16px;
+}
+
+.px-billing-panel {
+  min-inline-size: 0;
+  padding: 20px 22px;
+  border: var(--wx-panel-border-width) solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+  background: var(--wx-surface);
+}
+
+.px-billing-panel h2 {
+  margin: 0;
+  font: 750 17px/1.4 var(--wx-font-heading);
+}
+
+.px-billing-caption,
+.px-billing-secondary,
+.px-billing-note {
+  margin: 0;
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.px-billing-caption {
+  margin-block: 2px 20px;
+}
+
+.px-billing-breakdown {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.px-billing-breakdown li,
+.px-billing-average {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.px-billing-breakdown li > div {
+  min-inline-size: 0;
+}
+
+.px-billing-average {
+  margin: 12px 0 0;
+  padding-block-start: 9px;
+  border-block-start: var(--wx-panel-border-width) solid var(--wx-line);
+  color: var(--wx-muted);
+}
+
+.px-billing-average strong {
+  color: var(--wx-ink);
+  font: 800 18px/1.4 var(--wx-font-heading);
+}
+
+.px-renewal-columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  font-size: 13px;
+}
+
+.px-renewal-columns li {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.px-renewal-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  block-size: 116px;
+  padding-block-end: 6px;
+  border-block-end: var(--wx-panel-border-width) solid var(--wx-line-strong);
+  font-size: var(--wx-body-size);
+}
+
+.px-renewal-scale span {
+  flex: none;
+  inline-size: min(24px, 100%);
+  border-radius: 4px 4px 0 0;
+  background: var(--wx-blue);
+}
+
+.px-renewal-columns time {
+  color: var(--wx-muted);
+}
+
+.px-billing-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 8px 0;
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.px-billing-stat strong {
+  color: var(--wx-ink);
+  font: 800 28px/1.1 var(--wx-font-heading);
+}
+
+.px-billing-secondary {
+  display: block;
+}
+
+.px-billing-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.px-billing-note svg {
+  flex: none;
+  margin-block-start: 2px;
+}
+
+.px-billing-company-link,
+.px-billing-text-link {
+  color: var(--wx-ink);
+  font-weight: var(--wx-label-weight);
+}
+
+.px-billing-text-link {
+  color: var(--wx-blue);
+  text-decoration: underline;
+}
+
+.px-billing-company-link:hover {
+  color: var(--wx-blue);
+  text-decoration: underline;
+}
+
+.px-billing-external {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--wx-touch-target-min);
+  min-block-size: var(--wx-touch-target-min);
+  border: var(--wx-panel-border-width) solid var(--wx-line);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-muted);
+  transition: background-color var(--wx-duration-feedback) ease, color var(--wx-duration-feedback) ease;
+}
+
+.px-billing-external:hover {
+  background: var(--wx-blue-wash);
+  color: var(--wx-blue);
+}
+
+.px-subscriptions-view a:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: 2px;
+}
+
+.px-billing-pagination,
+.px-billing-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.px-billing-pagination {
+  justify-content: flex-end;
+}
+
+.px-billing-error p {
+  margin: 0;
+}
+
+.px-billing-pagination button,
+.px-billing-error button {
+  min-block-size: var(--wx-touch-target-min);
+}
+
+@media (width < 1060px) {
+  .px-subscription-summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (width < 620px) {
+  .px-billing-panel {
+    padding: 16px;
+  }
+
+  .workspace .px-subscription-table .wx-table-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .workspace .px-subscription-table.wx-data-table-cards td {
+    display: flex;
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 10px;
+  }
+
+  .workspace .px-subscription-table.wx-data-table-cards td.px-subscription-company-cell {
+    grid-area: 1 / 1;
+  }
+
+  .workspace .px-subscription-table.wx-data-table-cards td.px-subscription-paddle-cell {
+    grid-area: 1 / 2;
+    align-self: start;
+  }
+
+  .workspace .px-subscription-table :is(.px-subscription-company-cell, .px-subscription-paddle-cell) .wx-table-cell-label {
+    display: none;
+  }
+
+  .px-billing-text-link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--wx-touch-target-min);
+    min-inline-size: var(--wx-touch-target-min);
+  }
+}

@@ -1,0 +1,187 @@
+.px-overview-revenue {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+}
+
+.px-overview-revenue-panel {
+  min-inline-size: 0;
+  padding: 20px 22px;
+  border: 1px solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+  background: var(--wx-surface);
+}
+
+.px-overview-revenue-history { grid-column: span 8; }
+.px-overview-revenue-paying { grid-column: span 4; }
+.px-overview-revenue-signups { grid-column: span 6; }
+
+.px-overview-revenue-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-block-end: 16px;
+}
+
+.px-overview-revenue-header h2 {
+  margin: 0;
+  font: 750 17px/1.3 var(--wx-font-heading);
+}
+
+.px-overview-revenue-header p {
+  margin: 3px 0 0;
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.px-overview-revenue-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.workspace .px-overview-revenue-modes {
+  background: var(--wx-bar-track);
+  border-color: transparent;
+}
+
+.px-overview-revenue-toggle {
+  min-block-size: 40px;
+  min-inline-size: 40px;
+  padding-inline: 10px;
+  border: 0;
+  border-radius: var(--wx-radius-md);
+  background: transparent;
+  color: var(--wx-muted);
+  font: 650 13px var(--wx-font-body);
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, transform 120ms var(--wx-ease-out);
+}
+
+.px-overview-revenue-toggle:hover {
+  background: var(--wx-soft);
+  color: var(--wx-ink);
+}
+
+.px-overview-revenue-toggle:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: 2px;
+}
+
+.px-overview-revenue-toggle:active { transform: scale(.97); }
+
+.px-overview-revenue-change {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin: 10px 0 0;
+  padding-block-start: 8px;
+  border-block-start: 1px solid var(--wx-line);
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.px-overview-revenue-change strong,
+.px-overview-revenue-plan-legend strong {
+  color: var(--wx-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.px-overview-revenue-unavailable {
+  display: grid;
+  place-items: center;
+  min-block-size: 110px;
+  margin: 0;
+  color: var(--wx-muted);
+}
+
+.px-overview-revenue-plan-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 16px;
+}
+
+.px-overview-revenue-plan-legend,
+.px-overview-revenue-signup-legend {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.px-overview-revenue-plan-legend {
+  flex: 1 1 135px;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.px-overview-revenue-plan-legend li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px;
+  padding-block: 8px;
+  font-size: 14px;
+}
+
+.px-overview-revenue-plan-legend li + li { border-block-start: 1px solid var(--wx-line); }
+
+.px-overview-revenue-plan-legend small {
+  display: block;
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.px-overview-revenue-swatch {
+  display: inline-block;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 4px;
+}
+
+.px-overview-revenue-swatch[data-tone='starter'] { background: var(--px-plan-starter); }
+.px-overview-revenue-swatch[data-tone='pro'] { background: var(--px-plan-pro); }
+.px-overview-revenue-swatch[data-tone='enterprise'] { background: var(--px-plan-enterprise); }
+
+.px-overview-revenue-signup-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-block-start: 8px;
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.px-overview-revenue-signup-legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.px-overview-revenue-signup-legend .px-overview-revenue-swatch { border-radius: 50%; }
+
+@media (max-width: 1319px) {
+  .px-overview-revenue { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .px-overview-revenue-history { grid-column: span 4; }
+  .px-overview-revenue-paying { grid-column: span 2; }
+  .px-overview-revenue-signups { grid-column: span 3; }
+}
+
+@media (max-width: 759px) {
+  .px-overview-revenue { grid-template-columns: minmax(0, 1fr); }
+  .px-overview-revenue-panel { grid-column: 1; }
+
+  .workspace .px-overview-revenue-modes .wx-filter-segment { min-block-size: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-overview-revenue-toggle:active { transform: none; }
+}

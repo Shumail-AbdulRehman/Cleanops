@@ -1,0 +1,257 @@
+.px-inquiries {
+  display: grid;
+  min-inline-size: 0;
+  gap: 16px;
+  font-size: 14.5px;
+}
+
+.px-inquiries h1,
+.px-inquiries h2 {
+  margin: 0;
+  font-family: var(--wx-font-heading);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.px-inquiries h1 { font-size: 28px; }
+.px-inquiries h2 { font-size: 19px; }
+
+.px-inquiries-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 5fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.px-inquiries-list {
+  min-inline-size: 0;
+  overflow: hidden;
+  border: 1px solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+  background: var(--wx-surface);
+}
+
+.px-inquiries-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.px-inquiries-list li + li,
+.px-inquiries-more { border-block-start: 1px solid var(--wx-line); }
+
+.px-inquiries-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  inline-size: 100%;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--wx-ink);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.px-inquiries-row:hover { background: var(--wx-soft); }
+.px-inquiries-row[aria-pressed="true"] { background: var(--wx-blue-wash); }
+.px-inquiries-row:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: -2px;
+}
+
+.px-inquiries-row-heading,
+.px-inquiries-row-meta {
+  display: flex;
+  gap: 4px 8px;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.px-inquiries-row-heading { justify-content: space-between; }
+.px-inquiries-row-heading strong { overflow-wrap: anywhere; }
+
+.px-inquiries-row-heading > span,
+.px-inquiries-row-meta,
+.px-inquiries-preview,
+.px-inquiries-secondary,
+.px-inquiries-facts dt {
+  color: var(--wx-muted);
+  font-size: 13px;
+}
+
+.px-inquiries-preview {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: match-parent;
+}
+
+.px-inquiries-list-empty,
+.px-inquiries-more { padding: 14px 16px; }
+.px-inquiries p { margin: 0; }
+
+.px-inquiries-status {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 26px;
+  padding-inline: 9px;
+  border-radius: var(--wx-radius-pill);
+  background: var(--wx-bar-track);
+  color: var(--wx-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.px-inquiries-status[data-status="NEW"] {
+  background: var(--wx-yellow);
+  color: var(--wx-ink);
+}
+
+.px-inquiries-status[data-status="IN_PROGRESS"] {
+  background: var(--wx-blue-wash);
+  color: var(--wx-blue-press);
+}
+
+.px-inquiries-detail {
+  display: grid;
+  gap: 16px;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  scroll-margin-block-start: 16px;
+}
+
+.px-inquiries-detail-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+}
+
+.px-inquiries-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.px-inquiries-facts dd {
+  margin: 2px 0 0;
+  font-size: 17px;
+  font-weight: 750;
+}
+
+.px-inquiries-request {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.px-inquiries-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.px-inquiries-contact { margin-block: 4px 8px; }
+.px-inquiries-contact bdi { min-inline-size: 0; }
+
+.px-inquiries-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-block-size: 40px;
+  max-inline-size: 100%;
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-blue);
+  color: var(--wx-surface);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 120ms var(--wx-ease-out);
+}
+
+.px-inquiries-button:hover:not(:disabled) { background: var(--wx-blue-press); }
+.px-inquiries-button:active:not(:disabled) { transform: scale(var(--wx-press-scale)); }
+.px-inquiries-button:disabled { opacity: .6; cursor: default; }
+
+.px-inquiries-button-secondary {
+  border-color: var(--wx-line-strong);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+}
+
+.px-inquiries-button-secondary:hover:not(:disabled) { background: var(--wx-soft); }
+.px-inquiries-state { display: grid; justify-items: start; gap: 12px; }
+
+.px-inquiries-form {
+  display: grid;
+  gap: 10px;
+  padding-block-start: 20px;
+  border-block-start: 1px solid var(--wx-line);
+}
+
+.px-inquiries-form fieldset {
+  min-inline-size: 0;
+  margin: 0 0 6px;
+  padding: 0;
+  border: 0;
+}
+
+.px-inquiries-form legend { margin-block-end: 4px; padding: 0; }
+.px-inquiries-status-options { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.px-inquiries-status-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-block-size: 40px;
+  padding: 6px 14px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.px-inquiries-status-options input { accent-color: var(--wx-blue); }
+
+.px-inquiries-status-options label:has(input:checked) {
+  border-color: var(--wx-blue);
+  background: var(--wx-blue-wash);
+}
+
+.px-inquiries-form > label { font-weight: 700; }
+
+.px-inquiries-form textarea {
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 88px;
+  padding: 10px 12px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+  resize: vertical;
+}
+
+.px-inquiries-form [role="alert"] { color: var(--wx-bad); }
+.px-inquiries-form [role="status"] { color: var(--wx-ok); }
+
+@media (max-width: 860px) {
+  .px-inquiries h1 { font-size: 24px; }
+  .px-inquiries-layout { grid-template-columns: minmax(0, 1fr); }
+  .px-inquiries .px-inquiries-detail { padding: 16px; }
+  .px-inquiries .wx-filter-chip { min-block-size: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-inquiries-button:active:not(:disabled) { transform: none; }
+}

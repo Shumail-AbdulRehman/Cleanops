@@ -1,0 +1,291 @@
+.px-company-header,
+.workspace.px-company-dialog {
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-size: 14.5px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.px-company-header {
+  min-inline-size: 0;
+  margin-block-end: 16px;
+}
+
+.px-company-header__row,
+.px-company-header__pills,
+.px-company-header__metadata,
+.px-company-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.px-company-header__row {
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+
+.px-company-header__identity,
+.px-company-actions {
+  min-inline-size: 0;
+}
+
+.px-company-header__pills,
+.px-company-header__metadata {
+  gap: 4px 6px;
+}
+
+.workspace .px-company-header__plan {
+  border: 1px solid var(--wx-line-strong);
+  background-color: var(--wx-surface);
+  color: var(--wx-ink);
+}
+
+.px-company-header__metadata,
+.px-company-header__confirmation,
+.px-company-dialog__description p,
+.px-company-dialog__hint,
+.px-company-dialog__error,
+.px-company-banner p {
+  margin: 0;
+}
+
+.px-company-header__metadata {
+  margin-block-start: 6px;
+  color: var(--wx-muted);
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.px-company-actions {
+  gap: 8px;
+}
+
+.px-company-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 40px;
+  max-inline-size: 100%;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  background-color: var(--wx-surface);
+  color: var(--wx-ink);
+  font: inherit;
+  font-weight: 650;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease,
+    transform 120ms var(--wx-ease-out);
+}
+
+.px-company-button:hover {
+  background-color: var(--wx-blue-wash);
+}
+
+.px-company-button:active:not(:disabled) {
+  transform: scale(.97);
+}
+
+.px-company-button:disabled {
+  opacity: .62;
+  cursor: default;
+}
+
+.px-company-button:focus-visible,
+.px-company-banner:focus,
+.px-company-dialog textarea:focus-visible {
+  outline: 2px solid var(--wx-blue);
+  outline-offset: 2px;
+}
+
+.px-company-button--danger {
+  color: var(--wx-bad);
+  border-color: var(--px-bad-line);
+}
+
+.px-company-button--danger:hover {
+  background-color: var(--wx-bad-wash);
+}
+
+.px-company-button--danger-solid,
+.px-company-button--danger-solid:hover {
+  color: var(--wx-surface);
+  background-color: var(--wx-bad);
+  border-color: var(--wx-bad);
+}
+
+.px-company-button--primary {
+  color: var(--wx-surface);
+  background-color: var(--wx-blue);
+  border-color: var(--wx-blue);
+}
+
+.px-company-button--primary:hover {
+  background-color: var(--wx-blue-press);
+}
+
+.px-company-button svg,
+.px-company-banner > svg {
+  flex: none;
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.px-company-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-block-end: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--px-bad-line);
+  border-radius: var(--wx-radius-lg);
+  background-color: var(--wx-bad-wash);
+}
+
+.px-company-banner[data-just-suspended] {
+  animation: px-company-banner-in 220ms var(--wx-ease-out);
+}
+
+.px-company-banner > svg {
+  align-self: flex-start;
+  margin-block-start: 4px;
+  color: var(--wx-bad);
+}
+
+.px-company-banner__text {
+  flex: 1 1 180px;
+  min-inline-size: 0;
+}
+
+.px-company-banner p {
+  margin-block-start: 3px;
+}
+
+.px-company-header__confirmation:not(:empty) {
+  margin-block-start: 10px;
+  color: var(--wx-ok);
+}
+
+.px-company-dialog-backdrop {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--wx-navy) 45%, transparent);
+  animation: px-company-fade-in 200ms ease;
+}
+
+.px-company-dialog {
+  position: fixed;
+  z-index: 51;
+  inset-block-start: 50%;
+  inset-inline: 0;
+  box-sizing: border-box;
+  inline-size: min(520px, calc(100% - 32px));
+  max-block-size: calc(100dvh - 32px);
+  margin-inline: auto;
+  padding: 22px 24px;
+  overflow-y: auto;
+  border: 1px solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+  background-color: var(--wx-surface);
+  transform: translateY(-50%);
+  animation: px-company-dialog-in 200ms var(--wx-ease-out);
+}
+
+.px-company-dialog h2 {
+  margin: 0 0 6px;
+  font-family: var(--wx-font-heading);
+  font-size: 19px;
+  font-weight: 750;
+}
+
+.px-company-dialog__description p,
+.px-company-dialog__hint {
+  color: var(--wx-muted);
+  font-size: 13.5px;
+}
+
+.px-company-dialog__description ul {
+  display: grid;
+  gap: 4px;
+  margin: 10px 0 0;
+  padding-inline-start: 20px;
+  list-style: disc;
+}
+
+.px-company-dialog form {
+  display: grid;
+  gap: 8px;
+  margin-block-start: 16px;
+}
+
+.px-company-dialog label {
+  font-weight: 650;
+}
+
+.px-company-dialog textarea {
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: 42px;
+  padding: 10px 12px;
+  resize: vertical;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  background: var(--wx-surface);
+  color: var(--wx-ink);
+  font: inherit;
+}
+
+.px-company-dialog textarea::placeholder {
+  color: var(--wx-muted);
+}
+
+.px-company-dialog__error {
+  color: var(--wx-bad);
+}
+
+.px-company-dialog .px-company-actions {
+  justify-content: flex-end;
+  margin-block-start: 8px;
+}
+
+@keyframes px-company-banner-in {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes px-company-dialog-in {
+  from { opacity: 0; transform: translateY(calc(-50% + 6px)) scale(.96); }
+}
+
+@keyframes px-company-fade-in {
+  from { opacity: 0; }
+}
+
+@media (max-width: 540px) {
+  .px-company-dialog {
+    padding: 18px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-company-button:active:not(:disabled) {
+    transform: none;
+  }
+
+  .px-company-button {
+    transition-property: color, background-color, border-color;
+  }
+
+  .px-company-banner[data-just-suspended],
+  .px-company-dialog,
+  .px-company-dialog-backdrop {
+    animation: px-company-fade-in 150ms ease;
+  }
+}
