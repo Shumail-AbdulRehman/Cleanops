@@ -1,0 +1,66 @@
+.workspace .wx-staff-tab {
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font: var(--wx-body-weight) var(--wx-body-size)/var(--wx-body-leading) var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals);
+}
+.workspace .wx-staff-tab-heading { padding: var(--wx-panel-padding-block) var(--wx-panel-padding-inline); }
+.workspace .wx-staff-tab-heading h2 { margin: 0; color: var(--wx-ink); font: var(--wx-panel-title-weight) var(--wx-panel-title-size)/var(--wx-panel-title-leading) var(--wx-font-heading); }
+.workspace .wx-staff-tab-heading p { margin-block: 5px 0; color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-staff-tab .wx-data-table { border: 0; border-radius: 0; }
+.workspace .wx-staff-tab .wx-data-table table { table-layout: fixed; }
+.workspace .wx-staff-tab .wx-data-table :is(th, td) { white-space: normal; overflow-wrap: anywhere; }
+.workspace .wx-staff-tab .wx-pagination { padding-inline: var(--wx-panel-padding-inline); }
+.workspace .wx-staff-tab-description { margin-block: 5px 0; color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-staff-tab-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-inline-size: 0; }
+.workspace .wx-staff-tab-stack small { color: var(--wx-muted); font-size: var(--wx-small-size-min); }
+.workspace .wx-staff-tab .wx-staff-tab-warning { color: var(--wx-warn); }
+.workspace .wx-staff-tab .wx-staff-tab-ok { color: var(--wx-ok); }
+.workspace .wx-staff-tab-time { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.workspace .wx-staff-tab-time > [role=img] { display: inline-flex; flex-shrink: 0; color: var(--wx-muted); }
+.workspace .wx-staff-tab-link,
+.workspace .wx-staff-tab-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--wx-touch-target-min);
+  min-inline-size: var(--wx-touch-target-min);
+  max-inline-size: 100%;
+  border-radius: var(--wx-radius-sm);
+  color: var(--wx-blue);
+  font-size: var(--wx-small-size-max);
+  font-weight: var(--wx-label-weight);
+  line-height: 1.5;
+  text-align: start;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color var(--wx-duration-feedback) var(--wx-ease-feedback), background var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-out);
+}
+.workspace .wx-staff-tab-link { justify-content: flex-start; gap: 4px; }
+.workspace .wx-staff-tab-open { border: 1px solid var(--wx-line-strong); background: var(--wx-surface); padding: 8px; }
+.workspace :is(.wx-staff-tab-link, .wx-staff-tab-open):hover { color: var(--wx-blue-press); background: var(--wx-blue-wash); }
+.workspace :is(.wx-staff-tab-link, .wx-staff-tab-open):active { transform: scale(var(--wx-press-scale)); }
+.workspace :is(.wx-staff-tab-link, .wx-staff-tab-open):focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.workspace .wx-staff-tab-open:disabled { opacity: .55; cursor: not-allowed; }
+.workspace .wx-staff-tab .wx-staff-tab-action-cell { inline-size: 84px; }
+.workspace .wx-staff-tab:dir(rtl) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+.workspace .wx-staff-tab:dir(rtl) :is(h2, p, small, a, button) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+.workspace .wx-staff-tab:dir(rtl) .wx-staff-tab-open svg { transform: scaleX(-1); }
+@media (width < 620px) {
+  .workspace .wx-staff-tab-heading { padding: 16px; }
+  .workspace .wx-staff-tab .wx-data-table { padding: 12px; }
+  .workspace .wx-staff-tab .wx-card-sort { padding: 12px 12px 0; }
+  .workspace .wx-staff-tab .wx-staff-tab-action-cell { inline-size: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace :is(.wx-staff-tab-link, .wx-staff-tab-open):active { transform: none; }
+}
+
+.workspace .wx-staff-tab .wx-staff-tab-status-cell { inline-size: 20%; }
+.workspace .wx-staff-tab-schedule .wx-data-table :is(th, td):first-child { inline-size: 28%; }
+.workspace .wx-staff-tab > .wx-data-table:last-child { border-end-start-radius: var(--wx-radius-lg); border-end-end-radius: var(--wx-radius-lg); }
+@media (width < 620px) {
+  .workspace .wx-staff-tab .wx-staff-tab-status-cell,
+  .workspace .wx-staff-tab-schedule .wx-data-table :is(th, td):first-child { inline-size: auto; }
+}

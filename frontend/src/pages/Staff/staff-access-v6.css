@@ -1,0 +1,93 @@
+.workspace .wx-access-launcher {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}
+.workspace .wx-access-content {
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font-family: var(--wx-font-body);
+  font-size: var(--wx-body-size);
+  line-height: var(--wx-body-leading);
+  font-variant-numeric: var(--wx-numerals);
+  overflow-wrap: anywhere;
+}
+.workspace .wx-access-person { margin-block: 0 20px; color: var(--wx-muted); }
+.workspace :is(.wx-access-form, .wx-access-fields, .wx-access-result) { display: grid; gap: 20px; min-inline-size: 0; }
+.workspace .wx-access-fields { margin: 0; padding: 0; border: 0; }
+.workspace .wx-access-field { display: grid; align-content: start; gap: 6px; min-inline-size: 0; }
+.workspace .wx-access-field > :is(label, .wx-access-label) { margin: 0; color: var(--wx-ink); font-size: var(--wx-label-size); font-weight: var(--wx-label-weight); }
+.workspace .wx-access-content :is(input, select, textarea) {
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: var(--wx-field-height);
+  min-block-size: var(--wx-field-height);
+  margin: 0;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  color: var(--wx-ink);
+  background: var(--wx-surface);
+  box-shadow: none;
+  font: inherit;
+  font-size: var(--wx-label-size);
+  caret-color: var(--wx-blue);
+  transition: border-color var(--wx-duration-feedback) var(--wx-ease-feedback), background var(--wx-duration-feedback) var(--wx-ease-feedback);
+}
+.workspace .wx-access-content textarea { block-size: auto; min-block-size: 88px; resize: vertical; }
+.workspace .wx-access-content :is(input, select, textarea):hover:not(:disabled):not([readonly]) { border-color: var(--wx-blue); }
+.workspace .wx-access-content :is(input, select, textarea):focus-visible { border-color: var(--wx-blue); outline: 2px solid var(--wx-blue-wash); outline-offset: 1px; box-shadow: 0 0 0 3px var(--wx-blue-wash); }
+.workspace .wx-access-content :is(input, select, textarea):disabled,
+.workspace .wx-access-content input[readonly] { color: var(--wx-muted); background: var(--wx-soft); opacity: 1; }
+.workspace .wx-access-content :is(input, select, textarea):disabled { cursor: not-allowed; }
+.workspace .wx-access-help { margin: 0; color: var(--wx-muted); font-size: var(--wx-small-size-max); line-height: inherit; }
+.workspace .wx-access-result > p { margin: 0; }
+.workspace .wx-access-error { display: grid; justify-items: start; gap: 12px; min-inline-size: 0; padding: 12px; border: 1px solid var(--wx-bad); border-radius: var(--wx-radius-md); background: var(--wx-bad-wash); color: var(--wx-bad); font-size: var(--wx-label-size); }
+.workspace .wx-access-error > p { margin: 0; }
+.workspace .wx-access-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--wx-touch-target-min);
+  min-block-size: var(--wx-button-height);
+  max-inline-size: 100%;
+  block-size: auto;
+  padding-block: 8px;
+  padding-inline: 16px;
+  border: 1px solid var(--wx-line-strong);
+  border-radius: var(--wx-radius-md);
+  color: var(--wx-ink);
+  background: var(--wx-surface);
+  font-family: var(--wx-font-body);
+  font-size: var(--wx-label-size);
+  font-weight: var(--wx-label-weight);
+  line-height: inherit;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: background var(--wx-duration-feedback) var(--wx-ease-feedback), color var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-out);
+}
+.workspace .wx-access-button.wx-access-primary { border-color: var(--wx-blue); color: var(--wx-surface); background: var(--wx-blue); }
+.workspace .wx-access-button:hover:not(:disabled) { background: var(--wx-soft); }
+.workspace .wx-access-button.wx-access-primary:hover:not(:disabled) { border-color: var(--wx-blue-press); background: var(--wx-blue-press); }
+.workspace .wx-access-button:focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 3px; }
+.workspace .wx-access-button:active:not(:disabled) { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-access-button:disabled { opacity: .55; cursor: not-allowed; }
+.workspace .wx-access-success { color: var(--wx-ok); font-size: var(--wx-small-size-max); }
+.workspace :is(.wx-access-content, .wx-access-button):lang(ur) { font-family: var(--wx-font-urdu); line-height: 1.85; }
+.workspace .wx-access-content ::selection { color: var(--wx-ink); background: var(--wx-blue-wash); }
+@media (max-width: 620px) {
+  .workspace .wx-access-actions > .wx-access-button { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace .wx-access-button:active:not(:disabled) { transform: none; }
+}
+
+.workspace .wx-access-content .wx-filter-trigger { inline-size: 100%; min-block-size: var(--wx-field-height); block-size: auto; text-align: start; font: inherit; font-size: var(--wx-label-size); }
