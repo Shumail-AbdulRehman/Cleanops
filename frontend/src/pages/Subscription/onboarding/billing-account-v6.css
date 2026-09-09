@@ -1,0 +1,65 @@
+/* Spec 39: Plan and billing in the workspace look, inside the billing settings shell. */
+.workspace.wx-billing {
+  display: grid; gap: var(--wx-panel-gap); min-inline-size: 0;
+  color: var(--wx-ink); background: transparent;
+  font: var(--wx-body-weight) var(--wx-body-size)/var(--wx-body-leading) var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals); overflow-wrap: anywhere;
+}
+.workspace.wx-billing :is(h1, h2, p, dl, dd) { margin: 0; }
+.workspace .wx-billing-header { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 20px; }
+.workspace .wx-billing-header h1 { font: var(--wx-page-title-weight) var(--wx-page-title-size)/var(--wx-page-title-leading) var(--wx-font-heading); letter-spacing: var(--wx-page-title-tracking); }
+.workspace .wx-billing-header p { margin-block-start: 4px; color: var(--wx-muted); font-size: var(--wx-subtitle-size); font-weight: var(--wx-subtitle-weight); }
+.workspace .wx-billing-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-block-size: var(--wx-button-height); padding: 0 14px;
+  border: 1px solid var(--wx-line-strong); border-radius: var(--wx-radius-md);
+  background: var(--wx-surface); color: var(--wx-ink);
+  font: var(--wx-label-weight) var(--wx-small-size-max)/1.3 var(--wx-font-body); cursor: pointer;
+  transition: background-color var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-feedback);
+}
+.workspace .wx-billing-button:hover { background: var(--wx-soft); }
+.workspace .wx-billing-button:active { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-billing-button:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+.workspace .wx-billing-button:focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+.workspace .wx-billing-panel {
+  min-inline-size: 0; padding: var(--wx-panel-padding-block) var(--wx-panel-padding-inline);
+  border: var(--wx-panel-border-width) solid var(--wx-line); border-radius: var(--wx-radius-lg);
+  background: var(--wx-surface); box-shadow: var(--wx-panel-shadow);
+}
+.workspace .wx-billing-notice { color: var(--wx-muted); }
+.workspace .wx-billing-notice--warn { border-color: var(--wx-yellow-line); background: var(--wx-yellow-wash); color: var(--wx-ink); }
+.workspace .wx-billing-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--wx-panel-gap); align-items: start; }
+/* Spec 45: the current plan panel is navy, as in design route #/subscription. */
+.workspace .wx-billing-plan { display: grid; gap: 12px; justify-items: start; border-color: var(--wx-navy); background: var(--wx-navy); color: var(--wx-surface); }
+.workspace .wx-billing-plan > small { color: var(--wx-navy-text); font-size: var(--wx-small-size-min); font-weight: var(--wx-label-weight); }
+.workspace .wx-billing-plan .wx-billing-facts > div { border-color: var(--wx-navy-line); }
+.workspace .wx-billing-plan .wx-billing-facts dt, .workspace .wx-billing-plan .wx-billing-muted { color: var(--wx-navy-text); }
+.workspace .wx-billing-plan .wx-billing-error { color: var(--wx-surface); font-weight: var(--wx-label-weight); }
+.workspace .wx-billing-plan .wx-billing-button { inline-size: 100%; margin-block-start: 6px; border-color: var(--wx-surface); }
+.workspace .wx-billing-plan .wx-billing-button:hover { background: var(--wx-soft); }
+.workspace .wx-billing-plan .wx-billing-button:focus-visible { outline-color: var(--wx-surface); }
+.workspace .wx-billing-plan h2 { margin-block-start: -6px; font: var(--wx-figure-weight) var(--wx-figure-size-min)/var(--wx-figure-leading) var(--wx-font-heading); letter-spacing: -.02em; }
+.workspace .wx-billing-facts { display: grid; inline-size: 100%; }
+.workspace .wx-billing-facts > div { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding-block: 11px; border-block-start: 1px solid var(--wx-line); }
+.workspace .wx-billing-facts > div:first-child { border-block-start: 0; }
+.workspace .wx-billing-facts dt { color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-billing-facts dd { font-weight: var(--wx-label-weight); text-align: end; }
+.workspace .wx-billing-muted { color: var(--wx-muted); font-size: var(--wx-small-size-min); max-inline-size: 75ch; }
+.workspace .wx-billing-error { color: var(--wx-bad); font-size: var(--wx-small-size-max); }
+.workspace .wx-billing-usage h2 { font: var(--wx-panel-title-weight) var(--wx-panel-title-size)/var(--wx-panel-title-leading) var(--wx-font-heading); margin-block-end: 4px; }
+.workspace .wx-billing-usage > .wx-billing-muted { margin-block-start: 10px; }
+.workspace .wx-billing-meter { display: grid; gap: 8px; padding-block: 14px; border-block-start: 1px solid var(--wx-line); }
+.workspace .wx-billing-meter:first-of-type { border-block-start: 0; }
+.workspace .wx-billing-meter > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
+.workspace .wx-billing-meter b { font-weight: var(--wx-label-weight); }
+.workspace .wx-billing-meter bdi { color: var(--wx-muted); }
+.workspace .wx-billing-bar { display: block; block-size: 8px; border-radius: var(--wx-radius-pill); background: var(--wx-bar-track); overflow: hidden; }
+.workspace .wx-billing-bar > span { display: block; block-size: 100%; border-radius: inherit; background: var(--wx-blue); }
+.workspace .wx-billing-meter--over bdi { color: var(--wx-bad); font-weight: var(--wx-label-weight); }
+.workspace .wx-billing-meter--over .wx-billing-bar > span { background: var(--wx-bad); }
+.workspace .wx-billing-over { display: inline-flex; align-items: center; gap: 6px; justify-self: start; padding: 2px 10px; border-radius: var(--wx-radius-pill); background: var(--wx-bad-wash); color: var(--wx-bad); font-size: var(--wx-pill-size); font-weight: var(--wx-pill-weight); }
+[dir=rtl] .workspace .wx-billing-flip { transform: scaleX(-1); }
+[lang^=ur] .workspace.wx-billing, [lang^=ur] .workspace.wx-billing :is(h1, h2) { font-family: var(--wx-font-urdu); line-height: 1.85; letter-spacing: 0; }
+@media (width < 900px) { .workspace .wx-billing-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (width < 620px) { .workspace .wx-billing-header > button { inline-size: 100%; } }
+@media (prefers-reduced-motion: reduce) { .workspace .wx-billing-button { transition: none; } .workspace .wx-billing-button:active { transform: none; } }
