@@ -1,0 +1,128 @@
+/* Spec 40: task photos page and ProtectedEvidence states. Scoped to .workspace. */
+.workspace .wx-task-photos {
+  display: grid;
+  gap: var(--wx-panel-gap);
+  min-inline-size: 0;
+  color: var(--wx-ink);
+  font: var(--wx-body-weight) var(--wx-body-size)/var(--wx-body-leading) var(--wx-font-body);
+  font-variant-numeric: var(--wx-numerals);
+  overflow-wrap: anywhere;
+}
+.workspace .wx-task-photos :is(h2, h3, p, ol) { margin: 0; }
+.workspace .wx-task-photos h2 { font: var(--wx-panel-title-weight) var(--wx-panel-title-size)/var(--wx-panel-title-leading) var(--wx-font-heading); letter-spacing: -.015em; }
+.workspace .wx-task-photos h3 { font-size: var(--wx-label-size); font-weight: var(--wx-label-weight); }
+.workspace .wx-task-photos h2 > span { color: var(--wx-muted); font-weight: var(--wx-label-weight); }
+.workspace .wx-task-photos-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.workspace .wx-task-photos-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-block-size: var(--wx-button-height); padding: 0 14px;
+  border: 1px solid var(--wx-line-strong); border-radius: var(--wx-radius-md);
+  background: var(--wx-surface); color: var(--wx-ink);
+  font-size: var(--wx-small-size-max); font-weight: var(--wx-label-weight); text-decoration: none; cursor: pointer;
+  transition: background-color var(--wx-duration-feedback) var(--wx-ease-feedback), transform var(--wx-duration-press) var(--wx-ease-feedback);
+}
+.workspace .wx-task-photos-button:hover { background: var(--wx-soft); }
+.workspace .wx-task-photos-button:active { transform: scale(var(--wx-press-scale)); }
+.workspace .wx-task-photos-button:is(:disabled, [aria-disabled=true]) { opacity: .55; cursor: not-allowed; transform: none; }
+.workspace .wx-task-photos-panel {
+  min-inline-size: 0;
+  border: var(--wx-panel-border-width) solid var(--wx-line);
+  border-radius: var(--wx-radius-lg);
+  background: var(--wx-surface);
+  box-shadow: var(--wx-panel-shadow);
+}
+.workspace .wx-task-photos-pad { display: grid; gap: 8px; padding: var(--wx-panel-padding-block) var(--wx-panel-padding-inline); }
+.workspace .wx-task-photos-grid { display: grid; grid-template-columns: minmax(0, 1fr) 348px; gap: var(--wx-panel-gap); align-items: start; }
+.workspace .wx-task-photos-side { display: grid; gap: var(--wx-panel-gap); min-inline-size: 0; }
+.workspace .wx-task-photos-main { overflow: hidden; }
+.workspace .wx-task-photos-stage { background: var(--wx-soft); border-block-end: 1px solid var(--wx-line); }
+.workspace .wx-task-photos-stage .ops-image-button { display: block; inline-size: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.workspace .wx-task-photos-stage .ops-image-button img { display: block; inline-size: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
+.workspace .wx-task-photos-stage .ops-privacy-notice { padding: 10px 14px; font-size: var(--wx-small-size-min); background: var(--wx-warn-wash); }
+.workspace .wx-task-photos-stage .ops-protected-image > button:not(.ops-image-button) { margin: 8px 12px; }
+.workspace .wx-task-photos-stage > .wx-evidence-state { aspect-ratio: 16 / 9; border: 0; border-radius: 0; }
+.workspace .wx-task-photos-muted { color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-task-photos-note { color: var(--wx-muted); font-size: var(--wx-small-size-min); max-inline-size: 75ch; }
+.workspace .wx-task-photos-result { display: flex; }
+.workspace .wx-task-photos-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 10px; }
+.workspace .wx-task-photos-heading strong { font-size: var(--wx-small-size-max); }
+.workspace .wx-task-photos-fixture { display: grid; gap: 6px; margin-block-start: 6px; }
+.workspace .wx-task-photos-view {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  min-block-size: var(--wx-touch-target-min); padding: 8px 11px; inline-size: 100%;
+  border: 1px solid var(--wx-line); border-radius: var(--wx-radius-md);
+  background: var(--wx-surface); color: var(--wx-ink); text-align: start;
+  font-size: var(--wx-small-size-max); font-weight: var(--wx-label-weight); cursor: pointer;
+  transition: border-color var(--wx-duration-feedback) var(--wx-ease-feedback), background-color var(--wx-duration-feedback) var(--wx-ease-feedback);
+}
+.workspace .wx-task-photos-view:hover { border-color: var(--wx-ink); }
+.workspace .wx-task-photos-view[aria-pressed=true] { border-color: var(--wx-blue); background: var(--wx-blue-wash); }
+.workspace .wx-task-photos-view small { color: var(--wx-muted); font-weight: var(--wx-body-weight); }
+.workspace .wx-task-photos-view > span:first-child { min-inline-size: 0; }
+.workspace .wx-task-photos-view small { display: block; font-size: var(--wx-small-size-min); }
+.workspace .wx-task-photos-view .wx-status-pill { flex-shrink: 0; white-space: nowrap; }
+.workspace .wx-task-photos-states { list-style: none; padding: 0; margin-block-start: 6px; }
+.workspace .wx-task-photos-states li { position: relative; padding-block-end: 14px; padding-inline-start: 30px; }
+.workspace .wx-task-photos-states li::before {
+  content: ""; position: absolute; inset-inline-start: 0; inset-block-start: 2px;
+  inline-size: 20px; block-size: 20px; box-sizing: border-box;
+  border: 2px solid var(--wx-line-strong); border-radius: var(--wx-radius-sm); background: var(--wx-surface);
+}
+.workspace .wx-task-photos-states li[data-state=none]::before { border-style: dashed; }
+.workspace .wx-task-photos-states li[data-state=open]::before { border-color: var(--wx-yellow-line); background: var(--wx-yellow-wash); }
+.workspace .wx-task-photos-states li[data-done=true]::before { border-color: var(--wx-blue); background: var(--wx-blue); }
+.workspace .wx-task-photos-states li[data-done=true]::after {
+  content: ""; position: absolute; inset-inline-start: 7px; inset-block-start: 5px;
+  inline-size: 6px; block-size: 11px; border: solid var(--wx-surface); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.workspace .wx-task-photos-states li:not(:last-child) { background: linear-gradient(var(--wx-line), var(--wx-line)) no-repeat; background-size: 2px calc(100% - 26px); background-position: 9px 25px; }
+[dir=rtl] .workspace .wx-task-photos-states li:not(:last-child), .workspace[dir=rtl] .wx-task-photos-states li:not(:last-child) { background-position: calc(100% - 9px) 25px; }
+.workspace .wx-task-photos-states li:last-child { padding-block-end: 0; }
+.workspace .wx-task-photos-states b { font-weight: var(--wx-label-weight); }
+.workspace .wx-task-photos-states small { display: block; color: var(--wx-muted); font-size: var(--wx-small-size-min); }
+.workspace .wx-task-photos-history summary {
+  min-block-size: var(--wx-touch-target-min); padding: 12px var(--wx-panel-padding-inline);
+  font: var(--wx-panel-title-weight) var(--wx-panel-title-size)/var(--wx-panel-title-leading) var(--wx-font-heading); cursor: pointer;
+}
+.workspace .wx-task-photos-history summary:hover { color: var(--wx-blue); }
+.workspace .wx-task-photos-history > .wx-task-photos-pad { padding-block-start: 0; gap: 14px; }
+.workspace .wx-task-photos-entry { display: grid; gap: 6px; padding-block-start: 12px; border-block-start: 1px solid var(--wx-line); }
+.workspace .wx-task-photos-entry .ops-image-button { display: block; padding: 0; border: 0; background: transparent; }
+.workspace .wx-task-photos-entry .ops-image-button img { inline-size: 100%; max-block-size: 180px; object-fit: cover; border-radius: var(--wx-radius-md); }
+.workspace .wx-task-photos :is(button, a, summary):focus-visible { outline: 2px solid var(--wx-blue); outline-offset: 2px; }
+[dir=rtl] .workspace .wx-task-photos-actions svg:first-child, .workspace[dir=rtl] .wx-task-photos-actions a svg { transform: scaleX(-1); }
+.workspace[lang^=ur] .wx-task-photos, [lang^=ur] .workspace .wx-task-photos,
+.workspace[lang^=ur] .wx-task-photos :is(h2, summary), [lang^=ur] .workspace .wx-task-photos :is(h2, summary) { font-family: var(--wx-font-urdu); line-height: 1.85; letter-spacing: 0; }
+
+/* ProtectedEvidence states: shared by every screen that shows evidence. */
+.workspace .wx-evidence-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  min-block-size: 160px; padding: 20px; text-align: center;
+  border: 1px dashed var(--wx-line-strong); border-radius: var(--wx-radius-md);
+  background: var(--wx-soft); color: var(--wx-ink); font-size: var(--wx-small-size-max);
+}
+.workspace .wx-evidence-state > svg { color: var(--wx-muted); flex-shrink: 0; }
+.workspace .wx-evidence-state p { color: var(--wx-muted); max-inline-size: 60ch; }
+.workspace .wx-evidence-state--held { background: var(--wx-warn-wash); }
+.workspace .wx-evidence-state--held > svg { color: var(--wx-warn); }
+.workspace .wx-evidence-state--error > svg { color: var(--wx-bad); }
+/* Loading is a skeleton, never a centred spinner (DESIGN-SYSTEM.md). */
+.workspace .wx-evidence-state--loading { padding: 0; border: 0; background: transparent; }
+.workspace .wx-evidence-skeleton { display: block; inline-size: 100%; block-size: 100%; min-block-size: 160px; border-radius: inherit; background: var(--wx-bar-track); }
+.workspace .wx-task-photos-facts { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0; padding: 0; list-style: none; color: var(--wx-muted); font-size: var(--wx-small-size-max); }
+.workspace .wx-task-photos-facts li { display: inline-flex; align-items: center; gap: 6px; min-inline-size: 0; }
+.workspace .wx-task-photos-facts bdi { color: var(--wx-ink); font-weight: var(--wx-label-weight); }
+.workspace .wx-task-photos-stale { align-items: center; flex-wrap: wrap; }
+.workspace .wx-task-photos-stale > span { flex: 1 1 200px; }
+
+@media (width < 1100px) {
+  .workspace .wx-task-photos-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (width < 620px) {
+  .workspace .wx-task-photos-actions { inline-size: 100%; }
+  .workspace .wx-task-photos-actions > * { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace .wx-task-photos :is(button, a) { transition: none; }
+  .workspace .wx-task-photos-button:active { transform: none; }
+}
