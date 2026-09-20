@@ -1,0 +1,84 @@
+{
+  "expo": {
+    "name": "Hygene Ops Staff",
+    "slug": "cleanops-staff",
+    "version": "2.4.0",
+    "orientation": "portrait",
+    "icon": "./assets/hygene-ops-icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/hygene-ops-adaptive.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Hygene Ops Staff uses the camera to scan task QR codes and capture attendance/task images.",
+        "NSLocationWhenInUseUsageDescription": "Hygene Ops Staff uses your location to verify check-in, check-out, and on-site task activity.",
+        "NSPhotoLibraryUsageDescription": "Hygene Ops Staff uses your photo library when you attach completion images.",
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      },
+      "bundleIdentifier": "com.hygeneops.staff"
+    },
+    "android": {
+      "versionCode": 16,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/hygene-ops-adaptive.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "CAMERA",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA"
+      ],
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.hygeneops.staff"
+    },
+    "web": {
+      "favicon": "./assets/hygene-ops-favicon.png"
+    },
+    "scheme": "cleanopsstaff",
+    "plugins": [
+      "./scripts/with-shared-ndk.cjs",
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Hygene Ops to scan room codes and photograph empty cleaning fixtures.",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/hygene-ops-notification.png",
+          "color": "#4264D9",
+          "defaultChannel": "staff-task-assigned-v3"
+        }
+      ],
+      "./scripts/with-notification-brand.cjs"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "68ea9f06-53f5-444f-8760-329fd733ae8e"
+      }
+    }
+  }
+}

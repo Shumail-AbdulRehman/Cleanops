@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210.000 40.000% 98.039%;
+  --foreground: 222.222 47.368% 11.176%;
+  --card: 0.000 0.000% 100.000%;
+  --card-foreground: 222.222 47.368% 11.176%;
+  --primary: 223.575 70.751% 49.608%;
+  --primary-foreground: 0.000 0.000% 100.000%;
+  --secondary: 210.000 40.000% 96.078%;
+  --secondary-foreground: 222.222 47.368% 11.176%;
+  --muted: 210.000 40.000% 96.078%;
+  --muted-foreground: 215.294 19.318% 34.510%;
+  --accent: 222.353 100.000% 96.667%;
+  --accent-foreground: 223.575 70.751% 49.608%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 142 71% 29%;
+  --success-foreground: 0 0% 100%;
+  --warning: 32 95% 36%;
+  --warning-foreground: 0 0% 100%;
+  --border: 213.333 34.615% 89.804%;
+  --input: 213.333 34.615% 89.804%;
+  --ring: 223.575 70.751% 49.608%;
+  --radius: 0.75rem;
+}

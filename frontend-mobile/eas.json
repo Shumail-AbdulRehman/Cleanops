@@ -1,0 +1,32 @@
+{
+  "cli": {
+    "appVersionSource": "local"
+  },
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "environment": "preview",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease -PreactNativeArchitectures=arm64-v8a,armeabi-v7a"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_BASE_URL": "http://192.168.100.198:8080/api"
+      }
+    },
+    "heroku": {
+      "extends": "preview",
+      "env": {
+        "EXPO_PUBLIC_API_BASE_URL": "https://cleanops-2f9dbc8f50cd.herokuapp.com/api"
+      }
+    },
+    "production": {
+      "extends": "heroku",
+      "distribution": "store",
+      "android": {
+        "buildType": "app-bundle",
+        "gradleCommand": ":app:bundleRelease -PreactNativeArchitectures=arm64-v8a,armeabi-v7a"
+      }
+    }
+  }
+}
