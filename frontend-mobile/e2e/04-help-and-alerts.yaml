@@ -1,0 +1,16 @@
+appId: ${APP_ID}
+name: Task alerts retry feedback and Help, reached from Profile
+---
+- launchApp:
+    clearState: false
+- tapOn: "Profile"
+- assertVisible: "My details"
+- tapOn: "Task alerts"
+- assertVisible: "Permissions"
+- tapOn: "Retry phone alerts"
+- assertVisible: "${E2E_EXPECTED_ALERT_RESULT}"
+- tapOn: "Back"
+- tapOn: "Help"
+- assertVisible: "How to check in"
+- tapOn: "Back"
+- assertVisible: "Settings and help"

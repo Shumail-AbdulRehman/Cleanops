@@ -1,0 +1,15 @@
+appId: ${APP_ID}
+name: Camera and location denial never imply a recorded check-in
+---
+- launchApp:
+    clearState: false
+    permissions:
+      camera: deny
+      location: deny
+- assertVisible: "My day"
+- tapOn: "Check in"
+- assertVisible: "Camera is needed"
+- assertVisible: "Allow camera and location in phone settings to mark attendance."
+- assertVisible: "Open settings"
+- tapOn: "Cancel"
+- assertNotVisible: "Checked in"
