@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "data": {
+    "month": "2026-11", "timezone": "Asia/Karachi",
+    "range": { "earliestMonth": "2026-03", "latestMonth": "2026-11" },
+    "counts": { "verified": 1, "waiting": 1, "missed": 1, "total": 3 },
+    "items": [
+      { "id": 401, "areaName": "Staff kitchen", "title": "Kitchen clean", "date": "2026-11-11", "shiftStart": "2026-11-11T05:00:00.000Z", "shiftEnd": "2026-11-11T06:00:00.000Z",
+        "timezone": "Asia/Karachi", "status": "VERIFIED", "reviewState": "NOT_NEEDED", "startedAt": "2026-11-11T05:02:00.000Z", "submittedAt": "2026-11-11T05:40:00.000Z",
+        "photos": { "received": 3, "required": 3 }, "location": { "id": 3, "name": "Head Office" } },
+      { "id": 402, "areaName": "Meeting room", "title": "Meeting room clean", "date": "2026-11-11", "shiftStart": "2026-11-11T07:00:00.000Z", "shiftEnd": "2026-11-11T08:00:00.000Z",
+        "timezone": "Asia/Karachi", "status": "WAITING_FOR_REVIEW", "reviewState": "OPEN", "startedAt": "2026-11-11T07:05:00.000Z", "submittedAt": "2026-11-11T07:50:00.000Z",
+        "photos": { "received": 2, "required": 2 }, "location": { "id": 3, "name": "Head Office" } },
+      { "id": 403, "areaName": "Back stairs", "title": "Stairs clean", "date": "2026-11-10", "shiftStart": "2026-11-10T09:00:00.000Z", "shiftEnd": "2026-11-10T10:00:00.000Z",
+        "timezone": "Asia/Karachi", "status": "MISSED", "reviewState": "NOT_NEEDED", "startedAt": null, "submittedAt": null,
+        "photos": { "received": 0, "required": 2 }, "location": { "id": 3, "name": "Head Office" } }
+    ],
+    "nextCursor": null
+  }
+}

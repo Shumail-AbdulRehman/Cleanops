@@ -1,0 +1,9 @@
+{
+  "statusCode": 202,
+  "success": true,
+  "data": {
+    "phone": "+923990000041",
+    "expiresInSeconds": 300,
+    "resendAfterSeconds": 60
+  }
+}

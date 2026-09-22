@@ -1,0 +1,50 @@
+{
+  "success": true,
+  "data": {
+    "task": {
+      "id": 501, "title": "Morning clean", "status": "IN_PROGRESS", "staffSubmittedAt": null, "verificationState": "CAPTURING",
+      "completionOutcome": null, "verificationVersion": 2, "completionTiming": null, "areaNameSnapshot": "Ground floor washroom",
+      "shiftEnd": "2026-11-12T06:00:00.000Z", "verificationDeadline": "2026-11-12T07:00:00.000Z", "uploadDeadline": "2026-11-12T07:30:00.000Z",
+      "location": { "id": 3, "name": "Head Office", "timezone": "Asia/Karachi" }
+    },
+    "area": { "name": "Ground floor washroom" },
+    "items": [
+      {
+        "id": 901, "name": "Wash basin", "mandatory": true, "state": "PASSED", "itemCodeSnapshot": "WB-1", "typeSnapshot": "SINK", "orderSnapshot": 1,
+        "identificationSnapshot": { "positionHint": "Left wall" },
+        "requirements": [
+          { "id": "req-basin", "viewKey": "FRONT", "instructions": "Whole basin from the front", "mandatory": true, "state": "PASSED", "decisionVersion": 1, "manualOutcome": null,
+            "currentAttempt": { "id": "att-basin", "state": "PASSED", "cleanlinessOutcome": "CLEAN" } }
+        ]
+      },
+      {
+        "id": 902, "name": "Mirror", "mandatory": true, "state": "PROCESSING", "itemCodeSnapshot": "MR-1", "typeSnapshot": "MIRROR", "orderSnapshot": 2,
+        "identificationSnapshot": {},
+        "requirements": [
+          { "id": "req-mirror", "viewKey": "FRONT", "instructions": "Whole mirror", "mandatory": true, "state": "PROCESSING", "decisionVersion": 1, "manualOutcome": null,
+            "currentAttempt": { "id": "att-mirror", "state": "CLEANLINESS_CHECK" } }
+        ]
+      },
+      {
+        "id": 903, "name": "Floor", "mandatory": true, "state": "RECAPTURE_REQUIRED", "itemCodeSnapshot": "FL-1", "typeSnapshot": "FLOOR", "orderSnapshot": 3,
+        "identificationSnapshot": {},
+        "requirements": [
+          { "id": "req-floor", "viewKey": "WIDE", "instructions": "Whole floor", "mandatory": true, "state": "RECAPTURE_REQUIRED", "decisionVersion": 1, "manualOutcome": null,
+            "currentAttempt": { "id": "att-floor", "state": "RECAPTURE_REQUIRED", "reasonCode": "BLURRY" } }
+        ]
+      }
+    ],
+    "spatialCaptureEnabled": false,
+    "serverTime": "2026-11-12T05:30:00.000Z",
+    "verificationDeadline": "2026-11-12T07:00:00.000Z",
+    "uploadDeadline": "2026-11-12T07:30:00.000Z",
+    "pendingJobs": 0,
+    "requiredContextKeys": [],
+    "photoChecking": { "available": true },
+    "staffSubmittedAt": null,
+    "sequentialChecks": true,
+    "objectCaptureSeconds": 120,
+    "allowedActions": { "reworkSession": false, "createSession": true, "resumeSession": false, "renewSession": false, "retakeSlots": false, "upload": true, "uploadReviewOnly": false, "reportIssue": false },
+    "sessions": []
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "statusCode": 200,
+  "success": true,
+  "message": "Profile fetched successfully",
+  "data": {
+    "id": 41, "name": "Sana Test", "email": "staff@example.test", "phone": "+92 300 0000000", "role": "STAFF",
+    "isActive": true, "companyId": 9, "locationId": 3,
+    "createdAt": "2026-03-04T06:00:00.000Z", "updatedAt": "2026-11-01T06:00:00.000Z",
+    "shiftStart": "2026-11-12T04:00:00.000Z", "shiftEnd": "2026-11-12T12:00:00.000Z"
+  }
+}

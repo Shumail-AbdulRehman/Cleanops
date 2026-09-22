@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 7001, "date": "2026-11-12T00:00:00.000Z", "status": "ABSENT",
+      "expectedStart": "2026-11-12T04:00:00.000Z", "expectedEnd": "2026-11-12T12:00:00.000Z",
+      "checkInTime": null, "checkOutTime": null, "location": { "id": 3, "name": "Head Office" }
+    },
+    {
+      "id": 7000, "date": "2026-11-11T00:00:00.000Z", "status": "CHECKED_OUT",
+      "expectedStart": "2026-11-11T04:00:00.000Z", "expectedEnd": "2026-11-11T12:00:00.000Z",
+      "checkInTime": "2026-11-11T03:55:00.000Z", "checkOutTime": "2026-11-11T12:02:00.000Z", "location": { "id": 3, "name": "Head Office" }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "data": {
+    "month": "2026-11", "timezone": "Asia/Karachi",
+    "range": { "earliestMonth": "2026-03", "latestMonth": "2026-11" },
+    "counts": { "onTime": 2, "late": 1, "absent": 1, "missedCheckout": 1 },
+    "records": [
+      { "id": 7001, "date": "2026-11-12", "expectedStart": "2026-11-12T04:00:00.000Z", "expectedEnd": "2026-11-12T12:00:00.000Z",
+        "checkInTime": "2026-11-12T03:58:00.000Z", "checkOutTime": null, "lateMinutes": null, "location": { "id": 3, "name": "Head Office" }, "state": "ON_SHIFT" },
+      { "id": 7000, "date": "2026-11-11", "expectedStart": "2026-11-11T04:00:00.000Z", "expectedEnd": "2026-11-11T12:00:00.000Z",
+        "checkInTime": "2026-11-11T03:55:00.000Z", "checkOutTime": "2026-11-11T12:02:00.000Z", "lateMinutes": null, "location": { "id": 3, "name": "Head Office" }, "state": "ON_TIME" },
+      { "id": 6999, "date": "2026-11-10", "expectedStart": "2026-11-10T04:00:00.000Z", "expectedEnd": "2026-11-10T12:00:00.000Z",
+        "checkInTime": "2026-11-10T04:22:00.000Z", "checkOutTime": "2026-11-10T12:05:00.000Z", "lateMinutes": 22, "location": { "id": 3, "name": "Head Office" }, "state": "LATE" },
+      { "id": 6998, "date": "2026-11-09", "expectedStart": "2026-11-09T04:00:00.000Z", "expectedEnd": "2026-11-09T12:00:00.000Z",
+        "checkInTime": null, "checkOutTime": null, "lateMinutes": null, "location": { "id": 3, "name": "Head Office" }, "state": "ABSENT" },
+      { "id": 6997, "date": "2026-11-06", "expectedStart": "2026-11-06T04:00:00.000Z", "expectedEnd": "2026-11-06T12:00:00.000Z",
+        "checkInTime": "2026-11-06T03:59:00.000Z", "checkOutTime": null, "lateMinutes": null, "location": { "id": 3, "name": "Head Office" }, "state": "MISSED_CHECKOUT" },
+      { "id": 6996, "date": "2026-11-05", "expectedStart": "2026-11-05T04:00:00.000Z", "expectedEnd": "2026-11-05T12:00:00.000Z",
+        "checkInTime": "2026-11-05T03:57:00.000Z", "checkOutTime": "2026-11-05T12:01:00.000Z", "lateMinutes": null, "location": { "id": 3, "name": "Head Office" }, "state": "ON_TIME" }
+    ]
+  }
+}

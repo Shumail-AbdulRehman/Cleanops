@@ -1,0 +1,9 @@
+{
+  "statusCode": 200,
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "id": 41, "name": "Sana Test", "email": "staff@example.test", "role": "STAFF", "companyId": 9, "locationId": 3,
+    "accessToken": "e2e-fixture-access", "refreshToken": "e2e-fixture-refresh"
+  }
+}

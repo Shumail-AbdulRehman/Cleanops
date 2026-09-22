@@ -1,0 +1,6 @@
+{
+  "statusCode": 200,
+  "success": true,
+  "message": "user found",
+  "data": { "id": 41, "name": "Sana Test", "email": "staff@example.test", "role": "STAFF", "companyId": 9, "locationId": 3 }
+}
