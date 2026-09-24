@@ -1,0 +1,1 @@
+{"platforms":["apple","android"],"apple":{"modules":["SpatialTrackingModule"]},"android":{"modules":["expo.modules.spatialtracking.SpatialTrackingModule"]}}

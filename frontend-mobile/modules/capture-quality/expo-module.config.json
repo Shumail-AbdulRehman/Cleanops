@@ -1,0 +1,1 @@
+{"platforms":["apple","android"],"apple":{"modules":["CaptureQualityModule"]},"android":{"modules":["expo.modules.capturequality.CaptureQualityModule"]}}
